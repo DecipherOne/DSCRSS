@@ -5,7 +5,8 @@ html, body
   padding : 0;
   background-color:black;
   font-size:18px;
-  font-family:Consolas,Terminal,Arial;
+  font-family:"Roboto Condensed",sans-serif;
+  color: #ffffff;
 }
 
 body{
@@ -21,7 +22,7 @@ button
 }
 
 a{
-  color:#4CBB17;
+  color:#ACC314;
   &:hover
   {
     color: #bb9800;
@@ -33,62 +34,7 @@ a{
   }
 }
 
-.navigationButton
-{
-  background-color:#4CBB17;
-  color:#0d0d0d;
-  border:solid 1px;
-  border-radius:4.2px;
-  padding:0.42em;
 
-  &:disabled{
-    color:#2f2f2f;
-  }
-}
-
-.long
-{
-  width: 95%;
-  clear: both;
-  margin-left: 0.5em;
-  margin-bottom: 1em;
-
-}
-
-.formTitle
-{
-  margin-left:1em;
-
-  &.right
-  {
-    float:right;
-    margin-right: 2em;
-  }
-}
-.popUpMessageContainer
-{
-  text-align:center;
-  &:hover
-  {
-    .popUpMessageLink
-    {
-      display:block;
-    }
-  }
-}
-
-.popUpMessageLink
-{
-  color:#4CBB17;
-  position:relative;
-  cursor:pointer;
-
-  &:hover
-  {
-    text-decoration:underline;
-    color:#BB9800;
-  }
-}
 
 .hidden{
   display:none;

@@ -1,25 +1,17 @@
-html, body { width: 100%; margin: 0; padding: 0; background-color: black; font-size: 18px; font-family: Consolas,Terminal,Arial; }
+html, body { width: 100%; margin: 0; padding: 0; background-color: black; font-size: 18px; font-family: "Roboto Condensed",sans-serif; color: #ffffff; }
 
 body { overflow-y: scroll; overflow-x: hidden; }
 
 button { font-size: 18px; }
 
-a { color: #4CBB17; }
+a { color: #ACC314; }
 a:hover { color: #bb9800; }
 a:visited { color: #00a1bb; }
 
-.navigationButton { background-color: #4CBB17; color: #0d0d0d; border: solid 1px; border-radius: 4.2px; padding: 0.42em; }
-.navigationButton:disabled { color: #2f2f2f; }
-
-.long { width: 95%; clear: both; margin-left: 0.5em; margin-bottom: 1em; }
-
-.formTitle { margin-left: 1em; }
-.formTitle.right { float: right; margin-right: 2em; }
-
-.popUpMessageContainer { text-align: center; }
-.popUpMessageContainer:hover .popUpMessageLink { display: block; }
-
-.popUpMessageLink { color: #4CBB17; position: relative; cursor: pointer; }
-.popUpMessageLink:hover { text-decoration: underline; color: #BB9800; }
-
 .hidden { display: none; }
+
+#scheduleContainer { max-width: 107em; min-width: 18em; background-color: #000000; }
+
+#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
+
+#scheduleBody { width: 100%; text-align: center; }
