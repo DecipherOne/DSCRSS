@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" generated="2015-06-10T17:16:40">
+<IMAXSchedule>
+<start_time>1015</start_time>
+<end_time>1045</end_time>
+<title>Journey to Space</title>
+<location>Narrated by Sir Patrick Stewart</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1115</start_time>
+<end_time>1145</end_time>
+<title>Mysteries of the Unseen World</title>
+<location>Narrated by Forest Whitaker</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1215</start_time>
+<end_time>1245</end_time>
+<title>Living In The Age Of Airplanes</title>
+<location>Narrated by Harrison Ford</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1315</start_time>
+<end_time>1345</end_time>
+<title>Journey to Space</title>
+<location>Enjoy the show!</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1415</start_time>
+<end_time>1445</end_time>
+<title>Great White Shark</title>
+<location>Narrated by Bill Nighy</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1515</start_time>
+<end_time>1545</end_time>
+<title>Living In The Age Of Airplanes</title>
+<location>Narrated by Harrison Ford</location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1614</start_time>
+<end_time>1645</end_time>
+<title>Star Trek Into Darkness</title>
+<location></location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+<IMAXSchedule>
+<start_time>1930</start_time>
+<end_time>2145</end_time>
+<title>Star Trek Into Darkness</title>
+<location></location>
+<location_id>Blank IMAX Theater</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</IMAXSchedule>
+</dataroot>

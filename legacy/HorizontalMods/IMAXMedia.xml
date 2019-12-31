@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<schedule>
+	<settings>
+		<qty>4</qty>  			<!-- number of clip entries in xml file --> 
+		<refresh>30</refresh>  		<!-- image/video clip refresh time in minutes --> 
+	</settings>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>born-to-be-wild-in-imax.jpg</file>		<!-- filename of clip -->
+	</clip>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>HumanBodyStill.jpg</file>		<!-- filename of clip -->
+	</clip>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>TornadoAlleyStill.jpg</file>		<!-- filename of clip -->
+	</clip>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>WildOceanStill.jpg</file>		<!-- filename of clip -->
+	</clip>
+</schedule>

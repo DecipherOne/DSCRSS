@@ -1,0 +1,470 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+	var p = parent, v = 'test';
+	p.name = v;
+
+  	// global variables
+  	var layerRef = "null", layerStyleRef = "null", styleSwitch = "null", topStopPoint = "null", layerRef = "null", styleSwitch = "null";
+  	var topStopPoint = 100, d = document.referrer;
+  	var backupTopStopPoint = topStopPoint;
+  	var currTop = 100;
+  	var pxSwitch = "null";
+  	var moving = 1;
+  	var k = 0;
+
+	// ##### EDIT BELOW HERE #####
+
+	// layout variable options are "vertical" or "horizontal"
+	var layout = "vertical";
+
+	// location_flag variable options are "all" or matching identifer per location_id variable within XML file
+	var location_flag = "all";
+
+	// title variable represents the title of the page
+	var title = "Vertical Tests";
+
+	// ##### EDIT ABOVE HERE #####
+
+  	function init()
+  	{
+		get_xml_schedule();
+		get_xml_clip();
+    		layerStyleRef="layer.style.";
+      		layerRef="document.all";
+      		styleSwitch=".style";
+      		pxSwitch="px";
+		time();
+
+		document.getElementById("title").innerHTML = title;
+
+    		moveLayerUp('credits',k);
+  	}
+
+	// function to refresh the page
+	function timedRefresh(timeoutPeriod)
+	{
+		setTimeout("location.reload(true);",timeoutPeriod);
+	}
+
+	// function to generate time flag to append to xml request. prevents caching
+	function getTimeForURL()
+	{
+		var dt = new Date();
+		var strOutput = "";
+		strOutput = dt.getHours() + "_" + dt.getMinutes() + "_" + dt.getSeconds() + "_" + dt.getMilliseconds();  return strOutput;
+	}
+
+	// function to generate a display the current time
+	function time()
+	{
+		var currentTime = new Date();
+		var time_suffix = "am";
+
+		var time_hour = currentTime.getHours();
+		var time_minute = currentTime.getMinutes();
+
+		if (time_hour >= 12)
+		{
+			time_suffix = "pm";
+		}
+		if (time_hour >= 13)
+		{
+			time_hour = time_hour - 12;
+		}
+
+		if (time_minute <= 9)
+		{
+			document.getElementById("time").innerHTML = time_hour + ":0" + time_minute + time_suffix;
+		}
+		else
+		{
+			document.getElementById("time").innerHTML = time_hour + ":" + time_minute + time_suffix;
+		}
+
+		setTimeout('time()',60000);
+	}
+
+	// function to pause the scrolling of the schedule
+  	function pause(layerName)
+  	{
+    		moving*=-1;
+    		if(moving<0)
+		{
+      			topStopPoint=currTop+pxSwitch;
+		}	
+    		else
+    		{
+      			topStopPoint=backupTopStopPoint;
+      			moveLayerUp(layerName,k);
+    		}  
+  	}
+
+	// function to restart and re-initialize the scrolling of the schedule
+  	function restart(layerName)
+  	{
+    		k++;
+    		currTop=100;	
+   		topStopPoint=backupTopStopPoint;
+    		if(moving<0)
+    		{
+      			moving*=-1;
+      			moveLayerUp(layerName,k);
+    		}
+  	}
+
+	// function to restart the scrolling of the schedule after a delay
+	function restart_with_delay(layerName)
+	{
+    		k++;
+    		currTop=100;	
+   		topStopPoint=backupTopStopPoint;
+
+		setTimeout('pause("'+layerName+'")',1);
+
+		setTimeout('pause("'+layerName+'")',5000);
+
+	}
+
+	// function to move the schedule up
+  	function moveLayerUp(layerName,n)
+  	{ 
+		if (currTop < topStopPoint)
+		{
+			restart_with_delay(layerName);
+		}
+    		if (eval(layerRef+'["'+layerName+'"]'+styleSwitch+'.top != topStopPoint'))
+    		{
+      			currTop-=1;
+      			eval(layerRef+'["'+layerName+'"]'+styleSwitch+'.top = currTop');
+      			setTimeout('moveLayerUp("'+layerName+'",'+n+')',50);
+    		}
+  	}
+
+	// function to get the xml data for the schedule
+	function get_xml_schedule()
+	{
+		var scrolling_count = 0, static_count = 0;
+		var currentTime = new Date();
+		var now_time = currentTime.getHours() * 100 + currentTime.getMinutes();
+
+		document.getElementById("scrolling").innerHTML = "";
+		document.getElementById("static").innerHTML = "";
+
+		if (window.XMLHttpRequest)
+  		{
+  			xhttp=new XMLHttpRequest()
+  		}
+		else
+ 		{
+  			xhttp=new ActiveXObject("Microsoft.XMLHTTP")
+  		}
+		xhttp.open("GET","VerticalSchedule.xml?currTime=" + getTimeForURL(),false);
+		xhttp.send("");
+		xmlDoc=xhttp.responseXML;
+
+		var eventqty = xmlDoc.getElementsByTagName("EventCount")[0].childNodes[0].nodeValue;
+		var refresh = xmlDoc.getElementsByTagName("refresh")[0].childNodes[0].nodeValue;
+//Line separator below title
+		if (layout == "horizontal")
+		{
+			document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=1360><tr height=1><td width=1360 bgcolor=#000000></td></tr></table>";
+		}
+		if (layout == "vertical")
+		{
+			document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + 
+"<table cellpadding=0 cellspacing=0 width=768><tr height=1><td width=768 bgcolor=#000000></td></tr></table>";
+		}
+
+		var i=0, time="null", title="null", location="null", color="null";
+		for (i=0;i<=(parseInt(eventqty) - 1);i++)
+		{
+			var start_time = xmlDoc.getElementsByTagName("start_time")[i].childNodes[0].nodeValue;
+			var start_time_hour = (start_time / 100) - (start_time % 100)/100;
+			var start_time_minute = start_time % 100;
+			if (start_time_hour > 12)
+			{
+				var start_time_hour_display = start_time_hour - 12;
+			}
+			else
+			{
+				var start_time_hour_display = start_time_hour;
+			}
+			if (start_time_minute == 0)
+			{
+				var start_time_minute_display = "00";
+			}
+			else
+			{
+				var start_time_minute_display = start_time_minute;
+			}
+			if (start_time_hour >= 12)
+			{
+				var start_time_display = start_time_hour_display + ":" + start_time_minute_display + "pm";
+			}
+			else
+			{
+				var start_time_display = start_time_hour_display + ":" + start_time_minute_display + "am";
+			}
+
+			var end_time = xmlDoc.getElementsByTagName("end_time")[i].childNodes[0].nodeValue;
+			var end_time_hour = (end_time / 100) - (end_time % 100)/100;
+			var end_time_minute = end_time % 100;
+
+			var title = xmlDoc.getElementsByTagName("title")[i].childNodes[0].nodeValue;
+			var location = xmlDoc.getElementsByTagName("location")[i].childNodes[0].nodeValue;
+			var location_id = xmlDoc.getElementsByTagName("location_id")[i].childNodes[0].nodeValue;
+
+			if (location_flag == location_id || location_flag == "all")
+			{
+//ffd200 is yellow
+//  This section does the rows of individual events
+				if (start_time >= now_time || end_time >= now_time)
+				{
+					if (layout == "horizontal")
+					{
+						document.getElementById("scrolling").innerHTML = document.getElementById("scrolling").innerHTML + "<table cellpadding=0 cellspacing=0 width=1360><tr height=66><td width=175 bgcolor=#000000 align=right><font size=6><b>" + start_time_display + "</b></font></td><td width=75 bgcolor=#ffffff></td><td width=1110 bgcolor=#ffffff align=left><font size=7><b>" + title + "</b></font></td></tr></table>";
+						if (location_flag == "all")
+						{
+							document.getElementById("scrolling").innerHTML = document.getElementById("scrolling").innerHTML + 
+"<table cellpadding=0 cellspacing=0 width=1360> <tr height=66> <td width=325 bgcolor=#ffd200></td> <td width=1035 bgcolor=#ffd200 align=left><font size=7><i>" + location + "</i></font></td> </tr> </table>";
+						}
+					}
+					if (layout == "vertical")
+					{
+						document.getElementById("scrolling").innerHTML = document.getElementById("scrolling").innerHTML + "<table cellpadding=0 cellspacing=0 width=768><tr height=66><td width=125 bgcolor=#eeeeee align=right><font size=6 color=#000000><b>" + start_time_display +"</b></font></td><td width=20 bgcolor=#eeeeee></td><td width=623 bgcolor=#eeeeee align=left><font size=6 color=#000000><b>" + title + "</b></font></td></tr></table>";
+						if (location_flag == "all")
+						{
+							document.getElementById("scrolling").innerHTML = document.getElementById("scrolling").innerHTML + "<table cellpadding=0 cellspacing=0 width=768><tr height=66><td width=180 bgcolor=#efc200></td><td width=588 bgcolor=#efc200 align=left><font size=6 color=#000000><i>" + location + "</i></font></td></tr></table>";
+						}
+					}
+					scrolling_count++;
+				}
+//  This section does the current event on top
+				if (start_time <= now_time && end_time > now_time)
+				{
+					if (layout == "horizontal")
+					{
+						document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=1360><tr height=66><td width=175 bgcolor=#ffffff align=right><font size=6><b>" + start_time_display + "</b></font></td><td width=75 bgcolor=#ffffff></td><td width=1110 bgcolor=#ffffff align=left><font size=6><b>" + title + "</b></font></td></tr></table>";
+						if (location_flag == "all")
+						{
+							document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=1360><tr height=66><td width=325 bgcolor=#ffd200></td><td width=1035 bgcolor=#ffd200 align=left><font size=6><i>" + location + "</i></font></td></tr></table>";
+						}
+					}
+					if (layout == "vertical")
+					{
+						document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=768><tr height=66><td width=150 bgcolor=#ffffff align=right><font size=7><b>" + start_time_display + "</b></font></td><td width=25 bgcolor=#ffffff></td><td width=593 bgcolor=#ffffff align=left><font size=7><b>" + title + "</b></font></td></tr></table>";
+						if (location_flag == "all")
+						{
+							document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=768><tr height=66><td width=200 bgcolor=#ffd200></td><td width=568 bgcolor=#ffd200 align=left><font size=6><i>" + location + "</i></font></td></tr></table>";
+						}
+					}
+					static_count++;
+				}
+			}
+		}
+		
+		if (layout == "horizontal")
+		{
+			document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=1360><tr height=1><td width=1360 bgcolor=#000000></td></tr></table>";
+		}
+		if (layout == "vertical")
+		{
+			document.getElementById("static").innerHTML = document.getElementById("static").innerHTML + "<table cellpadding=0 cellspacing=0 width=768><tr height=1><td width=768 bgcolor=#000000></td></tr></table>";
+		}
+
+		if (location_flag == "all")
+		{
+			topStopPoint = ((scrolling_count * 132) - (static_count * 132)) * -1 - 100 + (5 * 132);
+		}
+		else
+		{
+			topStopPoint = ((scrolling_count * 66) - (static_count * 66)) * -1 - 100 + (10 * 66);
+		}
+		backupTopStopPoint=topStopPoint;
+
+		setTimeout('get_xml_schedule()', parseInt(refresh) * 60000);
+	}
+
+	// function to get the xml data for the video / image clips
+	function get_xml_clip()
+	{
+		var clipnum = 1;
+		var currentTime = new Date();
+		var now_time = currentTime.getHours() * 100 + currentTime.getMinutes();
+
+		if (window.XMLHttpRequest)
+  		{
+  			xhttp=new XMLHttpRequest()
+  		}
+		else
+ 		{
+  			xhttp=new ActiveXObject("Microsoft.XMLHTTP")
+  		}
+		xhttp.open("GET","VerticalMedia.xml?currTime=" + getTimeForURL(),false);
+		xhttp.send("");
+		xmlDoc=xhttp.responseXML;
+
+		var clipqty = xmlDoc.getElementsByTagName("VisCount")[0].childNodes[0].nodeValue;
+		var refresh = xmlDoc.getElementsByTagName("refresh")[0].childNodes[0].nodeValue;
+
+		var randomnumber0 = Math.floor(Math.random() * parseInt(clipqty));
+		var randomnumber1 = Math.floor(Math.random() * parseInt(clipqty));
+
+		var i=0, time="null", title="null", location="null", color="null";
+		for (i=0;i<=1;i++)
+		{
+			if (i == 0)
+			{
+				var j = randomnumber0;
+			}
+			if (i == 1)
+			{
+				var j = randomnumber1;
+			}
+
+			var start_time = xmlDoc.getElementsByTagName("start_time")[j].childNodes[0].nodeValue;
+			var start_time_hour = (start_time / 100) - (start_time % 100)/100;
+			var start_time_minute = start_time % 100;
+			if (start_time_hour > 12)
+			{
+				var start_time_hour_display = start_time_hour - 12;
+			}
+			else
+			{
+				var start_time_hour_display = start_time_hour;
+			}
+			if (start_time_minute == 0)
+			{
+				var start_time_minute_display = "00";
+			}
+			else
+			{
+				var start_time_minute_display = start_time_minute;
+			}
+			if (start_time_hour >= 12)
+			{
+				var start_time_display = start_time_hour_display + ":" + start_time_minute_display + "pm";
+			}
+			else
+			{
+				var start_time_display = start_time_hour_display + ":" + start_time_minute_display + "am";
+			}
+
+			var end_time = xmlDoc.getElementsByTagName("end_time")[j].childNodes[0].nodeValue;
+			var end_time_hour = (end_time / 100) - (end_time % 100)/100;
+			var end_time_minute = end_time % 100;
+
+			var type = xmlDoc.getElementsByTagName("type")[j].childNodes[0].nodeValue;
+			var file = xmlDoc.getElementsByTagName("file")[j].childNodes[0].nodeValue;
+
+			if (start_time <= now_time && end_time > now_time)
+			{
+				if (type == "image")
+				{
+					if (clipnum == 1)
+					{
+						if (layout == "horizontal")
+						{
+							document.getElementById("clip1").innerHTML = "<img src=\"" + file + "\" width=\"445\" height=\"334\">";
+						}
+						if (layout == "vertical")
+						{
+							document.getElementById("clip1").innerHTML = "<img src=\"" + file + "\" width=\"768\" height=\"576\">"
+						}
+						clipnum = 2;
+					}
+					else
+					{
+						if (layout == "horizontal")
+						{
+							document.getElementById("clip2").innerHTML = "<img src=\"" + file + "\" width=\"445\" height=\"334\">";
+						}
+						clipnum = 1;
+					}
+				}
+				if (type == "video")
+				{
+					if (clipnum == 1)
+					{
+						if (layout == "horizontal")
+						{
+							document.getElementById("clip1").innerHTML = "<EMBED TYPE=\"application/x-mplayer2\" SRC=\"" + file + "\" NAME=\"MediaPlayer\" WIDTH=\"445\" HEIGHT=\"334\" ShowControls=\"0\" ShowStatusBar=\"0\" ShowDisplay=\"0\" autostart=\"1\" loop=\"1\"></EMBED>";
+						}
+						if (layout == "vertical")
+						{
+							document.getElementById("clip1").innerHTML = "<EMBED TYPE=\"application/x-mplayer2\" SRC=\"" + file + "\" NAME=\"MediaPlayer\" WIDTH=\"768\" HEIGHT=\"576\" ShowControls=\"0\" ShowStatusBar=\"0\" ShowDisplay=\"0\" autostart=\"1\" loop=\"1\"></EMBED>";
+						}
+						clipnum = 2;
+					}
+					else
+					{
+						if (layout == "horizontal")
+						{
+							document.getElementById("clip2").innerHTML = "<EMBED TYPE=\"application/x-mplayer2\" SRC=\"" + file + "\" NAME=\"MediaPlayer\" WIDTH=\"445\" HEIGHT=\"334\" ShowControls=\"0\" ShowStatusBar=\"0\" ShowDisplay=\"0\" autostart=\"1\" loop=\"1\"></EMBED>";
+						}
+						clipnum = 1;
+					}
+				}
+			}
+		}
+		setTimeout('get_xml_clip()', parseInt(refresh) * 60000);
+	}
+
+//-->
+</script>
+
+<style type="text/css">
+  	#credits {z-index: 0; position: absolute;  top: 100; left: 0px; width: 768px;}
+ 	#credits_static {z-index: 1; position: absolute;  top: 100; left: 0px; width: 768px;}
+ 	#header {z-index: 2; position: absolute;  top: 0; left: 0px; width: 768px;}
+ 	#clock {z-index: 3; position: absolute;  top: 0; left: 583px; width: 185px;}
+ 	#video1 {z-index: 4; position: absolute;  top: 784; left: 0px; width: 768px;}
+ 	#video2 {z-index: 5; position: absolute;  top: 1360; left: 0px; width: 768px;}
+ 	H1 {text-align : center; color: #000080}
+ 	H2 {text-align : center; color: #ff0000}
+</style>
+
+</head>
+<body onLoad="init()">
+
+<div id="header">
+	<table cellpadding=0 cellspacing=0>
+		<tr height=100>
+			<td width=25 bgcolor=#0083a8 alignleft></td>
+			<td width=743 bgcolor=#0083a8 align=left><font size=9 color=white><b><span id="title"></span></b></font></td>
+		</tr>
+	</table>
+</div>
+
+<div id="credits_static">
+	<span id="static"></span>
+</div>
+
+<div id="credits">
+	<span id="scrolling"></span>
+</div>
+
+<div id="clock">
+	<table cellpadding=0 cellspacing=0>
+		<tr height=100>
+			<td width=160 align=left><font size=9 color=white><b><span id="time"></span></b></font></td>
+		</tr>
+	</table>
+</div>
+
+<div id="video1">
+	<table cellpadding=0 cellspacing=0>
+		<tr height=576>
+			<td width=768 align=center valign=middle><span id="clip1"></span></td>
+		</tr>
+	</table>
+</div>
+
+<div id="video2">
+	<table cellpadding=0 cellspacing=0>
+		<tr height=576>
+			<td width=768 align=center valign=middle><span id="clip2"></span></td>
+		</tr>
+	</table>
+</div>
+ 

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<schedule>
+	<settings>
+		<qty>5</qty>  			<!-- number of clip entries in xml file --> 
+		<refresh>30</refresh>  		<!-- image/video clip refresh time in minutes --> 
+	</settings>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>ZULA_Poster.jpg</file>		<!-- filename of clip -->
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>MartianRock.jpg</file>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>BH Poster5.jpg</file>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>MeetStuffee.jpg</file>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>Tesla Coil.jpg</file>
+	</clip>
+</schedule>

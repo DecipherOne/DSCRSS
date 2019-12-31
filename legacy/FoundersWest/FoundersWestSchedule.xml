@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" generated="2019-12-18T09:34:21">
+<FoundersWestSchedule>
+<start_time>1030</start_time>
+<end_time>1100</end_time>
+<title>Meet Stuffee: Germs Edition</title>
+<location>Founders Hall</location>
+<location_id>John Deere Adventure Theater, Main Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1130</start_time>
+<end_time>1200</end_time>
+<title>Reaching for the Stars</title>
+<location>Founders Hall</location>
+<location_id>Star Theater, Why the Sky?, Upper Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1200</start_time>
+<end_time>1300</end_time>
+<title>WHO-HD Live Weather Forecast</title>
+<location>Founders Hall</location>
+<location_id>What on Earth?, Upper Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1330</start_time>
+<end_time>1400</end_time>
+<title>Cold Blooded Critters</title>
+<location>Founders Hall</location>
+<location_id>What on Earth?, Upper Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1400</start_time>
+<end_time>1430</end_time>
+<title>Snapping Turtle Feeding</title>
+<location>Founders Hall</location>
+<location_id>What on Earth?, Upper Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1430</start_time>
+<end_time>1500</end_time>
+<title>Black Holes: The Other Side of Infinity</title>
+<location>Founders Hall</location>
+<location_id>Star Theater, Why the Sky?, Upper Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1530</start_time>
+<end_time>1600</end_time>
+<title>Deep Freeze</title>
+<location>Founders Hall</location>
+<location_id>John Deere Adventure Theater, Main Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+<FoundersWestSchedule>
+<start_time>1700</start_time>
+<end_time>1730</end_time>
+<title>SCIENCE CENTER OF IOWA CLOSES</title>
+<location>Founders Hall</location>
+<location_id>Founders Hall, Main Level</location_id>
+<EventCount>8</EventCount>
+<refresh>5</refresh>
+</FoundersWestSchedule>
+</dataroot>

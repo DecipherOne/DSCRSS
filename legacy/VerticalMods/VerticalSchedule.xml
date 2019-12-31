@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<schedule>
+	<event>
+		<start_time>0900</start_time>
+		<end_time>1000</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>18</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1000</start_time>
+		<end_time>1030</end_time>
+		<title>Iowa Skies Tonight</title>
+		<location>Live constellation program</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1030</start_time>
+		<end_time>1100</end_time>
+		<title>Reserved</title>
+		<location>Pleasantville Elementary School</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1100</start_time>
+		<end_time>1230</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1230</start_time>
+		<end_time>1300</end_time>
+		<title>One World, One Sky</title>
+		<location>Sponsored by NASA</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1300</start_time>
+		<end_time>1330</end_time>
+		<title>Reserved</title>
+		<location>Pleasantville Elementary School</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1330</start_time>
+		<end_time>1400</end_time>
+		<title>Iowa Skies Tonight</title>
+		<location>Live constellation program</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1400</start_time>
+		<end_time>1430</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1430</start_time>
+		<end_time>1500</end_time>
+		<title>Dawn of the Space Age</title>
+		<location>Sponsored by NASA</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1500</start_time>
+		<end_time>1600</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1614</start_time>
+		<end_time>1630</end_time>
+		<title>The Zula Patrol: Under the Weather</title>
+		<location>Sponsored by NASA and Variety Club</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1630</start_time>
+		<end_time>1730</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1700</start_time>
+		<end_time>1730</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1730</start_time>
+		<end_time>180</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1800</start_time>
+		<end_time>1830</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1830</start_time>
+		<end_time>1900</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1900</start_time>
+		<end_time>1930</end_time>
+		<title>COSMIC JUKEBOX</title>
+		<location>Create your own Star Theater show</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+	<event>
+		<start_time>1930</start_time>
+		<end_time>2000</end_time>
+		<title>SCIENCE CENTER OF IOWA CLOSES</title>
+		<location>Thank you for visiting!</location>
+		<location_id>Star Theater</location_id>
+		<EventCount>13</EventCount>
+		<refresh>5</refresh>
+	</event>
+</schedule>
+

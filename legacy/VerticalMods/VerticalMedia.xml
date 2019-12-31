@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<schedule>
+	<clip>
+		<start_time>0000</start_time>	<!-- not used at this time | leave value at 0000 -->
+		<end_time>2400</end_time>	<!-- not used at this time | leave value at 2400 -->
+		<type>image</type>		<!-- clip description | either "image" or "video" -->
+		<file>ZULA_Poster.jpg</file>		<!-- filename of clip -->
+		<VisCount>4</VisCount>
+		<refresh>10</refresh>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>MartianRock.jpg</file>
+		<VisCount>4</VisCount>
+		<refresh>10</refresh>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>BH Poster5.jpg</file>
+		<VisCount>4</VisCount>
+		<refresh>10</refresh>
+	</clip>
+	<clip>
+		<start_time>0000</start_time>
+		<end_time>2400</end_time>
+		<type>image</type>
+		<file>CosmicJukebox.jpg</file>
+		<VisCount>4</VisCount>
+		<refresh>10</refresh>
+	</clip>
+</schedule>
