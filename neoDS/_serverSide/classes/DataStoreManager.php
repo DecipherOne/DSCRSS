@@ -15,7 +15,6 @@ class DataStoreManager
 
   public function Initialize($dbFilePath)
   {
-
     if($this->_isInitialized)
       return;
 
@@ -23,22 +22,33 @@ class DataStoreManager
     $this->config = array('DB_FILE_PATH' => $this->_dbFilePath);
 
     if($this->ConnectToDatabaseFile()==null)
-      echo "<b> Error : </b> DSCRSS:DataStoreManager : Unable to connect to Database. </br>";
+      error_log("<b> Error : </b> DSCRSS:DataStoreManager : Unable to connect to Database. </br>");
 
     else
     {
       $this->_isInitialized = true;
-      echo "<b> Success : </b> DSCRSS:DataStoreManager : Successfully connected to Database. </br>";
+      error_log("<b> Success : </b> DSCRSS:DataStoreManager : Successfully connected to Database. </br>");
     }
-
-    echo "    -----  <b> Attempted to load : </b>" . $this->config["DB_FILE_PATH"] . " ----- </br>";
+    error_log("    -----  <b> Attempted to load : </b>" . $this->config["DB_FILE_PATH"] . " ----- </br>");
   }
 
   private function ConnectToDatabaseFile()
   {
     if($this->_pdo == null)
-      $this->_pdo = new \PDO("sqlite:".$this->config['DB_FILE_PATH']);
+      try
+      {
+        $this->_pdo = new \PDO("sqlite:".$this->config['DB_FILE_PATH']);
+      }
+      catch(\PDOException $e)
+      {
+        throw new MyDatabaseException( $e->getMessage( ) , (int)$e->getCode( ) );
+      }
 
     return $this->_pdo;
+  }
+
+  public function SelectFromDatabase($targetCol, $targetTabel, $targetOrder = "ASCENDING" )
+  {
+
   }
 }
