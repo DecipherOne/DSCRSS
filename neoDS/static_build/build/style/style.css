@@ -10,8 +10,12 @@ a:visited { color: #00a1bb; }
 
 .hidden { display: none; }
 
-#scheduleContainer { max-width: 107em; min-width: 18em; background-color: #000000; }
+.absolutelyCentered { position: absolute; left: 50%; transform: translate(-50%, -0.42rem); }
+
+#scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; }
 
 #scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
 
-#scheduleBody { width: 100%; text-align: center; }
+#scheduleBody { width: 100%; text-align: center; min-height: 6.66667rem; }
+
+#scheduleFooter { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }

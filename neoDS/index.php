@@ -15,15 +15,18 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 </head>
 <body>
 <div id="scheduleContainer">
-  <div id="scheduleHeader">
-    header stuff
-  </div>
-  <div id="scheduleBody">
-    Test body stuff
-  </div>
+    <div id="scheduleHeader">
+        header stuff
+    </div>
+    <div id="scheduleBody">
+        Test body stuff
+    </div>
+    <div id="scheduleFooter">
+        footer stuff
+    </div>
 </div>
+
 <footer>
-  footer stuff
   <script src="js/001.min.js"></script>
 </footer>
 </body>
