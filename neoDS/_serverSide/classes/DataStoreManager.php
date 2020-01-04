@@ -47,8 +47,35 @@ class DataStoreManager
     return $this->_pdo;
   }
 
-  public function SelectFromDatabase($targetCol, $targetTabel, $targetOrder = "ASCENDING" )
+  public function SelectFromDatabase($targetColumns='', $targetTabel='', $targetOrder = '', $limit='')
   {
+    if(!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::SelectFromDatabase : Not Initialized.");
+      return;
+    }
 
+    $selectQuery = $this->ConstructSelectQueryStructure($targetColumns, $targetTabel, $targetOrder, $limit);
+    $dbStream = $this->_pdo->query($selectQuery);
+
+    $results = [];
+    while($r = $dbStream->fetchObject())
+    {
+      $results[] = $r;
+    }
+
+    return $results;
+  }
+
+  private function ConstructSelectQueryStructure($targetColumns='', $targetTabel='', $targetOrder = '', $limit='')
+  {
+     $query = " SELECT ".$targetColumns . "FROM ". $targetTabel;
+
+     if($targetOrder != '')
+       $query .= " ORDER BY ". $targetOrder;
+     if($limit != '')
+       $query .= " LIMIT " .$limit;
+
+     return $query;
   }
 }
