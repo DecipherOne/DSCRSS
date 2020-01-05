@@ -3,6 +3,8 @@ html, body { width: 100%; margin: 0; padding: 0; background-color: black; font-s
 
 body { overflow-y: scroll; overflow-x: hidden; }
 
+footer { margin-left: 20%; clear: both; }
+
 button { font-size: 18px; }
 
 a { color: #ACC314; }
@@ -13,6 +15,16 @@ a:visited { color: #00a1bb; }
 
 .absolutelyCentered { position: absolute; left: 50%; transform: translate(-50%, -0.42rem); }
 
+.relativelyCentered { position: relative; left: 50%; transform: translate(-50%, -0.42rem); }
+
+.halfWidth { width: 50%; }
+
+.bottomMargin20 { margin-bottom: 1.11111rem; }
+
+.topMargin20 { margin-top: 1.11111rem; }
+
+.left { float: left; }
+
 #scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; }
 
 #scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
@@ -20,6 +32,18 @@ a:visited { color: #00a1bb; }
 #scheduleBody { width: 100%; text-align: center; min-height: 6.66667rem; }
 
 #scheduleFooter { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
+
+#schedulingFormContainer { background-color: #959595; }
+
+#calendar { background-color: #989898; }
+
+.archivedEventCircleMarker { border: solid 1.38889rem purple; border-radius: 1.38889rem; display: inline-block; }
+
+.scheduledEventCircleMarker { border: solid 1.38889rem green; moz-border-radius: 1.38889rem; }
+
+.noEventCircleMarker { border: solid 1.38889rem grey; moz-border-radius: 1.38889rem; }
+
+.fc-today { background-color: #d7b064a8 !important; }
 
 .fc { direction: ltr; text-align: left; }
 

@@ -5,3 +5,15 @@
 #scheduleBody { width: 100%; text-align: center; min-height: PixelToRem(120); }
 
 #scheduleFooter { width: 100%; text-align: center; background-color: #4a4949; height: PixelToRem(120); }
+
+#schedulingFormContainer { background-color: #959595; }
+
+#calendar { background-color: #989898; }
+
+.archivedEventCircleMarker { border: solid PixelToRem(25) purple; border-radius: PixelToRem(25); display: inline-block; }
+
+.scheduledEventCircleMarker { border: solid PixelToRem(25) green; moz-border-radius: PixelToRem(25); }
+
+.noEventCircleMarker { border: solid PixelToRem(25) grey; moz-border-radius: PixelToRem(25); }
+
+.fc-today { background-color: #d7b064a8 !important; }

@@ -14,7 +14,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
   <link rel="shortcut icon" href="https://www.sciowa.org/favicon-194x194.png" />
 </head>
 <body>
-<div id="scheduleContainer">
+
+<div id="scheduleContainer" class="relativelyCentered">
     <div id="scheduleHeader">
         header stuff
     </div>
@@ -25,9 +26,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         footer stuff
     </div>
 </div>
-<div id='calendar'></div>
+</body>
 <footer>
   <script src="js/001.min.js"></script>
 </footer>
-</body>
 </html>

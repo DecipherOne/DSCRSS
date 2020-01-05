@@ -2,6 +2,8 @@ html, body { width: 100%; margin: 0; padding: 0; background-color: black; font-s
 
 body { overflow-y: scroll; overflow-x: hidden; }
 
+footer { margin-left: 20%; clear: both; }
+
 button { font-size: 18px; }
 
 a { color: #ACC314; }
@@ -11,3 +13,13 @@ a:visited { color: #00a1bb; }
 .hidden { display: none; }
 
 .absolutelyCentered { position: absolute; left: 50%; transform: translate(-50%, -0.42rem); }
+
+.relativelyCentered { position: relative; left: 50%; transform: translate(-50%, -0.42rem); }
+
+.halfWidth { width: 50%; }
+
+.bottomMargin20 { margin-bottom: PixelToRem(20); }
+
+.topMargin20 { margin-top: PixelToRem(20); }
+
+.left { float: left; }
