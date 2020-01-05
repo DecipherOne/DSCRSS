@@ -38,13 +38,16 @@ module.exports = function(grunt) {
             thirdParty:{
                 src:[
                     'static_build/js/thirdParty/jquery.js',
+                    'static_build/js/thirdParty/fullcalendar/packages/core/main.js',
+                    'static_build/js/thirdParty/fullcalendar/packages/daygrid/main.js'
                 ],
                 dest:'static_build/js/compiled/3rdParty.js',
                 nonull: true
             },
             projectMain:{
                 src:[
-                    'static_build/js/main.js'
+                    'static_build/js/main.js',
+                    'static_build/js/schedulingCalender.js'
                 ],
                 dest:'static_build/js/compiled/001.js',
                 nonull: true
@@ -58,7 +61,7 @@ module.exports = function(grunt) {
             minify: {
                 expand: true,
                 cwd: 'static_build/build/style/',
-                src: ['style.css'],
+                src: ['*.css'],
                 dest: 'style',
                 ext: '.min.css'
             }

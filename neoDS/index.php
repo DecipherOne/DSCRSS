@@ -25,7 +25,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         footer stuff
     </div>
 </div>
-
+<div id='calendar'></div>
 <footer>
   <script src="js/001.min.js"></script>
 </footer>
