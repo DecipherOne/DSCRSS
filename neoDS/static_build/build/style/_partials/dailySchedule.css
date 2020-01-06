@@ -12,8 +12,12 @@
 
 .archivedEventCircleMarker { border: solid PixelToRem(25) purple; border-radius: PixelToRem(25); display: inline-block; }
 
-.scheduledEventCircleMarker { border: solid PixelToRem(25) green; moz-border-radius: PixelToRem(25); }
+.scheduledEventCircleMarker { border: solid PixelToRem(25) green; border-radius: PixelToRem(25); display: inline-block; }
 
-.noEventCircleMarker { border: solid PixelToRem(25) grey; moz-border-radius: PixelToRem(25); }
+.noEventCircleMarker { border: solid PixelToRem(25) grey; border-radius: PixelToRem(25); display: inline-block; }
 
 .fc-today { background-color: #d7b064a8 !important; }
+
+.eventMarkerLabel { position: absolute; transform: translate(PixelToRem(-14), PixelToRem(-10)); }
+
+.fc-left { margin-left: PixelToRem(20); margin-top: PixelToRem(10); }

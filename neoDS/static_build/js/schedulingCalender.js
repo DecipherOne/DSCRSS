@@ -2,27 +2,62 @@
 
 (function SchedulingCalendar(window,$){
 
-    var calendarEl = null,
-        calendar = null;
+    var dayNumberSpans = null,
+    calendarEl = null,
+    calendar = null,
+    nodeBuffer = null,
+    fullCalendarButton = null;
 
     $(document).ready(function() {
-        calendarEl = document.getElementById('calendar');
-        calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'dayGrid' ,'interaction'],
-        });
-        if(calendarEl)
-            calendar.render();
+
+        InitializeCalendar();
+        if(!calendarEl)
+            return console.log("Error: Could not create Calendar : schedulingCalendar.js");
+
+        calendar.render();
+        CheckDatabaseForMonthlyEvents();
+
+        setTimeout(function()
+        {
+            fullCalendarButton = document.getElementsByClassName('fc-button');
+            $(fullCalendarButton).click(function(e){
+                CheckDatabaseForMonthlyEvents();
+            });
+
+        },1000);
     });
 
-    //Call : OnContentLoad, OnChangeOfMonth
-    // Will gather all fc-day-number class objects, <span>
-    // for each number, check retrieved database array
-    // for day match
-    // If match, span that matches,add a new span with following classes
-    //<span class="archivedEventCircleMarker relativelyCentered topMargin20">
-    //These will serve as the scheduling markers on the calendar
+
+    function InitializeCalendar()
+    {
+        calendarEl = document.getElementById('calendar');
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'dayGrid'],
+        });
+    }
     function CheckDatabaseForMonthlyEvents()
     {
+        dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
+            .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
+
+        //TODO: Retrieve array of current presentations of the month.
+        //Loop through the presentations and compare the day.
+        for (var c = 0; c <= dayNumberSpans.length; c++)
+        {
+           if(false) //look for comparison
+               nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                   "SCI</span></span>";
+
+           else if(false) //the day has a scheduled event that has passed.
+               nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                   "SCI</span></span>";
+
+           else
+               nodeBuffer = "<span class=\"noEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                   "SCI</span></span>";
+
+            $(dayNumberSpans[c]).after(nodeBuffer);
+        }
 
     }
 

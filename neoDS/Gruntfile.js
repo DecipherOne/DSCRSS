@@ -39,8 +39,7 @@ module.exports = function(grunt) {
                 src:[
                     'static_build/js/thirdParty/jquery.js',
                     'static_build/js/thirdParty/fullcalendar/packages/core/main.js',
-                    'static_build/js/thirdParty/fullcalendar/packages/daygrid/main.js',
-                    'static_build/js/thirdParty/fullcalendar/packages/interaction/main.js'
+                    'static_build/js/thirdParty/fullcalendar/packages/daygrid/main.js'
                 ],
                 dest:'static_build/js/compiled/3rdParty.js',
                 nonull: true

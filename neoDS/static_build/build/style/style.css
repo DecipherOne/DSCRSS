@@ -39,11 +39,15 @@ a:visited { color: #00a1bb; }
 
 .archivedEventCircleMarker { border: solid 1.38889rem purple; border-radius: 1.38889rem; display: inline-block; }
 
-.scheduledEventCircleMarker { border: solid 1.38889rem green; moz-border-radius: 1.38889rem; }
+.scheduledEventCircleMarker { border: solid 1.38889rem green; border-radius: 1.38889rem; display: inline-block; }
 
-.noEventCircleMarker { border: solid 1.38889rem grey; moz-border-radius: 1.38889rem; }
+.noEventCircleMarker { border: solid 1.38889rem grey; border-radius: 1.38889rem; display: inline-block; }
 
 .fc-today { background-color: #d7b064a8 !important; }
+
+.eventMarkerLabel { position: absolute; transform: translate(-0.77778rem, -0.55556rem); }
+
+.fc-left { margin-left: 1.11111rem; margin-top: 0.55556rem; }
 
 .fc { direction: ltr; text-align: left; }
 
