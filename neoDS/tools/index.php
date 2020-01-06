@@ -21,14 +21,22 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
   <div id='calendar' class="halfWidth left"></div>
   <div id="schedulingFormContainer" class="halfWidth left">
       <form id="dailySchedulingForm">
-
+          Scheduling From : What's on the Docket?
+        <fieldset id="schedulingToolFieldset">
+          <label id="schedulingToolDateLabel" for="schedulingToolDateInput">
+            Date :
+          </label>
+          <select id="schedulingToolDateSelect" class="schedulingToolSelect" disabled>
+                <option selected >Day - 00/00/0000</option>
+          </select>
+        </fieldset>
       </form>
   </div>
 </div>
 </body>
 <footer>
   <script src="../js/001.min.js"></script>
-  <h6>Donated By : Will Canada circa 2020 <a href="https://decipherone.com" target="_blank">DecipherOne</a>
-  in partnership with <a href="https://www.grandconsulting.com/" target="_blank">Grand Consulting</a> </h6>
+  <h6>Donated By : Will Canada circa 2020 <a href="http://decipherone.com" target="_blank">DecipherOne</a>
+  in partnership with <a href="http://grandconsulting.com/" target="_blank">Grand Consulting</a> </h6>
 </footer>
 </html>
