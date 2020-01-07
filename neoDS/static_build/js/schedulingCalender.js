@@ -16,10 +16,12 @@
     currentMonth = null,
     currentDay = null,
     response=null,
-    todaysDate=null;
+    todaysDate=null,
+    predefinedPresentationNode=null;
 
     $(document).ready(function() {
 
+        InitializePredefinedPresentationNode();
         InitializeTodaysDate();
         InitializeCalendar();
         if(!calendarEl)
@@ -29,9 +31,15 @@
         CheckDatabaseForMonthlyEvents();
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
-            setTimeout(CheckDatabaseForMonthlyEvents,300);
+            CheckDatabaseForMonthlyEvents(e);
         });
     });
+
+    function InitializePredefinedPresentationNode()
+    {
+        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
+        predefinedPresentationNode = topControls;
+    }
 
     function InitializeTodaysDate()
     {
@@ -87,13 +95,10 @@
 
     }
 
-
-
     function CheckDatabaseForMonthlyEvents()
     {
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
-
 
         RetrievePresentationsFromDataStore(function(response){
 
@@ -158,34 +163,40 @@
 
             InitiatlizeEventMarkers(function(){
 
-                var date = null,
-                    dayNumber = null;
+
 
                 $(noEventMarkers).click(function(e){
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-
-                    if($(e.target).hasClass('eventMarkerLabel'))
-                        e.target= $(e.target).parent();
-
-                    date = $(e.target).parent().attr("data-date");
-                    dayNumber = $(e.target).siblings().html();
-
-                    var result = BuildDayDateString(date,dayNumber),
-                        updatedDate ="<option selected >" + result + "</option>";
-                    $(dateSelect).html(updatedDate);
+                    GetDateFromEventTokenParentPutInDateInput(e);
 
                 });
 
-                $(scheduledEventMarkers).click(function(){
-
+                $(scheduledEventMarkers).click(function(e){
+                    GetDateFromEventTokenParentPutInDateInput(e);
                 });
 
-                $(pastEventMarkers).click(function(){
-
+                $(pastEventMarkers).click(function(e){
+                    GetDateFromEventTokenParentPutInDateInput(e);
                 });
             });
         });
+    }
+
+    function GetDateFromEventTokenParentPutInDateInput(e)
+    {
+        var date = null,
+            dayNumber = null;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        if($(e.target).hasClass('eventMarkerLabel'))
+            e.target= $(e.target).parent();
+
+        date = $(e.target).parent().attr("data-date");
+        dayNumber = $(e.target).siblings().html();
+
+        var result = BuildDayDateString(date,dayNumber),
+            updatedDate ="<option selected >" + result + "</option>";
+        $(dateSelect).html(updatedDate);
     }
 
     function BuildDayDateString(date,dayNumber)
@@ -265,5 +276,6 @@
             return callback(msg);
         });
     }
+
 
 })(window, jQuery = window.jQuery || {} );

@@ -21,14 +21,19 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
   <div id='calendar' class="halfWidth left"></div>
   <div id="schedulingFormContainer" class="halfWidth left">
       <form id="dailySchedulingForm">
-          Scheduling From : What's on the Docket?
         <fieldset id="schedulingToolFieldset">
-          <label id="schedulingToolDateLabel" for="schedulingToolDateInput">
-            Date :
+          <label id="schedulingToolDateLabel"  class="left" for="schedulingToolDateInput">
+            Date
           </label>
-          <select id="schedulingToolDateSelect" class="schedulingToolSelect" disabled>
+          <select id="schedulingToolDateSelect" class="schedulingToolSelect left" disabled>
                 <option selected >Day - 00/00/0000</option>
           </select>
+          <div id="schedulingToolNumberOfPresentations"><span id="presentationNumberSpan">0</span> Presentations Scheduled.  </div>
+        </fieldset>
+        <fieldset id="scheduledPresentationsFieldSet">
+            <div id="presentationEntryContainer">
+
+            </div>
         </fieldset>
       </form>
   </div>

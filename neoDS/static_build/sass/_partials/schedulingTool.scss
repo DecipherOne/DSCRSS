@@ -37,7 +37,7 @@
   background-color:#d7b064a8 !important;
 }
 
-.eventMarkerLabel
+.eventMarkerLabel, .controlLabel
 {
   position:absolute;
   transform: translate(PixelToRem(-14), PixelToRem(-10));
@@ -58,3 +58,44 @@
   height:PixelToRem(42);
   font-size:PixelToRem(16);
 }
+
+.deletePresentationEntry
+{
+  border: solid PixelToRem(15) red;
+  border-radius:PixelToRem(15);
+  display:inline-block;
+  cursor:pointer;
+}
+
+.modifyPresentationEntry
+{
+  border: solid PixelToRem(15) yellow;
+  border-radius:PixelToRem(15);
+  display:inline-block;
+  cursor:pointer;
+}
+
+.addPresentationEntry
+{
+  border: solid PixelToRem(15) green;
+  border-radius:PixelToRem(15);
+  display:inline-block;
+  cursor:pointer;
+}
+
+#presentationNumberSpan
+{
+  padding:PixelToRem(8);
+}
+
+#schedulingToolNumberOfPresentations, #schedulingToolDateLabel
+{
+  font-size: PixelToRem(32);
+  line-height: 1.4;
+}
+
+#schedulingToolDateLabel
+{
+  margin-right:PixelToRem(16);
+}
+

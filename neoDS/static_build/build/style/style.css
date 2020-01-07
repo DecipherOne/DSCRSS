@@ -473,10 +473,22 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-today { background-color: #d7b064a8 !important; }
 
-.eventMarkerLabel { position: absolute; transform: translate(-0.77778rem, -0.55556rem); }
+.eventMarkerLabel, .controlLabel { position: absolute; transform: translate(-0.77778rem, -0.55556rem); }
 
 .fc-left { margin-left: 1.11111rem; margin-top: 0.55556rem; }
 
 .fc-right { margin-right: 1.11111rem; margin-top: 0.55556rem; }
 
 .schedulingToolSelect { min-width: 8.33333rem; height: 2.33333rem; font-size: 0.88889rem; }
+
+.deletePresentationEntry { border: solid 0.83333rem red; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+
+.modifyPresentationEntry { border: solid 0.83333rem yellow; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+
+.addPresentationEntry { border: solid 0.83333rem green; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+
+#presentationNumberSpan { padding: 0.44444rem; }
+
+#schedulingToolNumberOfPresentations, #schedulingToolDateLabel { font-size: 1.77778rem; line-height: 1.4; }
+
+#schedulingToolDateLabel { margin-right: 0.88889rem; }
