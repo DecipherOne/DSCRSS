@@ -16,7 +16,6 @@ function ReadAllPresentations($db)
   {
     echo "</br> Entry # : ".$pres->spIndex;
     echo "</br> Scheduled Date : ".$pres->scheduledDate;
-    echo "</br> Day : ".$pres->dayName;
     echo "</br> Start Time : ".$pres->startTime;
     echo "</br> End Time : ".$pres->endTime;
     echo "</br> Title : ".$pres->title;

@@ -2,6 +2,8 @@
 
 namespace DSCRSS;
 
+use http\Exception;
+
 $path=  $_SERVER['DOCUMENT_ROOT'];
 require_once($path."/DSCRSS/neoDS/_serverSide/classes/pch.php");
 
@@ -56,21 +58,34 @@ class DataStoreManager
     }
 
     $selectQuery = $this->ConstructSelectQueryStructure($targetColumns, $targetTabel, $targetOrder, $limit);
-    $dbStream = $this->_pdo->query($selectQuery);
+
+    //echo $selectQuery;
+    try{
+      $dbStream = $this->_pdo->query($selectQuery);
+    }
+    catch(\PDOException $e)
+    {
+      throw new MyDatabaseException( $e->getMessage( ) , (int)$e->getCode( ) );
+    }
 
     $results = [];
-    while($r = $dbStream->fetchObject())
-    {
-      $results[] = $r;
-    }
+    if($dbStream)
+      while($r = $dbStream->fetchObject())
+      {
+        $results[] = $r;
+      }
+    else
+      echo '{"errorMessage":" No Results Matched"}';
 
     return $results;
   }
 
-  private function ConstructSelectQueryStructure($targetColumns='', $targetTabel='', $targetOrder = '', $limit='')
+  private function ConstructSelectQueryStructure($targetColumns='', $targetTabel='',$where='', $targetOrder = '', $limit='')
   {
      $query = " SELECT ".$targetColumns . "FROM ". $targetTabel;
 
+     if($where != '')
+       $query .= " WHERE ". $where;
      if($targetOrder != '')
        $query .= " ORDER BY ". $targetOrder;
      if($limit != '')
