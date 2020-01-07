@@ -14,10 +14,13 @@
     firstOfMonth = null,
     currentYear = null,
     currentMonth = null,
-    response=null ;
+    currentDay = null,
+    response=null,
+    todaysDate=null;
 
     $(document).ready(function() {
 
+        InitializeTodaysDate();
         InitializeCalendar();
         if(!calendarEl)
             return console.log("Error: Could not create Calendar : schedulingCalendar.js");
@@ -28,9 +31,16 @@
         $(fullCalendarButton).click(function(e){
             setTimeout(CheckDatabaseForMonthlyEvents,300);
         });
-
-
     });
+
+    function InitializeTodaysDate()
+    {
+        todaysDate = new Date();
+        currentDay = todaysDate.getDate().toString();
+        todaysDate = todaysDate.getFullYear() + "-" + ParseMonthIndex(todaysDate.getMonth()) +
+            "-"+todaysDate.getDate();
+
+    }
 
     function InitiatlizeEventMarkers(callback)
     {
@@ -53,71 +63,129 @@
         });
     }
 
-    function RetrievePresentationsFromDataStore()
+    function RetrievePresentationsFromDataStore(callback)
     {
         firstOfMonth = $("span").filter(function() { return ($(this).text() === '1') });
         firstOfMonth = $(firstOfMonth).parent().attr("data-date");
         currentYear = firstOfMonth.substring(0,4);
         currentMonth = firstOfMonth.substring(5,7);
-        return response = GetMonthlySchedule(currentMonth,currentYear);
+
+        response = GetMonthlySchedule(currentMonth,currentYear,function(response){
+            return callback(response);
+        });
     }
+
+    function DateAGreaterThanDateB(dateA, dateB)
+    {
+        if(dateA ==='' && dateB === '')
+            return false;
+
+        var dateObjectA = new Date(dateA),
+        dateObjectB = new Date(dateB);
+
+        return dateObjectA.getTime() >= dateObjectB.getTime();
+
+    }
+
+
 
     function CheckDatabaseForMonthlyEvents()
     {
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
 
-        var presentations = RetrievePresentationsFromDataStore();
 
-        //Loop through the presentations and compare the day.
-        //for (var presentation in presentations)
-        for (var c = 0; c <= dayNumberSpans.length; c++)
-        {
-           if(false) //look for comparison
-               nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
-                   "SCI</span></span>";
+        RetrievePresentationsFromDataStore(function(response){
 
-           else if(false) //the day has a scheduled event that has passed.
-               nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
-                   "SCI</span></span>";
+            var comparisonDateString = null,
+                currentlyScheduledEvent = null,
+                previousEvent = null,
+                selectedDayString = null;
 
-           else
-               nodeBuffer = "<span class=\"noEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
-                   "SCI</span></span>";
+            for (var c = 0; c <= dayNumberSpans.length; c++)
+            {
+                if(response.length >= 1)
+                {
+                    var foundMatch = false;
+                    for(var i=0; i < response.length; i++)
+                    {
+                        comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
+                            selectedDayString = $(dayNumberSpans[c]).html();
+                        currentlyScheduledEvent =  DateAGreaterThanDateB(response[i]['scheduledDate'],comparisonDateString);
 
-            $(dayNumberSpans[c]).after(nodeBuffer);
-        }
+                        var scheduleDaySubstring = response[i]['scheduledDate'].substring(8,10),
+                            firstSubCharacter = scheduleDaySubstring[0];
 
-        InitiatlizeEventMarkers(function(){
+                        if(firstSubCharacter === "0")
+                            scheduleDaySubstring = scheduleDaySubstring[1];
 
-            var date = null,
-                dayNumber = null;
+                        if(currentDay !== selectedDayString &&
+                            scheduleDaySubstring === selectedDayString) //the day has a scheduled event that has passed.
+                        {
+                            nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                                "SCI</span></span>";
+                            foundMatch = true;
+                        }
+                        else if(currentDay === selectedDayString && currentlyScheduledEvent) //look for comparison
+                        {
+                            nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                                "SCI</span></span>";
+                            foundMatch = true;
+                        }
 
-            $(noEventMarkers).click(function(e){
-                e.preventDefault();
-                e.stopImmediatePropagation();
+                        if(foundMatch)
+                        {
+                            $(dayNumberSpans[c]).after(nodeBuffer);
+                            break;
+                        }
+                    }
 
-                if($(e.target).hasClass('eventMarkerLabel'))
-                    e.target= $(e.target).parent();
+                    if(!foundMatch)
+                    {
+                        nodeBuffer = "<span class=\"noEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                            "SCI</span></span>";
+                        $(dayNumberSpans[c]).after(nodeBuffer);
+                    }
 
-                date = $(e.target).parent().attr("data-date");
-                dayNumber = $(e.target).siblings().html();
+                }
+                else
+                {
+                    nodeBuffer = "<span class=\"noEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                        "SCI</span></span>";
+                    $(dayNumberSpans[c]).after(nodeBuffer);
+                }
+            }
 
-                var result = BuildDayDateString(date,dayNumber),
-                    updatedDate ="<option selected >" + result + "</option>";
-                $(dateSelect).html(updatedDate);
+            InitiatlizeEventMarkers(function(){
 
-            });
+                var date = null,
+                    dayNumber = null;
 
-            $(scheduledEventMarkers).click(function(){
+                $(noEventMarkers).click(function(e){
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
 
-            });
+                    if($(e.target).hasClass('eventMarkerLabel'))
+                        e.target= $(e.target).parent();
 
-            $(pastEventMarkers).click(function(){
+                    date = $(e.target).parent().attr("data-date");
+                    dayNumber = $(e.target).siblings().html();
 
+                    var result = BuildDayDateString(date,dayNumber),
+                        updatedDate ="<option selected >" + result + "</option>";
+                    $(dateSelect).html(updatedDate);
+
+                });
+
+                $(scheduledEventMarkers).click(function(){
+
+                });
+
+                $(pastEventMarkers).click(function(){
+
+                });
             });
         });
-
     }
 
     function BuildDayDateString(date,dayNumber)
@@ -181,7 +249,7 @@
        return month+1;
     }
 
-    function GetMonthlySchedule(month,year)
+    function GetMonthlySchedule(month,year,callback)
     {
         var payload = { month: month, year: year };
         payload = JSON.stringify(payload);
@@ -194,7 +262,7 @@
             contentType: 'application/json; charset=utf-8'
         })
         .done(function( msg ) {
-            return msg;
+            return callback(msg);
         });
     }
 
