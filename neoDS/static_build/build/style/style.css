@@ -473,22 +473,28 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-today { background-color: #d7b064a8 !important; }
 
-.eventMarkerLabel, .controlLabel { position: absolute; transform: translate(-0.77778rem, -0.55556rem); }
+.eventMarkerLabel { position: absolute; transform: translate(-0.77778rem, -0.55556rem); }
 
 .fc-left { margin-left: 1.11111rem; margin-top: 0.55556rem; }
 
 .fc-right { margin-right: 1.11111rem; margin-top: 0.55556rem; }
 
-.schedulingToolSelect { min-width: 8.33333rem; height: 2.33333rem; font-size: 0.88889rem; }
+.schedulingToolSelect { min-width: 4.16667rem; height: 2.33333rem; font-size: 0.88889rem; }
 
-.deletePresentationEntry { border: solid 0.83333rem red; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+.deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
+.deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
 
-.modifyPresentationEntry { border: solid 0.83333rem yellow; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+.modifyPresentationEntry { border: solid 0.55556rem yellow; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.modifyPresentationEntry .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.44444rem); }
 
-.addPresentationEntry { border: solid 0.83333rem green; border-radius: 0.83333rem; display: inline-block; cursor: pointer; }
+.addPresentationEntry { border: solid 0.55556rem green; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
 
 #presentationNumberSpan { padding: 0.44444rem; }
 
 #schedulingToolNumberOfPresentations, #schedulingToolDateLabel { font-size: 1.77778rem; line-height: 1.4; }
 
 #schedulingToolDateLabel { margin-right: 0.88889rem; }
+
+.presentationEntry { width: 100%; height: 2.77778rem; clear: both; display: inline-block; }
+
+#presentationEntryContainer { display: table; }

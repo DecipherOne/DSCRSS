@@ -37,11 +37,12 @@
   background-color:#d7b064a8 !important;
 }
 
-.eventMarkerLabel, .controlLabel
+.eventMarkerLabel
 {
   position:absolute;
   transform: translate(PixelToRem(-14), PixelToRem(-10));
 }
+
 
 .fc-left{
   margin-left:PixelToRem(20);
@@ -54,34 +55,53 @@
 }
 
 .schedulingToolSelect{
-  min-width:PixelToRem(150);
+  min-width:PixelToRem(75);
   height:PixelToRem(42);
   font-size:PixelToRem(16);
 }
 
 .deletePresentationEntry
 {
-  border: solid PixelToRem(15) red;
-  border-radius:PixelToRem(15);
+  border: solid PixelToRem(10) red;
+  border-radius:PixelToRem(10);
   display:inline-block;
   cursor:pointer;
+  color:#000000;
+  margin:PixelToRem(5);
+  margin-top:PixelToRem(10);
+  .controlLabel {
+    position: absolute;
+    transform: translate(PixelToRem(-3),PixelToRem(-12));
+  }
 }
 
 .modifyPresentationEntry
 {
-  border: solid PixelToRem(15) yellow;
-  border-radius:PixelToRem(15);
+  border: solid PixelToRem(10) yellow;
+  border-radius:PixelToRem(10);
+  margin:PixelToRem(5);
+  margin-top:PixelToRem(10);
   display:inline-block;
   cursor:pointer;
+  color:#000000;
+  .controlLabel {
+    position: absolute;
+    transform: translate(PixelToRem(-6),PixelToRem(-8));
+  }
 }
 
 .addPresentationEntry
 {
-  border: solid PixelToRem(15) green;
-  border-radius:PixelToRem(15);
+  border: solid PixelToRem(10) green;
+  border-radius:PixelToRem(10);
+  margin:PixelToRem(5);
+  margin-top:PixelToRem(10);
   display:inline-block;
   cursor:pointer;
+  color:#000000;
 }
+
+
 
 #presentationNumberSpan
 {
@@ -97,5 +117,17 @@
 #schedulingToolDateLabel
 {
   margin-right:PixelToRem(16);
+}
+
+.presentationEntry{
+  width:100%;
+  height:PixelToRem(50);
+  clear:both;
+  display:inline-block;
+
+}
+
+#presentationEntryContainer{
+  display:table;
 }
 

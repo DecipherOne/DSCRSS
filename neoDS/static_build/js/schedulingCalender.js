@@ -17,7 +17,8 @@
     currentDay = null,
     response=null,
     todaysDate=null,
-    predefinedPresentationNode=null;
+    predefinedPresentationNode=null,
+    presentationEntryContainer;
 
     $(document).ready(function() {
 
@@ -28,6 +29,7 @@
             return console.log("Error: Could not create Calendar : schedulingCalendar.js");
 
         calendar.render();
+        presentationEntryContainer = $('#presentationEntryContainer');
         CheckDatabaseForMonthlyEvents();
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
@@ -37,8 +39,14 @@
 
     function InitializePredefinedPresentationNode()
     {
-        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
-        predefinedPresentationNode = topControls;
+        var topControls = "<div class='presentationEntry'><span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
+        var selects = '<select id="schedulingToolStartTimeSelect" class="schedulingToolSelect left" ><option selected="">Start Time</option></select>';
+        selects +=  '<select id="schedulingToolEndTimeSelect" class="schedulingToolSelect left" ><option selected="">End Time</option></select>';
+        selects +=  '<select id="schedulingToolTitleSelect" class="schedulingToolSelect left" ><option selected="">Presentation Title</option></select>';
+        selects +=  '<select id="schedulingToolLocationSelect" class="schedulingToolSelect left"><option selected="">Location</option></select>';
+        selects +=  '<select id="schedulingToolPresenterSelect" class="schedulingToolSelect left"><option selected="">Presenter</option></select>';
+        predefinedPresentationNode = topControls + selects;
+        predefinedPresentationNode += "</div>";
     }
 
     function InitializeTodaysDate()
@@ -88,8 +96,8 @@
         if(dateA ==='' && dateB === '')
             return false;
 
-        var dateObjectA = new Date(dateA),
-        dateObjectB = new Date(dateB);
+        var dateObjectA = new Date(dateA + " 12:00:00"),
+        dateObjectB = new Date(dateB + " 12:00:00");
 
         return dateObjectA.getTime() >= dateObjectB.getTime();
 
@@ -163,22 +171,36 @@
 
             InitiatlizeEventMarkers(function(){
 
-
-
                 $(noEventMarkers).click(function(e){
+                    $(presentationEntryContainer).html('');
                     GetDateFromEventTokenParentPutInDateInput(e);
-
+                    GenerateDefaultPresentationNodes(9);
+                    $('.modifyPresentationEntry').hide();
                 });
 
                 $(scheduledEventMarkers).click(function(e){
+                    $(presentationEntryContainer).html('');
                     GetDateFromEventTokenParentPutInDateInput(e);
+                    $('.deletePresentationEntry').hide();
                 });
 
                 $(pastEventMarkers).click(function(e){
+                    $(presentationEntryContainer).html('');
                     GetDateFromEventTokenParentPutInDateInput(e);
+                    $('.deletePresentationEntry').hide();
+                    $('.modifyPresentationEntry').hide();
+                    $('.addPresentationEntry').hide();
                 });
             });
         });
+    }
+
+    function GenerateDefaultPresentationNodes(numberOfNodes)
+    {
+        for(var i =0; i < numberOfNodes; i++)
+        {
+            presentationEntryContainer.append(predefinedPresentationNode);
+        }
     }
 
     function GetDateFromEventTokenParentPutInDateInput(e)
