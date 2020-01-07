@@ -10,7 +10,11 @@
     noEventMarkers = null,
     pastEventMarkers = null,
     scheduledEventMarkers = null,
-    dateSelect = null;
+    dateSelect = null,
+    firstOfMonth = null,
+    currentYear = null,
+    currentMonth = null,
+    response=null ;
 
     $(document).ready(function() {
 
@@ -20,15 +24,12 @@
 
         calendar.render();
         CheckDatabaseForMonthlyEvents();
+        fullCalendarButton = document.getElementsByClassName('fc-button');
+        $(fullCalendarButton).click(function(e){
+            setTimeout(CheckDatabaseForMonthlyEvents,300);
+        });
 
-        setTimeout(function()
-        {
-            fullCalendarButton = document.getElementsByClassName('fc-button');
-            $(fullCalendarButton).click(function(e){
-                setTimeout(CheckDatabaseForMonthlyEvents,1000);
-            });
 
-        },1000);
     });
 
     function InitiatlizeEventMarkers(callback)
@@ -48,25 +49,28 @@
         calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'dayGrid'],
+            showNonCurrentDates:false
         });
     }
+
+    function RetrievePresentationsFromDataStore()
+    {
+        firstOfMonth = $("span").filter(function() { return ($(this).text() === '1') });
+        firstOfMonth = $(firstOfMonth).parent().attr("data-date");
+        currentYear = firstOfMonth.substring(0,4);
+        currentMonth = firstOfMonth.substring(5,7);
+        return response = GetMonthlySchedule(currentMonth,currentYear);
+    }
+
     function CheckDatabaseForMonthlyEvents()
     {
-        var todaysDate = $('.fc-today').attr("data-date"),
-            currentYear = todaysDate.substring(0,4),
-            currentMonth = todaysDate.substring(5,7),
-            response = null;
-
-        response = GetMonthlySchedule(currentMonth,currentYear);
-
-
-        console.log(response);
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
 
-        //TODO: Retrieve array of current presentations of the current month and current year being viewed
-        // on the calendar.
+        var presentations = RetrievePresentationsFromDataStore();
+
         //Loop through the presentations and compare the day.
+        //for (var presentation in presentations)
         for (var c = 0; c <= dayNumberSpans.length; c++)
         {
            if(false) //look for comparison
@@ -190,7 +194,6 @@
             contentType: 'application/json; charset=utf-8'
         })
         .done(function( msg ) {
-            alert( "response: " + msg);
             return msg;
         });
     }
