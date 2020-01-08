@@ -16,7 +16,7 @@
 
 .fc-right { margin-right: PixelToRem(20); margin-top: PixelToRem(10); }
 
-.schedulingToolSelect { min-width: PixelToRem(75); height: PixelToRem(42); font-size: PixelToRem(16); }
+.schedulingToolSelect { min-width: PixelToRem(75); height: PixelToRem(42); font-size: PixelToRem(16); margin-right: PixelToRem(2); }
 
 .deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
@@ -32,6 +32,6 @@
 
 #schedulingToolDateLabel { margin-right: PixelToRem(16); }
 
-.presentationEntry { width: 100%; height: PixelToRem(50); clear: both; display: inline-block; }
+div[class^="presentationEntry"] { width: 100%; height: PixelToRem(50); clear: both; display: inline-block; }
 
 #presentationEntryContainer { display: table; }

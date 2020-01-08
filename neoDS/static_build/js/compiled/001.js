@@ -42,14 +42,13 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function InitializePredefinedPresentationNode()
     {
-        var topControls = "<div class='presentationEntry'><span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
+        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
         var selects = '<select id="schedulingToolStartTimeSelect" class="schedulingToolSelect left" ><option selected="">Start Time</option></select>';
         selects +=  '<select id="schedulingToolEndTimeSelect" class="schedulingToolSelect left" ><option selected="">End Time</option></select>';
         selects +=  '<select id="schedulingToolTitleSelect" class="schedulingToolSelect left" ><option selected="">Presentation Title</option></select>';
         selects +=  '<select id="schedulingToolLocationSelect" class="schedulingToolSelect left"><option selected="">Location</option></select>';
         selects +=  '<select id="schedulingToolPresenterSelect" class="schedulingToolSelect left"><option selected="">Presenter</option></select>';
         predefinedPresentationNode = topControls + selects;
-        predefinedPresentationNode += "</div>";
     }
 
     function InitializeTodaysDate()
@@ -202,7 +201,7 @@ jQuery.expr[':'].parents = function(a,i,m){
     {
         for(var i =0; i < numberOfNodes; i++)
         {
-            presentationEntryContainer.append(predefinedPresentationNode);
+            presentationEntryContainer.append("<div class='presentationEntry" + i +"'>"+predefinedPresentationNode + "</div>");
         }
     }
 

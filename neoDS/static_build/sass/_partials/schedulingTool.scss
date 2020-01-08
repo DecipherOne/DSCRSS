@@ -58,6 +58,7 @@
   min-width:PixelToRem(75);
   height:PixelToRem(42);
   font-size:PixelToRem(16);
+  margin-right:PixelToRem(2);
 }
 
 .deletePresentationEntry
@@ -119,7 +120,7 @@
   margin-right:PixelToRem(16);
 }
 
-.presentationEntry{
+div[class^="presentationEntry"]{
   width:100%;
   height:PixelToRem(50);
   clear:both;
