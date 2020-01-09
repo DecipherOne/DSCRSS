@@ -37,3 +37,5 @@ div[class^="presentationEntry"] { width: 100%; height: PixelToRem(50); clear: bo
 #presentationEntryContainer { display: table; }
 
 button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToRem(22.5); margin: PixelToRem(8); border: solid PixelToRem(1) black; border-radius: PixelToRem(3); cursor: pointer; }
+
+#schedulingToolDateSelect { max-width: PixelToRem(320); font-size: PixelToRem(20); }

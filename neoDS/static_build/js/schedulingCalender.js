@@ -71,7 +71,7 @@
         var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
         var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option selected="">Start Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option selected="">End Time</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option selected="">Presentation Title</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option selected="">Title</option></select>';
         selects +=  '<select  class="schedulingToolSelect left locationSelect"><option selected="">Location</option></select>';
         selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option selected="">Presenter</option></select>';
         selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option selected="">Screen Location</option></select>';
@@ -151,11 +151,91 @@
     {
         RetrieveScheduleTablesFromDataStore(function(response){
             var presentationEntryLines = $('div [class^="presentationEntry"]');
-            PopulatePresentationEntrySelects(presentationEntryLines,response)
+            PopulatePresentationEntrySelects(presentationEntryLines,response,function(){
+                PrepopulateDefaultDailySchedule(presentationEntryLines);
+            });
         });
     }
 
-    function PopulatePresentationEntrySelects(entries,response)
+    function PrepopulateDefaultDailySchedule(entries)
+    {
+        for(var c=0; c < entries.length; c++)
+        {
+            switch(c)
+            {
+                case 0:{
+                    $(entries[c]).children(".startTimeSelect").val("9:30");
+                    $(entries[c]).children(".endTimeSelect").val("10:00");
+                    $(entries[c]).children(".titleSelect").val(39);
+                    $(entries[c]).children(".locationSelect").val(16);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 1:{
+                    $(entries[c]).children(".startTimeSelect").val("10:30");
+                    $(entries[c]).children(".endTimeSelect").val("11:00");
+                    $(entries[c]).children(".titleSelect").val(22);
+                    $(entries[c]).children(".locationSelect").val(3);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 2:{
+                    $(entries[c]).children(".startTimeSelect").val("12:00");
+                    $(entries[c]).children(".endTimeSelect").val("13:00");
+                    $(entries[c]).children(".titleSelect").val(47);
+                    $(entries[c]).children(".locationSelect").val(15);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 3:{
+                    $(entries[c]).children(".startTimeSelect").val("13:30");
+                    $(entries[c]).children(".endTimeSelect").val("14:00");
+                    $(entries[c]).children(".titleSelect").val(4);
+                    $(entries[c]).children(".locationSelect").val(15);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 4:{
+                    $(entries[c]).children(".startTimeSelect").val("14:00");
+                    $(entries[c]).children(".endTimeSelect").val("14:30");
+                    $(entries[c]).children(".titleSelect").val(36);
+                    $(entries[c]).children(".locationSelect").val(15);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 5:{
+                    $(entries[c]).children(".startTimeSelect").val("14:30");
+                    $(entries[c]).children(".endTimeSelect").val("15:00");
+                    $(entries[c]).children(".titleSelect").val(5);
+                    $(entries[c]).children(".locationSelect").val(10);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 6:{
+                    $(entries[c]).children(".startTimeSelect").val("15:30");
+                    $(entries[c]).children(".endTimeSelect").val("16:00");
+                    $(entries[c]).children(".titleSelect").val(18);
+                    $(entries[c]).children(".locationSelect").val(10);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                case 7:{
+                    $(entries[c]).children(".startTimeSelect").val("17:00");
+                    $(entries[c]).children(".endTimeSelect").val("17:30");
+                    $(entries[c]).children(".titleSelect").val(33);
+                    $(entries[c]).children(".locationSelect").val(13);
+                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    break;
+                }
+                default:{
+                    break;
+                }
+            }
+
+        }
+    }
+
+    function PopulatePresentationEntrySelects(entries,response,callback)
     {
         for(var c=0; c < entries.length; c++)
         {
@@ -204,6 +284,8 @@
                 }));
             }
         }
+
+        return callback();
     }
 
     function CheckDatabaseForMonthlyEvents()

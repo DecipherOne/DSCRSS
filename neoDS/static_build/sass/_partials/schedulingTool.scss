@@ -169,4 +169,7 @@ button[class^="submitEventLineButton"]{
 }
 
 
-
+#schedulingToolDateSelect{
+  max-width:PixelToRem(320);
+  font-size:PixelToRem(20);
+}
