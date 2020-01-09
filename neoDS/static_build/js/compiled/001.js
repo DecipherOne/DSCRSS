@@ -105,7 +105,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         });
     }
 
-    function DateAGreaterThanDateB(dateA, dateB)
+    function ScheduledDateHasPassed(dateA, dateB)
     {
         if(dateA ==='' && dateB === '')
             return false;
@@ -113,9 +113,16 @@ jQuery.expr[':'].parents = function(a,i,m){
         var dateObjectA = new Date(dateA + " 12:00:00"),
         dateObjectB = new Date(dateB + " 12:00:00");
 
-        return dateObjectA.getTime() >= dateObjectB.getTime();
+        dateObjectA = dateObjectA.getTime();
+        dateObjectB = dateObjectB.getTime();
+
+        if(dateObjectB > dateObjectA)
+            return false;
+
+        return true;
 
     }
+
 
     function GetScheduleLabelsAndPopulateSelects()
     {
@@ -134,8 +141,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         RetrievePresentationsFromDataStore(function(presentationsQueryResponse ){
 
             var comparisonDateString = null,
-                currentlyScheduledEvent = null,
-                previousEvent = null,
+                previouslyScheduledEvent = null,
                 selectedDayString = null;
 
             for (var c = 0; c <= dayNumberSpans.length; c++)
@@ -147,7 +153,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                     {
                         comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
                             selectedDayString = $(dayNumberSpans[c]).html();
-                        currentlyScheduledEvent =  DateAGreaterThanDateB(presentationsQueryResponse[i]['scheduledDate'],comparisonDateString);
+                        previouslyScheduledEvent =  ScheduledDateHasPassed(presentationsQueryResponse[i]['scheduledDate'],comparisonDateString);
 
                         var scheduleDaySubstring = presentationsQueryResponse[i]['scheduledDate'].substring(8,10),
                             firstSubCharacter = scheduleDaySubstring[0];
@@ -155,16 +161,16 @@ jQuery.expr[':'].parents = function(a,i,m){
                         if(firstSubCharacter === "0")
                             scheduleDaySubstring = scheduleDaySubstring[1];
 
-                        if(currentDay !== selectedDayString &&
-                            scheduleDaySubstring === selectedDayString) //the day has a scheduled event that has passed.
+                        if(parseInt(currentDay) <= parseInt(scheduleDaySubstring) &&
+                            scheduleDaySubstring === selectedDayString) //look for comparison
                         {
-                            nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                            nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
                             foundMatch = true;
                         }
-                        else if(currentDay === selectedDayString && currentlyScheduledEvent) //look for comparison
+                        else if(previouslyScheduledEvent && scheduleDaySubstring === selectedDayString) //the day has a scheduled event that has passed.
                         {
-                            nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
+                            nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
                             foundMatch = true;
                         }
@@ -340,7 +346,6 @@ jQuery.expr[':'].parents = function(a,i,m){
             contentType: 'application/json; charset=utf-8'
         })
             .done(function( msg ) {
-                console.log(msg);
                 return callback(msg);
             });
     }
