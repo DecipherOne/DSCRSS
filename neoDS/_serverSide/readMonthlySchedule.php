@@ -16,7 +16,7 @@ switch($method) {
 
     $query = $year."-".$month."%";
 
-    $monthsPresentations = $db->SelectFromDatabase(" * "," scheduledPresentation ","",
+    $monthsPresentations = $db->SelectFromDatabase(" * "," scheduledPresentation ",
         " scheduledDate LIKE '".$query."'");
 
     $response = $monthsPresentations;

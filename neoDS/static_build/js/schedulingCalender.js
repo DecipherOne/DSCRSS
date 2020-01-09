@@ -96,7 +96,10 @@
 
     function RetrieveScheduleTablesFromDataStore(callback)
     {
-        scheduleTablesQueryResponse = GetScheduleTables();
+        scheduleTablesQueryResponse = GetScheduleTables(function()
+        {
+            return callback();
+        });
     }
 
     function DateAGreaterThanDateB(dateA, dateB)
@@ -125,7 +128,7 @@
 
 
 
-        RetrievePresentationsFromDataStore(function(response){
+        RetrievePresentationsFromDataStore(function(presentationsQueryResponse ){
 
             var comparisonDateString = null,
                 currentlyScheduledEvent = null,
@@ -134,16 +137,16 @@
 
             for (var c = 0; c <= dayNumberSpans.length; c++)
             {
-                if(response.length >= 1)
+                if(presentationsQueryResponse.length >= 1)
                 {
                     var foundMatch = false;
-                    for(var i=0; i < response.length; i++)
+                    for(var i=0; i < presentationsQueryResponse.length; i++)
                     {
                         comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
                             selectedDayString = $(dayNumberSpans[c]).html();
-                        currentlyScheduledEvent =  DateAGreaterThanDateB(response[i]['scheduledDate'],comparisonDateString);
+                        currentlyScheduledEvent =  DateAGreaterThanDateB(presentationsQueryResponse[i]['scheduledDate'],comparisonDateString);
 
-                        var scheduleDaySubstring = response[i]['scheduledDate'].substring(8,10),
+                        var scheduleDaySubstring = presentationsQueryResponse[i]['scheduledDate'].substring(8,10),
                             firstSubCharacter = scheduleDaySubstring[0];
 
                         if(firstSubCharacter === "0")
@@ -321,7 +324,7 @@
         });
     }
 
-    function GetScheduleTables()
+    function GetScheduleTables(callback)
     {
         var payload = { "t":"t"};
         payload = JSON.stringify(payload);
