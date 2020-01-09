@@ -20,10 +20,12 @@
     todaysDate = null,
     predefinedPresentationNode = null,
     presentationEntryContainer = null,
-    presentationNumberSpan = null;
+    presentationNumberSpan = null,
+    formTimeValues=[];
 
     $(document).ready(function() {
 
+        InitializeFormTimeValues();
         InitializePredefinedPresentationNode();
         InitializeTodaysDate();
         InitializeCalendar();
@@ -39,6 +41,30 @@
             CheckDatabaseForMonthlyEvents(e);
         });
     });
+
+    function InitializeFormTimeValues()
+    {
+        formTimeValues = ["6:00","6:15","6:30","6:45",
+            "7:00","7:15","7:30","7:45",
+            "8:00","8:15","8:30","8:45",
+            "9:00","9:15","9:30","9:45",
+            "10:00","10:15","10:30","10:45",
+            "11:00","11:15","11:30","11:45",
+            "12:00","12:15","12:30","12:45",
+            "13:00","13:15","13:30","13:45",
+            "14:00","14:15","14:30","14:45",
+            "15:00","15:15","15:30","15:45",
+            "16:00","16:15","16:30","16:45",
+            "17:00","17:15","17:30","17:45",
+            "18:00","18:15","18:30","18:45",
+            "19:00","19:15","19:30","19:45",
+            "20:00","20:15","20:30","20:45",
+            "21:00","21:15","21:30","21:45",
+            "22:00","22:15","22:30","22:45",
+            "23:00","23:15","23:30","23:45"];
+
+        console.log("time Values : " + formTimeValues);
+    }
 
     function InitializePredefinedPresentationNode()
     {
@@ -96,9 +122,9 @@
 
     function RetrieveScheduleTablesFromDataStore(callback)
     {
-        scheduleTablesQueryResponse = GetScheduleTables(function()
+        scheduleTablesQueryResponse = GetScheduleTables(function(response)
         {
-            return callback();
+            return callback(response);
         });
     }
 
@@ -123,9 +149,39 @@
 
     function GetScheduleLabelsAndPopulateSelects()
     {
-        RetrieveScheduleTablesFromDataStore(function(){
-
+        RetrieveScheduleTablesFromDataStore(function(response){
+            var presentationEntryLines = $('div [class^="presentationEntry"]');
+            PopulatePresentationEntrySelects(presentationEntryLines,response)
         });
+    }
+
+    function PopulatePresentationEntrySelects(entries,response)
+    {
+        for(var c=0; c < entries.length; c++)
+        {
+            for(var d=0; d < formTimeValues.length; d++)
+            {
+                $(entries[c]).children(".startTimeSelect").append($('<option>', {
+                    value: formTimeValues[d],
+                    text: formTimeValues[d]
+                }));
+
+                $(entries[c]).children(".endTimeSelect").append($('<option>', {
+                    value: formTimeValues[d],
+                    text: formTimeValues[d]
+                }));
+            }
+
+            for(var d=0; d < response['tables']['presentationTitles'].length; d++)
+            {
+                $(entries[c]).children(".titleSelect").append($('<option>', {
+                    value:response['tables']['presentationTitles'][d]['index'],
+                    text: response['tables']['presentationTitles'][d]['title']
+                }));
+            }
+
+        }
+
     }
 
     function CheckDatabaseForMonthlyEvents()
@@ -201,10 +257,18 @@
                     $(presentationEntryContainer).html('');
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    GenerateDefaultPresentationNodes(9);
-                    GetScheduleLabelsAndPopulateSelects();
-                    UpdateDailyPresentationNumber(9);
-                    $('.modifyPresentationEntry').hide();
+                    GenerateDefaultPresentationNodes(9,function(){
+                        GetScheduleLabelsAndPopulateSelects();
+                        UpdateDailyPresentationNumber(9);
+                        $('.modifyPresentationEntry').hide();
+
+                        $('button[class^="submitEventLineButton"]').click(function(e){
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+
+                        });
+                    });
+
                 });
 
                 $(scheduledEventMarkers).click(function(e){
@@ -226,12 +290,17 @@
         });
     }
 
-    function GenerateDefaultPresentationNodes(numberOfNodes)
+    function GenerateDefaultPresentationNodes(numberOfNodes, callback)
     {
+
         for(var i =0; i < numberOfNodes; i++)
         {
-            presentationEntryContainer.append("<div class='presentationEntry" + i +"'>"+predefinedPresentationNode + "</div>");
+            var submitEventLineButton = "<button class='submitEventLineButton" + i + "' >Submit</button>";
+            presentationEntryContainer.append("<div class='presentationEntry" + i +"'>"+predefinedPresentationNode +
+                submitEventLineButton + "</div>");
         }
+
+        return callback();
     }
 
     function GetDateFromEventTokenParentPutInDateInput(e)

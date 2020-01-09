@@ -56,8 +56,9 @@
 
 .schedulingToolSelect{
   min-width:PixelToRem(75);
+  max-width:PixelToRem(135);
   height:PixelToRem(42);
-  font-size:PixelToRem(16);
+  font-size:PixelToRem(14);
   margin-right:PixelToRem(2);
 }
 
@@ -156,6 +157,15 @@ div[class^="presentationEntry"]{
 
 .deploymentLocationSelect{
 
+}
+
+button[class^="submitEventLineButton"]{
+  width:PixelToRem(75);
+  height:PixelToRem(22.5);
+  margin:PixelToRem(8);
+  border: solid PixelToRem(1) black;
+  border-radius: PixelToRem(3);
+  cursor: pointer;
 }
 
 
