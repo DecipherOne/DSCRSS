@@ -183,8 +183,30 @@ jQuery.expr[':'].parents = function(a,i,m){
                 }));
             }
 
-        }
+            for(var d=0; d < response['tables']['presentationLocation'].length; d++)
+            {
+                $(entries[c]).children(".locationSelect").append($('<option>', {
+                    value:response['tables']['presentationLocation'][d]['index'],
+                    text: response['tables']['presentationLocation'][d]['locationName']
+                }));
+            }
 
+            for(var d=0; d < response['tables']['presenters'].length; d++)
+            {
+                $(entries[c]).children(".presenterSelect").append($('<option>', {
+                    value:response['tables']['presenters'][d]['index'],
+                    text: response['tables']['presenters'][d]['Name']
+                }));
+            }
+
+            for(var d=0; d < response['tables']['deploymentLocations'].length; d++)
+            {
+                $(entries[c]).children(".deploymentLocationSelect").append($('<option>', {
+                    value:response['tables']['deploymentLocations'][d]['index'],
+                    text: response['tables']['deploymentLocations'][d]['deploymentLocation']
+                }));
+            }
+        }
     }
 
     function CheckDatabaseForMonthlyEvents()

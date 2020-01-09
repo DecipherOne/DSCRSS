@@ -479,7 +479,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-right { margin-right: 1.11111rem; margin-top: 0.55556rem; }
 
-.schedulingToolSelect { min-width: 4.16667rem; max-width: 7.5rem; height: 2.33333rem; font-size: 0.77778rem; margin-right: 0.11111rem; }
+.schedulingToolSelect { min-width: 4.16667rem; max-width: 5.55556rem; height: 2.33333rem; font-size: 0.66667rem; margin-right: 0.11111rem; }
 
 .deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
