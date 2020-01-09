@@ -49,7 +49,7 @@ class DataStoreManager
     return $this->_pdo;
   }
 
-  public function SelectFromDatabase($targetColumns='', $targetTabel='', $targetOrder = '', $limit='')
+  public function SelectFromDatabase($targetColumns='', $targetTabel='', $where='', $targetOrder = '', $limit='')
   {
     if(!$this->_isInitialized)
     {
@@ -57,7 +57,7 @@ class DataStoreManager
       return;
     }
 
-    $selectQuery = $this->ConstructSelectQueryStructure($targetColumns, $targetTabel, $targetOrder, $limit);
+    $selectQuery = $this->ConstructSelectQueryStructure($targetColumns, $targetTabel, $where, $targetOrder, $limit);
 
     //echo $selectQuery;
     try{
@@ -75,7 +75,7 @@ class DataStoreManager
         $results[] = $r;
       }
     else
-      echo '{"errorMessage":" No Results Matched"}';
+      echo '{errorMessage: "No Results Matched"}';
 
     return $results;
   }

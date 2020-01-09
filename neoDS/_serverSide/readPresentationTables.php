@@ -11,15 +11,20 @@ $requestPayload = json_decode(file_get_contents('php://input'),true);
 switch($method) {
   case "POST":
   {
-    $month = $requestPayload['month'];
-    $year = $requestPayload['year'];
+    $presenters = $db->SelectFromDatabase(" * "," Presenters ",''," Name ASC ");
 
-    $query = $year."-".$month."%";
+    $deploymentLocations = $db->SelectFromDatabase(" * "," scheduleDeploymentLocation ", "",
+        " deploymentLocation ASC ");
 
-    $monthsPresentations = $db->SelectFromDatabase(" * "," scheduledPresentation ",
-        " scheduledDate LIKE '".$query."'");
+    $presentationTitles = $db->SelectFromDatabase(" * "," presentationTitles ","",
+        " title ASC ");
 
-    $response = $monthsPresentations;
+    $presentationLocation = $db->SelectFromDatabase(" * "," presentationLocations ","",
+        " locationName ASC ");
+
+
+    $response = array('tables' => array('presenters' =>$presenters, 'deploymentLocations'=>$deploymentLocations,
+      'presentationTitles'=> $presentationTitles, 'presentationLocation' => $presentationLocation));
 
     echo json_encode($response);
     break;
@@ -30,6 +35,5 @@ switch($method) {
     echo " You do not have permission to access this resource.";
   }
 }
-
 
 ?>

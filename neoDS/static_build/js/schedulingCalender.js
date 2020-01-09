@@ -15,10 +15,12 @@
     currentYear = null,
     currentMonth = null,
     currentDay = null,
-    response=null,
-    todaysDate=null,
-    predefinedPresentationNode=null,
-    presentationEntryContainer;
+    presentationsQueryResponse = null,
+    scheduleTablesQueryResponse = null,
+    todaysDate = null,
+    predefinedPresentationNode = null,
+    presentationEntryContainer = null,
+    presentationNumberSpan = null;
 
     $(document).ready(function() {
 
@@ -30,6 +32,7 @@
 
         calendar.render();
         presentationEntryContainer = $('#presentationEntryContainer');
+        presentationNumberSpan = $('#presentationNumberSpan');
         CheckDatabaseForMonthlyEvents();
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
@@ -40,11 +43,12 @@
     function InitializePredefinedPresentationNode()
     {
         var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
-        var selects = '<select id="schedulingToolStartTimeSelect" class="schedulingToolSelect left" ><option selected="">Start Time</option></select>';
-        selects +=  '<select id="schedulingToolEndTimeSelect" class="schedulingToolSelect left" ><option selected="">End Time</option></select>';
-        selects +=  '<select id="schedulingToolTitleSelect" class="schedulingToolSelect left" ><option selected="">Presentation Title</option></select>';
-        selects +=  '<select id="schedulingToolLocationSelect" class="schedulingToolSelect left"><option selected="">Location</option></select>';
-        selects +=  '<select id="schedulingToolPresenterSelect" class="schedulingToolSelect left"><option selected="">Presenter</option></select>';
+        var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option selected="">Start Time</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option selected="">End Time</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option selected="">Presentation Title</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left locationSelect"><option selected="">Location</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option selected="">Presenter</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option selected="">Screen Location</option></select>';
         predefinedPresentationNode = topControls + selects;
     }
 
@@ -85,9 +89,14 @@
         currentYear = firstOfMonth.substring(0,4);
         currentMonth = firstOfMonth.substring(5,7);
 
-        response = GetMonthlySchedule(currentMonth,currentYear,function(response){
+        presentationsQueryResponse = GetMonthlySchedule(currentMonth,currentYear,function(response){
             return callback(response);
         });
+    }
+
+    function RetrieveScheduleTablesFromDataStore(callback)
+    {
+        scheduleTablesQueryResponse = GetScheduleTables();
     }
 
     function DateAGreaterThanDateB(dateA, dateB)
@@ -102,10 +111,19 @@
 
     }
 
+    function GetScheduleLabelsAndPopulateSelects()
+    {
+        RetrieveScheduleTablesFromDataStore(function(){
+
+        });
+    }
+
     function CheckDatabaseForMonthlyEvents()
     {
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
+
+
 
         RetrievePresentationsFromDataStore(function(response){
 
@@ -172,19 +190,24 @@
 
                 $(noEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     GenerateDefaultPresentationNodes(9);
+                    GetScheduleLabelsAndPopulateSelects();
+                    UpdateDailyPresentationNumber(9);
                     $('.modifyPresentationEntry').hide();
                 });
 
                 $(scheduledEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                 });
 
                 $(pastEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                     $('.modifyPresentationEntry').hide();
@@ -296,6 +319,29 @@
         .done(function( msg ) {
             return callback(msg);
         });
+    }
+
+    function GetScheduleTables()
+    {
+        var payload = { "t":"t"};
+        payload = JSON.stringify(payload);
+        $.ajax({
+            method: "POST",
+            url: "../_serverSide/readPresentationTables.php",
+            data: payload,
+            async: true,
+            timeout:0,
+            contentType: 'application/json; charset=utf-8'
+        })
+            .done(function( msg ) {
+                console.log(msg);
+                return callback(msg);
+            });
+    }
+
+    function UpdateDailyPresentationNumber(number)
+    {
+        $(presentationNumberSpan).html(number);
     }
 
 
