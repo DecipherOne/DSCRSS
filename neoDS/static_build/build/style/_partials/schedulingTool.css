@@ -16,15 +16,17 @@
 
 .fc-right { margin-right: PixelToRem(20); margin-top: PixelToRem(10); }
 
-.schedulingToolSelect { min-width: PixelToRem(75); max-width: PixelToRem(100); height: PixelToRem(42); font-size: PixelToRem(12); margin-right: PixelToRem(2); }
+.schedulingToolSelect { min-width: PixelToRem(75); max-width: PixelToRem(280); height: PixelToRem(42); font-size: PixelToRem(12); margin-right: PixelToRem(2); }
 
-.deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
+.schedulingToolSelect:nth-of-type(4) { margin-left: PixelToRem(29.5); }
+
+.deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: table; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
 
-.modifyPresentationEntry, #editSelectionsControl { border: solid PixelToRem(10) yellow; border-radius: PixelToRem(10); margin: PixelToRem(5); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
+.modifyPresentationEntry, #editSelectionsControl { border: solid PixelToRem(10) yellow; border-radius: PixelToRem(10); margin: PixelToRem(5); margin-top: PixelToRem(10); display: table; cursor: pointer; color: #000000; }
 .modifyPresentationEntry .controlLabel, #editSelectionsControl .controlLabel { position: absolute; transform: translate(PixelToRem(-6), PixelToRem(-8)); }
 
-.addPresentationEntry, #sumbitAllPresentationsControl { border: solid PixelToRem(10) green; border-radius: PixelToRem(10); margin: PixelToRem(2); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry, #sumbitAllPresentationsControl { border: solid PixelToRem(10) green; border-radius: PixelToRem(10); margin: PixelToRem(2); margin-top: PixelToRem(10); display: table; cursor: pointer; color: #000000; }
 .addPresentationEntry .controlLabel, #sumbitAllPresentationsControl .controlLabel { position: absolute; transform: translate(PixelToRem(-6), PixelToRem(-10)); }
 
 #addEntryButton, #editSelectionsButton, #submitAllPresentationsButton { margin: PixelToRem(7); cursor: pointer; }
@@ -37,7 +39,7 @@
 
 #schedulingToolDateLabel { margin-right: PixelToRem(16); }
 
-div[class^="presentationEntry"] { width: 100%; height: PixelToRem(50); clear: both; display: inline-block; }
+div[class^="presentationEntry"] { width: 100%; min-height: PixelToRem(50); clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: PixelToRem(20); }
 
 #presentationEntryContainer { display: table; }
 

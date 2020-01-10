@@ -56,17 +56,22 @@
 
 .schedulingToolSelect{
   min-width:PixelToRem(75);
-  max-width:PixelToRem(100);
+  max-width:PixelToRem(280);
   height:PixelToRem(42);
   font-size:PixelToRem(12);
   margin-right:PixelToRem(2);
+}
+
+.schedulingToolSelect:nth-of-type(4)
+{
+  margin-left:PixelToRem(29.5);
 }
 
 .deletePresentationEntry
 {
   border: solid PixelToRem(10) red;
   border-radius:PixelToRem(10);
-  display:inline-block;
+  display:table;
   cursor:pointer;
   color:#000000;
   margin:PixelToRem(5);
@@ -83,7 +88,7 @@
   border-radius:PixelToRem(10);
   margin:PixelToRem(5);
   margin-top:PixelToRem(10);
-  display:inline-block;
+  display:table;
   cursor:pointer;
   color:#000000;
   .controlLabel {
@@ -98,7 +103,7 @@
   border-radius:PixelToRem(10);
   margin:PixelToRem(2);
   margin-top:PixelToRem(10);
-  display:inline-block;
+  display:table;
   cursor:pointer;
   color:#000000;
 
@@ -142,10 +147,13 @@
 
 div[class^="presentationEntry"]{
   width:100%;
-  height:PixelToRem(50);
+  min-height:PixelToRem(50);
   clear:both;
-  display:inline-block;
-
+  display:inline-flex;
+  flex-wrap:wrap;
+  flex-direction: row;
+  justify-content: initial;
+  margin-bottom:PixelToRem(20);
 }
 
 #presentationEntryContainer{

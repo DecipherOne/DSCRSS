@@ -479,15 +479,17 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-right { margin-right: 1.11111rem; margin-top: 0.55556rem; }
 
-.schedulingToolSelect { min-width: 4.16667rem; max-width: 5.55556rem; height: 2.33333rem; font-size: 0.66667rem; margin-right: 0.11111rem; }
+.schedulingToolSelect { min-width: 4.16667rem; max-width: 15.55556rem; height: 2.33333rem; font-size: 0.66667rem; margin-right: 0.11111rem; }
 
-.deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
+.schedulingToolSelect:nth-of-type(4) { margin-left: 1.63889rem; }
+
+.deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: table; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
 
-.modifyPresentationEntry, #editSelectionsControl { border: solid 0.55556rem yellow; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.modifyPresentationEntry, #editSelectionsControl { border: solid 0.55556rem yellow; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: table; cursor: pointer; color: #000000; }
 .modifyPresentationEntry .controlLabel, #editSelectionsControl .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.44444rem); }
 
-.addPresentationEntry, #sumbitAllPresentationsControl { border: solid 0.55556rem green; border-radius: 0.55556rem; margin: 0.11111rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry, #sumbitAllPresentationsControl { border: solid 0.55556rem green; border-radius: 0.55556rem; margin: 0.11111rem; margin-top: 0.55556rem; display: table; cursor: pointer; color: #000000; }
 .addPresentationEntry .controlLabel, #sumbitAllPresentationsControl .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.55556rem); }
 
 #addEntryButton, #editSelectionsButton, #submitAllPresentationsButton { margin: 0.38889rem; cursor: pointer; }
@@ -500,7 +502,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #schedulingToolDateLabel { margin-right: 0.88889rem; }
 
-div[class^="presentationEntry"] { width: 100%; height: 2.77778rem; clear: both; display: inline-block; }
+div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: 1.11111rem; }
 
 #presentationEntryContainer { display: table; }
 
