@@ -21,10 +21,15 @@
 .deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
 
-.modifyPresentationEntry { border: solid PixelToRem(10) yellow; border-radius: PixelToRem(10); margin: PixelToRem(5); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
-.modifyPresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-6), PixelToRem(-8)); }
+.modifyPresentationEntry, #editSelectionsControl { border: solid PixelToRem(10) yellow; border-radius: PixelToRem(10); margin: PixelToRem(5); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
+.modifyPresentationEntry .controlLabel, #editSelectionsControl .controlLabel { position: absolute; transform: translate(PixelToRem(-6), PixelToRem(-8)); }
 
-.addPresentationEntry { border: solid PixelToRem(10) green; border-radius: PixelToRem(10); margin: PixelToRem(5); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry, #sumbitAllPresentationsControl { border: solid PixelToRem(10) green; border-radius: PixelToRem(10); margin: PixelToRem(2); margin-top: PixelToRem(10); display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry .controlLabel, #sumbitAllPresentationsControl .controlLabel { position: absolute; transform: translate(PixelToRem(-6), PixelToRem(-10)); }
+
+#addEntryButton, #editSelectionsButton, #submitAllPresentationsButton { margin: PixelToRem(7); cursor: pointer; }
+
+#addEntryLabel { margin: PixelToRem(8); cursor: pointer; color: #8c8b8d; position: absolute; bottom: PixelToRem(1.5); left: PixelToRem(20); }
 
 #presentationNumberSpan { padding: PixelToRem(8); }
 
@@ -39,3 +44,7 @@ div[class^="presentationEntry"] { width: 100%; height: PixelToRem(50); clear: bo
 button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToRem(22.5); margin: PixelToRem(8); border: solid PixelToRem(1) black; border-radius: PixelToRem(3); cursor: pointer; }
 
 #schedulingToolDateSelect { max-width: PixelToRem(320); font-size: PixelToRem(20); }
+
+#toolBar { height: PixelToRem(40); width: 80%; background-color: #202029; margin-top: PixelToRem(20); }
+
+.toolbarSlot { border-right: solid PixelToRem(1) #4a4949; }

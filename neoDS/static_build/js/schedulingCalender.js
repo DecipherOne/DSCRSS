@@ -363,7 +363,7 @@
                     GetDateFromEventTokenParentPutInDateInput(e);
                     GenerateDefaultPresentationNodes(9,function(){
                         GetScheduleLabelsAndPopulateSelects();
-                        UpdateDailyPresentationNumber(9);
+
                         $('.modifyPresentationEntry').hide();
 
                         $('button[class^="submitEventLineButton"]').click(function(e){
@@ -371,6 +371,8 @@
                             e.stopImmediatePropagation();
 
                         });
+
+                        $('#toolBar').removeClass('hidden');
                     });
 
                 });
@@ -380,6 +382,7 @@
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
+                    $('#toolBar').removeClass('hidden');
                 });
 
                 $(pastEventMarkers).click(function(e){
@@ -388,7 +391,7 @@
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                     $('.modifyPresentationEntry').hide();
-                    $('.addPresentationEntry').hide();
+                    $('#toolBar').addClass('hidden');
                 });
             });
         });

@@ -366,7 +366,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                     GetDateFromEventTokenParentPutInDateInput(e);
                     GenerateDefaultPresentationNodes(9,function(){
                         GetScheduleLabelsAndPopulateSelects();
-                        UpdateDailyPresentationNumber(9);
+
                         $('.modifyPresentationEntry').hide();
 
                         $('button[class^="submitEventLineButton"]').click(function(e){
@@ -374,6 +374,8 @@ jQuery.expr[':'].parents = function(a,i,m){
                             e.stopImmediatePropagation();
 
                         });
+
+                        $('#toolBar').removeClass('hidden');
                     });
 
                 });
@@ -383,6 +385,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
+                    $('#toolBar').removeClass('hidden');
                 });
 
                 $(pastEventMarkers).click(function(e){
@@ -391,7 +394,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                     $('.modifyPresentationEntry').hide();
-                    $('.addPresentationEntry').hide();
+                    $('#toolBar').addClass('hidden');
                 });
             });
         });

@@ -484,10 +484,15 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 .deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
 
-.modifyPresentationEntry { border: solid 0.55556rem yellow; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
-.modifyPresentationEntry .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.44444rem); }
+.modifyPresentationEntry, #editSelectionsControl { border: solid 0.55556rem yellow; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.modifyPresentationEntry .controlLabel, #editSelectionsControl .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.44444rem); }
 
-.addPresentationEntry { border: solid 0.55556rem green; border-radius: 0.55556rem; margin: 0.27778rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry, #sumbitAllPresentationsControl { border: solid 0.55556rem green; border-radius: 0.55556rem; margin: 0.11111rem; margin-top: 0.55556rem; display: inline-block; cursor: pointer; color: #000000; }
+.addPresentationEntry .controlLabel, #sumbitAllPresentationsControl .controlLabel { position: absolute; transform: translate(-0.33333rem, -0.55556rem); }
+
+#addEntryButton, #editSelectionsButton, #submitAllPresentationsButton { margin: 0.38889rem; cursor: pointer; }
+
+#addEntryLabel { margin: 0.44444rem; cursor: pointer; color: #8c8b8d; position: absolute; bottom: 0.08333rem; left: 1.11111rem; }
 
 #presentationNumberSpan { padding: 0.44444rem; }
 
@@ -502,3 +507,7 @@ div[class^="presentationEntry"] { width: 100%; height: 2.77778rem; clear: both; 
 button[class^="submitEventLineButton"] { width: 4.16667rem; height: 1.25rem; margin: 0.44444rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 
 #schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
+
+#toolBar { height: 2.22222rem; width: 80%; background-color: #202029; margin-top: 1.11111rem; }
+
+.toolbarSlot { border-right: solid 0.05556rem #4a4949; }

@@ -32,9 +32,33 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         </fieldset>
         <fieldset id="scheduledPresentationsFieldSet">
             <div id="presentationEntryContainer">
+            </div>
+        </fieldset>
+        <fieldset id="scheduledToolBottomFieldSet">
+            <div id="toolBar" class="relativelyCentered hidden">
+                <div class="toolbarSlot addEntry left">
+                    <span id="addEntryControl" class="addPresentationEntry left">
+                        <span class="controlLabel">+</span>
+                    </span>
+                    <button id="addEntryButton">Add Presentation</button>
+                </div>
+                <div class="toolbarSlot editSelections left">
+                    <span id="editSelectionsControl" class=" left">
+                        <span class="controlLabel">Y</span>
+                    </span>
+                    <button id="editSelectionsButton">Edit Selections</button>
+                </div>
+                <div class="toolbarSlot submitAllPresentations left">
+                    <span id="sumbitAllPresentationsControl" class=" left">
+                        <span class="controlLabel">S</span>
+                    </span>
+                    <button id="submitAllPresentationsButton">Submit All</button>
+                </div>
+
 
             </div>
         </fieldset>
+
       </form>
   </div>
 </div>

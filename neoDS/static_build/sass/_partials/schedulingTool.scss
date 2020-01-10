@@ -77,7 +77,7 @@
   }
 }
 
-.modifyPresentationEntry
+.modifyPresentationEntry, #editSelectionsControl
 {
   border: solid PixelToRem(10) yellow;
   border-radius:PixelToRem(10);
@@ -92,15 +92,34 @@
   }
 }
 
-.addPresentationEntry
+.addPresentationEntry, #sumbitAllPresentationsControl
 {
   border: solid PixelToRem(10) green;
   border-radius:PixelToRem(10);
-  margin:PixelToRem(5);
+  margin:PixelToRem(2);
   margin-top:PixelToRem(10);
   display:inline-block;
   cursor:pointer;
   color:#000000;
+
+  .controlLabel {
+    position: absolute;
+    transform: translate(PixelToRem(-6),PixelToRem(-10));
+  }
+}
+
+#addEntryButton, #editSelectionsButton, #submitAllPresentationsButton{
+  margin:PixelToRem(7);
+  cursor:pointer;
+}
+
+#addEntryLabel{
+  margin:PixelToRem(8);
+  cursor: pointer;
+  color: #8c8b8d;
+  position:absolute;
+  bottom:PixelToRem(1.5);
+  left:PixelToRem(20);
 }
 
 
@@ -172,4 +191,21 @@ button[class^="submitEventLineButton"]{
 #schedulingToolDateSelect{
   max-width:PixelToRem(320);
   font-size:PixelToRem(20);
+}
+
+#schedulingToolBottomFieldSet
+{
+
+}
+
+#toolBar
+{
+  height:PixelToRem(40);
+  width:80%;
+  background-color: #202029;
+  margin-top:PixelToRem(20);
+}
+
+.toolbarSlot{
+  border-right: solid PixelToRem(1) #4a4949
 }
