@@ -494,7 +494,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #addEntryButton, #editSelectionsButton, #submitAllPresentationsButton { margin: 0.38889rem; cursor: pointer; }
 
-#addEntryLabel { margin: 0.44444rem; cursor: pointer; color: #8c8b8d; position: absolute; bottom: 0.08333rem; left: 1.11111rem; }
+#addEntryLabel { margin: 0.44444rem; color: #8c8b8d; position: absolute; bottom: 0.08333rem; left: 1.11111rem; }
+
+.addEntry, .editSelections, .submitAllPresentations { cursor: pointer; display: block; }
 
 #presentationNumberSpan { padding: 0.44444rem; }
 
@@ -506,7 +508,7 @@ div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: bo
 
 #presentationEntryContainer { display: table; }
 
-button[class^="submitEventLineButton"] { width: 4.16667rem; height: 1.25rem; margin: 0.44444rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
+button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 
 #schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
 

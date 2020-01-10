@@ -62,8 +62,6 @@
             "21:00","21:15","21:30","21:45",
             "22:00","22:15","22:30","22:45",
             "23:00","23:15","23:30","23:45"];
-
-        console.log("time Values : " + formTimeValues);
     }
 
     function InitializePredefinedPresentationNode()
@@ -361,17 +359,9 @@
                     $(presentationEntryContainer).html('');
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    GenerateDefaultPresentationNodes(9,function(){
+                    GenerateDefaultPresentationNodes(8,function(){
                         GetScheduleLabelsAndPopulateSelects();
-
                         $('.modifyPresentationEntry').hide();
-
-                        $('button[class^="submitEventLineButton"]').click(function(e){
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
-
-                        });
-
                         $('#toolBar').removeClass('hidden');
                     });
 
@@ -393,7 +383,62 @@
                     $('.modifyPresentationEntry').hide();
                     $('#toolBar').addClass('hidden');
                 });
+
+                setTimeout( AddControlClickEventHandlers,1000);
             });
+        });
+    }
+
+    function AddControlClickEventHandlers()
+    {
+        $('.deletePresentationEntry').click(function(){
+            $(this).parent().remove();
+        });
+
+        $('.modifyPresentationEntry').click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        });
+
+        $(".addEntry").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $("#addEntryButton").trigger("click");
+        });
+
+        $("#addEntryButton").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        });
+
+        $(".editSelections").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $("#editSelectionsButton").trigger("click");
+        });
+
+        $("#editSelectionsButton").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            console.log("edit selections");
+        });
+
+        $(".submitAllPresentations").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            $("#submitAllPresentationsButton").trigger("click");
+        });
+
+        $("#submitAllPresentationsButton").click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            console.log("submit all presentations");
+        });
+
+        $('button[class^="submitEventLineButton"]').click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
         });
     }
 
