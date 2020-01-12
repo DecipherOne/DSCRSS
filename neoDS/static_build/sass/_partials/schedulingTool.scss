@@ -32,15 +32,24 @@
   cursor:pointer;
 }
 
+.selectedDay
+{
+  background-image:url('../images/currentselection.jpg') !important;
+  background-size:cover !important;
+  height:PixelToRem(88);
+}
+
 .fc-today
 {
   background-color:#d7b064a8 !important;
+
 }
 
 .eventMarkerLabel
 {
   position:absolute;
   transform: translate(PixelToRem(-14), PixelToRem(-10));
+  pointer-events: none;
 }
 
 

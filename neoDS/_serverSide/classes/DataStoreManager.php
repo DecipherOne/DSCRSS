@@ -93,4 +93,43 @@ class DataStoreManager
 
      return $query;
   }
+
+  public function WriteToDatabase($targetTabel='',$targetColumns='',$values='')
+  {
+    if(!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::WriteToDatabase : Not Initialized.");
+      return;
+    }
+
+    $insertQuery = $this->ConstructInsertQueryStructure( $targetTabel, $targetColumns, $values);
+
+    //echo $insertQuery;
+    try{
+      $dbStream = $this->_pdo->query($insertQuery);
+    }
+    catch(\PDOException $e)
+    {
+      throw new MyDatabaseException( $e->getMessage( ) , (int)$e->getCode( ) );
+    }
+
+    $results = [];
+    if($dbStream)
+      while($r = $dbStream->fetchObject())
+      {
+        $results[] = $r;
+      }
+
+    return $results;
+  }
+
+  private function ConstructInsertQueryStructure($targetTabel='', $targetColumns='', $values='')
+  {
+    $query = " INSERT INTO " . $targetTabel . " VALUES ".$targetColumns;
+
+    echo $query;
+    //return $query;
+  }
+
+
 }

@@ -21,7 +21,8 @@
     predefinedPresentationNode = null,
     presentationEntryContainer = null,
     presentationNumberSpan = null,
-    formTimeValues=[];
+    formTimeValues=[],
+    dailyScheduleEntry = [];
 
     $(document).ready(function() {
 
@@ -67,12 +68,12 @@
     function InitializePredefinedPresentationNode()
     {
         var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
-        var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option selected="">Start Time</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option selected="">End Time</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option selected="">Title</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left locationSelect"><option selected="">Location</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option selected="">Presenter</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option selected="">Screen Location</option></select>';
+        var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option>Start Time</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option >End Time</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left locationSelect"><option>Location</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option>Presenter</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option>Screen Location</option></select>';
         predefinedPresentationNode = topControls + selects;
     }
 
@@ -155,6 +156,13 @@
         });
     }
 
+    function GetScheduleLabelsAndPopulateScheduleFromDB()
+    {
+        RetrieveScheduleTablesFromDataStore(function(response) {
+            var presentationEntryLines = $('div [class^="presentationEntry"]');
+        });
+    }
+
     function PrepopulateDefaultDailySchedule(entries)
     {
         for(var c=0; c < entries.length; c++)
@@ -164,72 +172,71 @@
                 case 0:{
                     $(entries[c]).children(".startTimeSelect").val("9:30");
                     $(entries[c]).children(".endTimeSelect").val("10:00");
-                    $(entries[c]).children(".titleSelect").val(39);
-                    $(entries[c]).children(".locationSelect").val(16);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Storytime Under the Stars");
+                    $(entries[c]).children(".locationSelect").val("Why the Sky?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 1:{
                     $(entries[c]).children(".startTimeSelect").val("10:30");
                     $(entries[c]).children(".endTimeSelect").val("11:00");
-                    $(entries[c]).children(".titleSelect").val(22);
-                    $(entries[c]).children(".locationSelect").val(3);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Meet Stuffee");
+                    $(entries[c]).children(".locationSelect").val("John Deere Adventure Theater, Main Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 2:{
                     $(entries[c]).children(".startTimeSelect").val("12:00");
                     $(entries[c]).children(".endTimeSelect").val("13:00");
-                    $(entries[c]).children(".titleSelect").val(47);
-                    $(entries[c]).children(".locationSelect").val(15);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("WHO-HD Live Weather Forecast");
+                    $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 3:{
                     $(entries[c]).children(".startTimeSelect").val("13:30");
                     $(entries[c]).children(".endTimeSelect").val("14:00");
-                    $(entries[c]).children(".titleSelect").val(4);
-                    $(entries[c]).children(".locationSelect").val(15);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Cold Blooded Critters");
+                    $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 4:{
                     $(entries[c]).children(".startTimeSelect").val("14:00");
                     $(entries[c]).children(".endTimeSelect").val("14:30");
-                    $(entries[c]).children(".titleSelect").val(36);
-                    $(entries[c]).children(".locationSelect").val(15);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Snapping Turtle Feeding");
+                    $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 5:{
                     $(entries[c]).children(".startTimeSelect").val("14:30");
                     $(entries[c]).children(".endTimeSelect").val("15:00");
-                    $(entries[c]).children(".titleSelect").val(5);
-                    $(entries[c]).children(".locationSelect").val(10);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Dawn of the Space Age");
+                    $(entries[c]).children(".locationSelect").val("Star Theater, Why the Sky?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 6:{
                     $(entries[c]).children(".startTimeSelect").val("15:30");
                     $(entries[c]).children(".endTimeSelect").val("16:00");
-                    $(entries[c]).children(".titleSelect").val(18);
-                    $(entries[c]).children(".locationSelect").val(10);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("Iowa Skies Tonight");
+                    $(entries[c]).children(".locationSelect").val("Star Theater, Why the Sky?, Upper Level");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 7:{
                     $(entries[c]).children(".startTimeSelect").val("17:00");
                     $(entries[c]).children(".endTimeSelect").val("17:30");
-                    $(entries[c]).children(".titleSelect").val(33);
-                    $(entries[c]).children(".locationSelect").val(13);
-                    $(entries[c]).children(".deploymentLocationSelect").val(1);
+                    $(entries[c]).children(".titleSelect").val("SCIENCE CENTER OF IOWA CLOSES");
+                    $(entries[c]).children(".locationSelect").val("Thank you for visiting. Have a great night!");
+                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 default:{
                     break;
                 }
             }
-
         }
     }
 
@@ -253,7 +260,7 @@
             for(var d=0; d < response['tables']['presentationTitles'].length; d++)
             {
                 $(entries[c]).children(".titleSelect").append($('<option>', {
-                    value:response['tables']['presentationTitles'][d]['index'],
+                    value:response['tables']['presentationTitles'][d]['title'],
                     text: response['tables']['presentationTitles'][d]['title']
                 }));
             }
@@ -261,7 +268,7 @@
             for(var d=0; d < response['tables']['presentationLocation'].length; d++)
             {
                 $(entries[c]).children(".locationSelect").append($('<option>', {
-                    value:response['tables']['presentationLocation'][d]['index'],
+                    value:response['tables']['presentationLocation'][d]['locationName'],
                     text: response['tables']['presentationLocation'][d]['locationName']
                 }));
             }
@@ -269,7 +276,7 @@
             for(var d=0; d < response['tables']['presenters'].length; d++)
             {
                 $(entries[c]).children(".presenterSelect").append($('<option>', {
-                    value:response['tables']['presenters'][d]['index'],
+                    value:response['tables']['presenters'][d]['Name'],
                     text: response['tables']['presenters'][d]['Name']
                 }));
             }
@@ -277,7 +284,7 @@
             for(var d=0; d < response['tables']['deploymentLocations'].length; d++)
             {
                 $(entries[c]).children(".deploymentLocationSelect").append($('<option>', {
-                    value:response['tables']['deploymentLocations'][d]['index'],
+                    value:response['tables']['deploymentLocations'][d]['deploymentLocation'],
                     text: response['tables']['deploymentLocations'][d]['deploymentLocation']
                 }));
             }
@@ -290,8 +297,6 @@
     {
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
-
-
 
         RetrievePresentationsFromDataStore(function(presentationsQueryResponse ){
 
@@ -306,6 +311,7 @@
                     var foundMatch = false;
                     for(var i=0; i < presentationsQueryResponse.length; i++)
                     {
+
                         comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
                             selectedDayString = $(dayNumberSpans[c]).html();
                         previouslyScheduledEvent =  ScheduledDateHasPassed(presentationsQueryResponse[i]['scheduledDate'],comparisonDateString);
@@ -321,6 +327,7 @@
                         {
                             nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
+
                             foundMatch = true;
                         }
                         else if(previouslyScheduledEvent && scheduleDaySubstring === selectedDayString) //the day has a scheduled event that has passed.
@@ -355,38 +362,74 @@
 
             InitiatlizeEventMarkers(function(){
 
+
                 $(noEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
+                    //if(currentDay > scheduleDaySubstring)
                     GenerateDefaultPresentationNodes(8,function(){
                         GetScheduleLabelsAndPopulateSelects();
                         $('.modifyPresentationEntry').hide();
                         $('#toolBar').removeClass('hidden');
+                        AddControlClickEventHandlers();
                     });
 
                 });
 
                 $(scheduledEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    $('.deletePresentationEntry').hide();
-                    $('#toolBar').removeClass('hidden');
+                    comparisonDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,comparisonDateString,function(){
+                        var numberOfNodes = dailyScheduleEntry.length;
+                        GenerateDefaultPresentationNodes(numberOfNodes,function(){
+                            UpdateDailyPresentationNumber(numberOfNodes);
+                            $('.deletePresentationEntry').hide();
+                            $('.modifyPresentationEntry').show();
+                            $('#toolBar').removeClass('hidden');
+                            AddControlClickEventHandlers();
+                        });
+                    });
                 });
 
                 $(pastEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                     $('.modifyPresentationEntry').hide();
                     $('#toolBar').addClass('hidden');
+                    AddControlClickEventHandlers(); //TO DO : call this after loading scheduled events
                 });
-
-                setTimeout( AddControlClickEventHandlers,1000);
             });
         });
+    }
+
+    function PlaceSelectedDayClass(target)
+    {
+        $(".selectedDay").removeClass("selectedDay");
+        $(target).parent().addClass("selectedDay");
+    }
+
+    function GetPresentationsForDayFromMonthRecord(dbRecords,dateString, callback)
+    {
+        for(var i=0; i < dbRecords.length; i++)
+        {
+            console.log("scheduleDate from db : " + dbRecords[i]["scheduledDate"]);
+            console.log("comparison string :" + dateString);
+
+            if(dbRecords[i]["scheduledDate"]=== dateString)
+                dailyScheduleEntry = dbRecords[i];
+        }
+
+        console.log("dailySchedule : " + dailyScheduleEntry);
+
+        return callback(dailyScheduleEntry);
     }
 
     function AddControlClickEventHandlers()
@@ -409,6 +452,7 @@
         $("#addEntryButton").click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
+            AppendPresentationNode();
         });
 
         $(".editSelections").click(function(e){
@@ -438,8 +482,55 @@
         $('button[class^="submitEventLineButton"]').click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
+            BuildIndividualPayloadandSubmit(e);
 
         });
+    }
+
+    function BuildIndividualPayloadandSubmit(e)
+    {
+
+        var selects = $(e.target).siblings('select'),
+            payLoad = [],
+            entryString = [];
+
+        for(var i=0; i < selects.length; i++)
+        {
+            var titleString =  $(selects[i]).find("option:first").html();
+                entryString.push({ "rowName " : titleString, "rowValue" : $(selects[i]).val()});
+        }
+
+        payLoad = new Array({"presentation":entryString,"type":1});
+        CreateNewIndividualPresentation(payLoad,function(response){
+            alert(response['tables']['message']);
+        });
+    }
+
+    function AppendPresentationNode()
+    {
+
+        var index = null,
+            submitEventLineButton = null,
+            selectionString = null;
+
+        index = $('#presentationEntryContainer div:last-child').attr('class');
+        index = index.replace("presentationEntry",'');
+        index = parseInt(index);
+        index +=1;
+        submitEventLineButton = "<button class='submitEventLineButton" + index + "' >Submit</button>";
+        presentationEntryContainer.append("<div class='presentationEntry" + index +"'>"+predefinedPresentationNode +
+            submitEventLineButton + "</div>");
+
+        selectionString = $(".presentationEntry"+index);
+
+        RetrieveScheduleTablesFromDataStore(function(response){
+            PopulatePresentationEntrySelects(selectionString,response,function(){
+                AddControlClickEventHandlers();
+                $('.modifyPresentationEntry').hide();
+                return;
+            });
+        });
+
     }
 
     function GenerateDefaultPresentationNodes(numberOfNodes, callback)
@@ -532,6 +623,23 @@
     function ParseMonthIndex(month)
     {
        return month+1;
+    }
+
+    function CreateNewIndividualPresentation(payload, callback)
+    {
+        var payload = JSON.stringify(payload);
+        $.ajax({
+            method: "POST",
+            url: "../_serverSide/createDailyPresentations.php",
+            data: payload,
+            async: true,
+            timeout:0,
+            contentType: 'application/json; charset=utf-8'
+        })
+            .done(function( msg ) {
+                return callback(msg);
+            });
+
     }
 
     function GetMonthlySchedule(month,year,callback)
