@@ -72,7 +72,7 @@
         selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option >End Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
         selects +=  '<select  class="schedulingToolSelect left locationSelect"><option>Location</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option>Presenter</option></select>';
+        selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option>Presenter Name</option></select>';
         selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option>Screen Location</option></select>';
         predefinedPresentationNode = topControls + selects;
     }
@@ -314,9 +314,9 @@
 
                         comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
                             selectedDayString = $(dayNumberSpans[c]).html();
-                        previouslyScheduledEvent =  ScheduledDateHasPassed(presentationsQueryResponse[i]['scheduledDate'],comparisonDateString);
+                        previouslyScheduledEvent =  ScheduledDateHasPassed(presentationsQueryResponse[i]['ScheduledDate'],comparisonDateString);
 
-                        var scheduleDaySubstring = presentationsQueryResponse[i]['scheduledDate'].substring(8,10),
+                        var scheduleDaySubstring = presentationsQueryResponse[i]['ScheduledDate'].substring(8,10),
                             firstSubCharacter = scheduleDaySubstring[0];
 
                         if(firstSubCharacter === "0")
@@ -492,15 +492,18 @@
 
         var selects = $(e.target).siblings('select'),
             payLoad = [],
-            entryString = [];
+            entryString = [],
+            selectedDate = $('.selectedDay').attr("data-date");
 
         for(var i=0; i < selects.length; i++)
         {
             var titleString =  $(selects[i]).find("option:first").html();
-                entryString.push({ "rowName " : titleString, "rowValue" : $(selects[i]).val()});
+                entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
         }
 
-        payLoad = new Array({"presentation":entryString,"type":1});
+        entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
+
+        payLoad = {"presentation":entryString,"type":1};
         CreateNewIndividualPresentation(payLoad,function(response){
             alert(response['tables']['message']);
         });

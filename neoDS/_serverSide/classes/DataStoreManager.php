@@ -94,41 +94,59 @@ class DataStoreManager
      return $query;
   }
 
-  public function WriteToDatabase($targetTabel='',$targetColumns='',$values='')
+  public function WriteNewPresentationToDatabase($targetTabel='',$targetColumns='',$values='', &$valueArray)
   {
     if(!$this->_isInitialized)
     {
       error_log(" Unable to DataStoreManager::WriteToDatabase : Not Initialized.");
       return;
     }
-
-    $insertQuery = $this->ConstructInsertQueryStructure( $targetTabel, $targetColumns, $values);
-
-    //echo $insertQuery;
     try{
-      $dbStream = $this->_pdo->query($insertQuery);
+      $insertQuery = $this->ConstructInsertQueryStructure( $targetTabel, $targetColumns, $values);
+      //echo $insertQuery . "  " . $valueArray;
+      if(!$queryHandle = $this->_pdo->prepare("$insertQuery"))
+        echo("error preparing statment ". $insertQuery);
+      $queryHandle->bindValue(':StartTime', $valueArray[0]);
+      $queryHandle->bindValue(':EndTime', $valueArray[1]);
+      $queryHandle->bindValue(':Title', $valueArray[2]);
+      $queryHandle->bindValue(':Location', $valueArray[3]);
+      $queryHandle->bindValue(':PresenterName', $valueArray[4]);
+      $queryHandle->bindValue(':ScreenLocation', $valueArray[5]);
+      $queryHandle->bindValue(':ScheduledDate', $valueArray[6]);
+
+    /* echo " StartTime : ". $valueArray[0];
+      echo " EndTime : ". $valueArray[1];
+      echo " Title : ". $valueArray[2];
+      echo " Location : ". $valueArray[3];
+      echo " PresenterName : ". $valueArray[4];
+      echo " ScreenLocation : ". $valueArray[5];
+      echo " ScheduledDate : ". $valueArray[6]; */
+      try {
+
+        if($queryHandle->execute())
+          echo "success!";
+        else
+          echo "Suck it XP";
+      }
+      catch(\PDOException $e)
+      {
+        echo "error message : ". $e->getMessage() . " error code : " . $e->getCode();
+        throw new MyDatabaseException( $e->getMessage(), (int)$e->getCode( ) );
+      }
+
     }
     catch(\PDOException $e)
     {
-      throw new MyDatabaseException( $e->getMessage( ) , (int)$e->getCode( ) );
+      echo "error message : ". $e->getMessage() . " error code : " . $e->getCode();
+      throw new MyDatabaseException( $e->getMessage(), (int)$e->getCode( ) );
     }
 
-    $results = [];
-    if($dbStream)
-      while($r = $dbStream->fetchObject())
-      {
-        $results[] = $r;
-      }
-
-    return $results;
   }
 
   private function ConstructInsertQueryStructure($targetTabel='', $targetColumns='', $values='')
   {
-    $query = " INSERT INTO " . $targetTabel . " VALUES ".$targetColumns;
-
-    echo $query;
-    //return $query;
+    $query = " INSERT INTO " . $targetTabel.$targetColumns . " VALUES". $values;
+    return $query;
   }
 
 
