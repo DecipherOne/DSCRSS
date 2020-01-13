@@ -3,6 +3,7 @@
 namespace DSCRSS;
 
 use http\Exception;
+use PDO;
 
 $path=  $_SERVER['DOCUMENT_ROOT'];
 require_once($path."/DSCRSS/neoDS/_serverSide/classes/pch.php");
@@ -29,6 +30,7 @@ class DataStoreManager
     else
     {
       $this->_isInitialized = true;
+      $this->_pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
       error_log("<b> Success : </b> DSCRSS:DataStoreManager : Successfully connected to Database. </br>");
     }
     error_log("    -----  <b> Attempted to load : </b>" . $this->config["DB_FILE_PATH"] . " ----- </br>");
@@ -94,51 +96,38 @@ class DataStoreManager
      return $query;
   }
 
-  public function WriteNewPresentationToDatabase($targetTabel='',$targetColumns='',$values='', &$valueArray)
+  public function WriteNewPresentationToDatabase($targetTabel='',$targetColumns='',$values='', $valueArray)
   {
     if(!$this->_isInitialized)
     {
       error_log(" Unable to DataStoreManager::WriteToDatabase : Not Initialized.");
       return;
     }
-    try{
-      $insertQuery = $this->ConstructInsertQueryStructure( $targetTabel, $targetColumns, $values);
-      //echo $insertQuery . "  " . $valueArray;
+    try {
+      $insertQuery = $this->ConstructInsertQueryStructure($targetTabel, $targetColumns, $values);
+
       if(!$queryHandle = $this->_pdo->prepare("$insertQuery"))
-        echo("error preparing statment ". $insertQuery);
-      $queryHandle->bindValue(':StartTime', $valueArray[0]);
-      $queryHandle->bindValue(':EndTime', $valueArray[1]);
-      $queryHandle->bindValue(':Title', $valueArray[2]);
-      $queryHandle->bindValue(':Location', $valueArray[3]);
-      $queryHandle->bindValue(':PresenterName', $valueArray[4]);
-      $queryHandle->bindValue(':ScreenLocation', $valueArray[5]);
-      $queryHandle->bindValue(':ScheduledDate', $valueArray[6]);
+         echo("error preparing statment ". $insertQuery);
 
-    /* echo " StartTime : ". $valueArray[0];
-      echo " EndTime : ". $valueArray[1];
-      echo " Title : ". $valueArray[2];
-      echo " Location : ". $valueArray[3];
-      echo " PresenterName : ". $valueArray[4];
-      echo " ScreenLocation : ". $valueArray[5];
-      echo " ScheduledDate : ". $valueArray[6]; */
-      try {
+     $queryHandle->bindParam(':StartTime', $valueArray[0]);
+       $queryHandle->bindParam(':EndTime', $valueArray[1]);
+       $queryHandle->bindParam(':Title', $valueArray[2]);
+       $queryHandle->bindParam(':Location', $valueArray[3]);
+       $queryHandle->bindParam(':PresenterName', $valueArray[4]);
+       $queryHandle->bindParam(':ScreenLocation', $valueArray[5]);
+       $queryHandle->bindParam(':ScheduledDate', $valueArray[6]);
 
-        if($queryHandle->execute())
-          echo "success!";
-        else
-          echo "Suck it XP";
-      }
-      catch(\PDOException $e)
-      {
-        echo "error message : ". $e->getMessage() . " error code : " . $e->getCode();
-        throw new MyDatabaseException( $e->getMessage(), (int)$e->getCode( ) );
-      }
+      $rowCount = $queryHandle->execute();
 
+      if($rowCount>0)
+        return true;
+      else
+       return false;
     }
     catch(\PDOException $e)
     {
       echo "error message : ". $e->getMessage() . " error code : " . $e->getCode();
-      throw new MyDatabaseException( $e->getMessage(), (int)$e->getCode( ) );
+      throw new \PDOException( $e->getMessage(), (int)$e->getCode( ) );
     }
 
   }
@@ -148,6 +137,5 @@ class DataStoreManager
     $query = " INSERT INTO " . $targetTabel.$targetColumns . " VALUES". $values;
     return $query;
   }
-
 
 }

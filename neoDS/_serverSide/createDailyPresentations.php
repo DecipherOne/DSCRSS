@@ -86,12 +86,10 @@ function BuildDailyPresentationArrays(&$rowArray,&$valueArray,$presentationArray
   for($i = 0; $i < sizeof($valueArray); $i++)
   {
     if($i < (sizeof($valueArray)-1))
-      $valueString .= '\':'.$rowArray[$i] .'\', ';
+      $valueString .= ':'.$rowArray[$i] .', ';
     else
-      $valueString .= '\':'.$rowArray[$i] .'\')';
+      $valueString .= ':'.$rowArray[$i] .')';
   }
-
-
 }
 
 function RemoveWhiteSpaceFromString($string)
