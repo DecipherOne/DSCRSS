@@ -6,7 +6,7 @@
 
 .scheduledEventCircleMarker { border: solid PixelToRem(25) #B1C625; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
 
-.noEventCircleMarker { border: solid PixelToRem(25) grey; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
+.noEventCircleMarker { border: solid PixelToRem(25) #393939; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
 
 .selectedDay { background-image: url("../images/currentselection.jpg") !important; background-size: cover !important; height: PixelToRem(88); }
 

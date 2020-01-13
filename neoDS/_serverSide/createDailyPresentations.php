@@ -56,8 +56,7 @@ switch($method)
   }
 }
 
-function BuildDailyPresentationArrays(&$rowArray,&$valueArray,$presentationArray,&$rowString,
-  &$valueString)
+function BuildDailyPresentationArrays(&$rowArray,&$valueArray,$presentationArray,&$rowString, &$valueString)
 {
   for( $i = 0; $i < sizeof($presentationArray); $i++)
   {

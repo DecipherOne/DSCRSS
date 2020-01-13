@@ -394,7 +394,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                         $('#toolBar').removeClass('hidden');
                         AddControlClickEventHandlers();
                     });
-
                 });
 
                 $(scheduledEventMarkers).click(function(e){
@@ -403,7 +402,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
-                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(){
+                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
@@ -451,15 +450,11 @@ jQuery.expr[':'].parents = function(a,i,m){
     function GetPresentationsForDayFromMonthRecord(dbRecords,dateString, callback)
     {
         for(var i=0; i < dbRecords.length; i++)
-        {
-            console.log("scheduleDate from db : " + dbRecords[i]["scheduledDate"]);
-            console.log("comparison string :" + dateString);
-
-            if(dbRecords[i]["scheduledDate"]=== dateString)
-                dailyScheduleEntry = dbRecords[i];
-        }
-
-        console.log("dailySchedule : " + dailyScheduleEntry);
+            if(dbRecords[i]["ScheduledDate"]=== dateString)
+                if(!dailyScheduleEntry.length)
+                    dailyScheduleEntry[0] = dbRecords[i];
+                else
+                    dailyScheduleEntry.push(dbRecords[i]);
 
         return callback(dailyScheduleEntry);
     }
@@ -514,12 +509,12 @@ jQuery.expr[':'].parents = function(a,i,m){
         $('button[class^="submitEventLineButton"]').click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            BuildIndividualPayloadandSubmit(e);
+            BuildIndividualPayloadAndSubmit(e);
 
         });
     }
 
-    function BuildIndividualPayloadandSubmit(e)
+    function BuildIndividualPayloadAndSubmit(e)
     {
 
         var selects = $(e.target).siblings('select'),
@@ -538,6 +533,8 @@ jQuery.expr[':'].parents = function(a,i,m){
 
         payLoad = {"presentation":entryString,"type":1};
         CreateNewIndividualPresentation(payLoad,function(response){
+            $('.fc-next-button').trigger("click");
+            $('.fc-prev-button').trigger("click");
             CheckDatabaseForMonthlyEvents(e);
             alert(response['message']);
         });

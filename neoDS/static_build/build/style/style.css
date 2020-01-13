@@ -469,7 +469,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .scheduledEventCircleMarker { border: solid 1.38889rem #B1C625; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }
 
-.noEventCircleMarker { border: solid 1.38889rem grey; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }
+.noEventCircleMarker { border: solid 1.38889rem #393939; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }
 
 .selectedDay { background-image: url("../images/currentselection.jpg") !important; background-size: cover !important; height: 4.88889rem; }
 
