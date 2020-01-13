@@ -31,8 +31,12 @@ switch($method)
         {
 
           BuildDailyPresentationArrays($rowArray,$valueArray,$presentation,$rowString, $valueString);
-          $db->WriteNewPresentationToDatabase("scheduledPresentation", $rowString, $valueString, $valueArray);
+          if($db->WriteNewPresentationToDatabase("scheduledPresentation", $rowString, $valueString, $valueArray))
+            $responseMessage =["message"=>"Schedule Successfully Updated!"];
+          else
+            $responseMessage =["message"=>"There was an error updating, contact your webservice admin."];
 
+          echo json_encode($responseMessage);
           break;
         }
         case 2: //array of presentations

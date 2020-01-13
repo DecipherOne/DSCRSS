@@ -145,9 +145,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             return false;
 
         return true;
-
     }
-
 
     function GetScheduleLabelsAndPopulateSelects()
     {
@@ -371,7 +369,8 @@ jQuery.expr[':'].parents = function(a,i,m){
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    //if(currentDay > scheduleDaySubstring)
+                    if(CheckForPassedCalendarDay(e))
+                        return;
                     GenerateDefaultPresentationNodes(8,function(){
                         GetScheduleLabelsAndPopulateSelects();
                         $('.modifyPresentationEntry').hide();
@@ -411,6 +410,19 @@ jQuery.expr[':'].parents = function(a,i,m){
                 });
             });
         });
+    }
+
+    function CheckForPassedCalendarDay(e)
+    {
+        var date = new Date();
+        var dateString = date.getFullYear() + "-" + (date.getMonth()+1);
+        if(ScheduledDateHasPassed($(e.target).parent().attr("data-date"),new Date(dateString)))
+        {
+            $("#presentationEntryContainer").html("<br/> This day is in the past and can not be scheduled. </br> ");
+            return true;
+        }
+
+        return false;
     }
 
     function PlaceSelectedDayClass(target)
@@ -502,14 +514,23 @@ jQuery.expr[':'].parents = function(a,i,m){
         {
             var titleString =  $(selects[i]).find("option:first").html();
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
+                ToggleSubmittedPresentationControls(selects[i],e.target);
         }
 
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
 
         payLoad = {"presentation":entryString,"type":1};
         CreateNewIndividualPresentation(payLoad,function(response){
-            alert(response['tables']['message']);
+            alert(response['message']);
         });
+    }
+
+    function ToggleSubmittedPresentationControls(select,submitButton)
+    {
+        $(select).attr("disabled","disabled");
+        $(submitButton).attr("disabled","disabled");
+        $(submitButton).siblings('.deletePresentationEntry').hide();
+        $(submitButton).siblings('.modifyPresentationEntry').show();
     }
 
     function AppendPresentationNode()
