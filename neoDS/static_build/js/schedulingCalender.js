@@ -127,22 +127,35 @@
         });
     }
 
-    function ScheduledDateHasPassed(dateA, dateB)
+    function ScheduledDateHasPassed(scheduledDate, testDate)
     {
-        if(dateA ==='' && dateB === '')
+        if(scheduledDate ==='' && testDate === '')
             return false;
 
-        var dateObjectA = new Date(dateA + " 12:00:00"),
-        dateObjectB = new Date(dateB + " 12:00:00");
+        var dateObjectA = new Date(scheduledDate + " 12:00:00"),
+        dateObjectB = new Date(testDate + " 12:00:00");
 
         dateObjectA = dateObjectA.getTime();
         dateObjectB = dateObjectB.getTime();
 
-        if(dateObjectB > dateObjectA)
+        return parseInt(dateObjectB) > parseInt(dateObjectA);
+
+    }
+
+    function ScheduledDateIsToday(scheduledDate, testDate)
+    {
+        if(scheduledDate ==='' && testDate === '')
             return false;
 
-        return true;
+        var dateObjectA = new Date(scheduledDate + " 12:00:00"),
+            dateObjectB = new Date(testDate + " 12:00:00");
+
+        dateObjectA = dateObjectA.getTime();
+        dateObjectB = dateObjectB.getTime();
+
+        return parseInt(dateObjectB) == parseInt(dateObjectA);
     }
+
 
     function GetScheduleLabelsAndPopulateSelects()
     {
@@ -298,21 +311,24 @@
 
         RetrievePresentationsFromDataStore(function(presentationsQueryResponse ){
 
-            var comparisonDateString = null,
+            var calendarDateString = null,
                 previouslyScheduledEvent = null,
-                selectedDayString = null;
+                selectedDayString = null,
+                calendarDayScheduleDayMatch = null,
+                scheduledDate = null;
 
             for (var c = 0; c <= dayNumberSpans.length; c++)
             {
                 if(presentationsQueryResponse.length >= 1)
                 {
                     var foundMatch = false;
+
                     for(var i=0; i < presentationsQueryResponse.length; i++)
                     {
 
-                        comparisonDateString = currentYear + "-" + currentMonth + "-" + $(dayNumberSpans[c]).html(),
-                            selectedDayString = $(dayNumberSpans[c]).html();
-                        previouslyScheduledEvent =  ScheduledDateHasPassed(presentationsQueryResponse[i]['ScheduledDate'],comparisonDateString);
+                        scheduledDate = presentationsQueryResponse[i]['ScheduledDate'];
+                        selectedDayString = $(dayNumberSpans[c]).html();
+                        previouslyScheduledEvent =  ScheduledDateHasPassed(scheduledDate,todaysDate);
 
                         var scheduleDaySubstring = presentationsQueryResponse[i]['ScheduledDate'].substring(8,10),
                             firstSubCharacter = scheduleDaySubstring[0];
@@ -320,15 +336,16 @@
                         if(firstSubCharacter === "0")
                             scheduleDaySubstring = scheduleDaySubstring[1];
 
-                        if(parseInt(currentDay) <= parseInt(scheduleDaySubstring) &&
-                            scheduleDaySubstring === selectedDayString) //look for comparison
+                        calendarDayScheduleDayMatch = (scheduleDaySubstring === selectedDayString);
+
+                        if(!previouslyScheduledEvent && calendarDayScheduleDayMatch) //look for comparison
                         {
                             nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
 
                             foundMatch = true;
                         }
-                        else if(previouslyScheduledEvent && scheduleDaySubstring === selectedDayString) //the day has a scheduled event that has passed.
+                        else if(calendarDayScheduleDayMatch) //the day has a scheduled event that has passed.
                         {
                             nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
@@ -382,8 +399,8 @@
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    comparisonDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
-                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,comparisonDateString,function(){
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
@@ -411,9 +428,9 @@
 
     function CheckForPassedCalendarDay(e)
     {
-        var date = new Date();
-        var dateString = date.getFullYear() + "-" + (date.getMonth()+1);
-        if(ScheduledDateHasPassed($(e.target).parent().attr("data-date"),new Date(dateString)))
+        var selectedDayString = $(e.target).parent().attr("data-date");
+
+        if(ScheduledDateHasPassed(selectedDayString,todaysDate) && !ScheduledDateIsToday(todaysDate,selectedDayString))
         {
             $("#presentationEntryContainer").html("<br/> This day is in the past and can not be scheduled. </br> ");
             return true;
@@ -518,6 +535,7 @@
 
         payLoad = {"presentation":entryString,"type":1};
         CreateNewIndividualPresentation(payLoad,function(response){
+            CheckDatabaseForMonthlyEvents(e);
             alert(response['message']);
         });
     }
