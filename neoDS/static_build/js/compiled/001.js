@@ -542,9 +542,10 @@ jQuery.expr[':'].parents = function(a,i,m){
                 CheckDatabaseForMonthlyEvents(e,function()
                 {
                     $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
+                    alert(response['message']);
                 });
-            },500);
-            alert(response['message']);
+            },100);
+
         });
     }
 
