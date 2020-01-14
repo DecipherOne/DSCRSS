@@ -25,7 +25,8 @@ jQuery.expr[':'].parents = function(a,i,m){
     presentationEntryContainer = null,
     presentationNumberSpan = null,
     formTimeValues=[],
-    dailyScheduleEntry = [];
+    dailyScheduleEntry = [],
+    headerMessageContainer = null;
 
     $(document).ready(function() {
 
@@ -39,6 +40,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         calendar.render();
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');
+        headerMessageContainer = $('#headerMessageContainer');
         CheckDatabaseForMonthlyEvents();
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
@@ -383,21 +385,27 @@ jQuery.expr[':'].parents = function(a,i,m){
 
                 $(noEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    $(headerMessageContainer).html('');
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     if(CheckForPassedCalendarDay(e))
+                    {
+                        HidePresentationToolBar();
                         return;
+                    }
+
                     GenerateDefaultPresentationNodes(8,function(){
                         GetScheduleLabelsAndPopulateSelects();
                         $('.modifyPresentationEntry').hide();
-                        $('#toolBar').removeClass('hidden');
+                        ShowPresentationToolBar();
                         AddControlClickEventHandlers();
                     });
                 });
 
                 $(scheduledEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    $(headerMessageContainer).html('');
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
@@ -408,7 +416,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             $('.deletePresentationEntry').hide();
                             $('.modifyPresentationEntry').show();
-                            $('#toolBar').removeClass('hidden');
+                            ShowPresentationToolBar();
                             AddControlClickEventHandlers();
                         });
                     });
@@ -416,12 +424,13 @@ jQuery.expr[':'].parents = function(a,i,m){
 
                 $(pastEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
+                    $(headerMessageContainer).html('');
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
                     $('.deletePresentationEntry').hide();
                     $('.modifyPresentationEntry').hide();
-                    $('#toolBar').addClass('hidden');
+                    HidePresentationToolBar();
                     AddControlClickEventHandlers(); //TO DO : call this after loading scheduled events
                 });
             });
@@ -431,13 +440,23 @@ jQuery.expr[':'].parents = function(a,i,m){
             return callback();
     }
 
+    function HidePresentationToolBar()
+    {
+        $('#toolBar').addClass('hidden');
+    }
+
+    function ShowPresentationToolBar()
+    {
+        $('#toolBar').removeClass('hidden');
+    }
+
     function CheckForPassedCalendarDay(e)
     {
         var selectedDayString = $(e.target).parent().attr("data-date");
 
         if(ScheduledDateHasPassed(selectedDayString,todaysDate) && !ScheduledDateIsToday(todaysDate,selectedDayString))
         {
-            $("#presentationEntryContainer").html("<br/> This day is in the past and can not be scheduled. </br> ");
+            $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> This day is in the past and can not be scheduled.</span> </br> ");
             return true;
         }
 
@@ -452,6 +471,8 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function GetPresentationsForDayFromMonthRecord(dbRecords,dateString, callback)
     {
+        dailyScheduleEntry = [];
+
         for(var i=0; i < dbRecords.length; i++)
             if(dbRecords[i]["ScheduledDate"]=== dateString)
                 if(!dailyScheduleEntry.length)
@@ -542,7 +563,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 CheckDatabaseForMonthlyEvents(e,function()
                 {
                     $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
-                    alert(response['message']);
+                    $(headerMessageContainer).html(response['message']);
                 });
             },100);
 

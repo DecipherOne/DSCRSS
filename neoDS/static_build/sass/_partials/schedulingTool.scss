@@ -6,6 +6,8 @@
 #schedulingFormContainer{
   background-color: #6f6c6c;
   min-height:PixelToRem(320);
+  max-height: PixelToRem(650);
+  overflow-y:auto;
 }
 
 .archivedEventCircleMarker
@@ -228,4 +230,15 @@ button[class^="submitEventLineButton"]{
 
 .toolbarSlot{
   border-right: solid PixelToRem(1) #4a4949
+}
+
+#headerMessageContainer
+{
+  border: solid PixelToRem(1) #202029;
+  min-height:PixelToRem(42);
+  max-height:PixelToRem(84);
+  font-family:"Courier New", "SansSerif";
+  font-size: PixelToRem(18);
+  color: orange;
+  padding:PixelToRem(10);
 }

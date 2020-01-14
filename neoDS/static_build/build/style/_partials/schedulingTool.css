@@ -1,6 +1,6 @@
 #calendar { background-color: #989898; }
 
-#schedulingFormContainer { background-color: #6f6c6c; min-height: PixelToRem(320); }
+#schedulingFormContainer { background-color: #6f6c6c; min-height: PixelToRem(320); max-height: PixelToRem(650); overflow-y: auto; }
 
 .archivedEventCircleMarker { border: solid PixelToRem(25) purple; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
 
@@ -54,3 +54,5 @@ button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToR
 #toolBar { height: PixelToRem(40); width: 80%; background-color: #202029; margin-top: PixelToRem(20); }
 
 .toolbarSlot { border-right: solid PixelToRem(1) #4a4949; }
+
+#headerMessageContainer { border: solid PixelToRem(1) #202029; min-height: PixelToRem(42); max-height: PixelToRem(84); font-family: "Courier New", "SansSerif"; font-size: PixelToRem(18); color: orange; padding: PixelToRem(10); }
