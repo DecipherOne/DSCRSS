@@ -307,7 +307,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         return callback();
     }
 
-    function CheckDatabaseForMonthlyEvents()
+    function CheckDatabaseForMonthlyEvents(event,callback)
     {
         dayNumberSpans = $('.fc-day-number').filter(':parents(.fc-past-month)')
             .filter(':parents(.fc-other-month)').filter(':parents(.fc-future-month)');
@@ -426,6 +426,9 @@ jQuery.expr[':'].parents = function(a,i,m){
                 });
             });
         });
+
+        if(callback)
+            return callback();
     }
 
     function CheckForPassedCalendarDay(e)
@@ -526,7 +529,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         {
             var titleString =  $(selects[i]).find("option:first").html();
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
-                ToggleSubmittedPresentationControls(selects[i],e.target);
+                DisableSubmittedPresentationControls(selects[i],e.target);
         }
 
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
@@ -535,12 +538,17 @@ jQuery.expr[':'].parents = function(a,i,m){
         CreateNewIndividualPresentation(payLoad,function(response){
             $('.fc-next-button').trigger("click");
             $('.fc-prev-button').trigger("click");
-            CheckDatabaseForMonthlyEvents(e);
+            setTimeout(function(){
+                CheckDatabaseForMonthlyEvents(e,function()
+                {
+                    $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
+                });
+            },500);
             alert(response['message']);
         });
     }
 
-    function ToggleSubmittedPresentationControls(select,submitButton)
+    function DisableSubmittedPresentationControls(select,submitButton)
     {
         $(select).attr("disabled","disabled");
         $(submitButton).attr("disabled","disabled");
