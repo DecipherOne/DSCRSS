@@ -159,6 +159,31 @@
     }
 
 
+    function GetScheduleLabelsAndPopulateDailySchedule(dailySchedule)
+    {
+        RetrieveScheduleTablesFromDataStore(function(response) {
+            var presentationEntryLines = $('div [class^="presentationEntry"]');
+            PopulatePresentationEntrySelects(presentationEntryLines,response,function(){
+                PopulateTodaysSchedule(presentationEntryLines, dailySchedule);
+            });
+        });
+    }
+
+    function PopulateTodaysSchedule(entries, dailySchedule)
+    {
+        for(var c=0; c < entries.length; c++)
+        {
+            var buttonID = ".submitEventLineButton"+c;
+            $(entries[c]).children(".startTimeSelect").val(dailySchedule[c]['StartTime']).attr("disabled","disabled");
+            $(entries[c]).children(".endTimeSelect").val(dailySchedule[c]['EndTime']).attr("disabled","disabled");
+            $(entries[c]).children(".titleSelect").val(dailySchedule[c]['Title']).attr("disabled","disabled");
+            $(entries[c]).children(".locationSelect").val(dailySchedule[c]['Location']).attr("disabled","disabled");
+            $(entries[c]).children(".deploymentLocationSelect").val(dailySchedule[c]['ScreenLocation']).attr("disabled","disabled");
+            $(entries[c]).children(".presenterSelect").val(dailySchedule[c]['PresenterName']).attr("disabled","disabled");
+            $(entries[c]).children(buttonID).attr("disabled","disabled");
+        }
+    }
+
     function GetScheduleLabelsAndPopulateSelects()
     {
         RetrieveScheduleTablesFromDataStore(function(response){
@@ -169,12 +194,7 @@
         });
     }
 
-    function GetScheduleLabelsAndPopulateScheduleFromDB()
-    {
-        RetrieveScheduleTablesFromDataStore(function(response) {
-            var presentationEntryLines = $('div [class^="presentationEntry"]');
-        });
-    }
+
 
     function PrepopulateDefaultDailySchedule(entries)
     {
@@ -411,6 +431,7 @@
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
+                            GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
                             $('.deletePresentationEntry').hide();
                             $('.modifyPresentationEntry').show();
                             ShowPresentationToolBar();
