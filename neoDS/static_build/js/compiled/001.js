@@ -184,6 +184,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             $(entries[c]).children(".deploymentLocationSelect").val(dailySchedule[c]['ScreenLocation']).attr("disabled","disabled");
             $(entries[c]).children(".presenterSelect").val(dailySchedule[c]['PresenterName']).attr("disabled","disabled");
             $(entries[c]).children(buttonID).attr("disabled","disabled");
+            $(entries[c]).addClass("scheduled");
         }
     }
 
@@ -506,13 +507,31 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function AddControlClickEventHandlers()
     {
+
         $('.deletePresentationEntry').click(function(){
-            $(this).parent().remove();
+
+            if($(this).parent().hasClass("scheduled"))
+            {
+                var deleteEntry = window.confirm("You sure you want to delete this entry? Make your own confirmation dialog lazy.");
+                if(deleteEntry)
+                    console.log("Submit deletion to backend :");
+                else
+                    console.log("They don't want to delete it ...");
+            }
+            else
+                $(this).parent().remove();
         });
 
         $('.modifyPresentationEntry').click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
+            var lineItemComponents = $(e.target).parent().siblings();
+
+            $(e.target).parent().siblings(".deletePresentationEntry").show();
+            $(e.target).parent().hide();
+
+            for(var i = 0; i< lineItemComponents.length; i++)
+                $(lineItemComponents[i]).removeAttr("disabled");
         });
 
         $(".addEntry").click(function(e){
@@ -566,6 +585,8 @@ jQuery.expr[':'].parents = function(a,i,m){
             payLoad = [],
             entryString = [],
             selectedDate = $('.selectedDay').attr("data-date");
+
+        $(e.target).parent().addClass("scheduled");
 
         for(var i=0; i < selects.length; i++)
         {
