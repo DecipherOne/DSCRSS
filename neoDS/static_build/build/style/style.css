@@ -465,6 +465,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #schedulingFormContainer { background-color: #6f6c6c; min-height: 17.77778rem; max-height: 36.11111rem; overflow-y: auto; }
 
+#scheduleHeader { padding-top: 0.55556rem; }
+
 .archivedEventCircleMarker { border: solid 1.38889rem purple; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }
 
 .scheduledEventCircleMarker { border: solid 1.38889rem #B1C625; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }

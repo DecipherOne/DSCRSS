@@ -16,7 +16,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 <body>
 <div id="scheduleContainer" class="relativelyCentered">
   <div id="scheduleHeader" class="bottomMargin20">
-    <h3>Des Moines Science Center Responsive Scheduling System</h3>
+    <h3>Science Center of Des Moines Digital Scheduling</h3>
       <div id="headerMessageContainer" class="relativelyCentered halfWidth">
 
       </div>

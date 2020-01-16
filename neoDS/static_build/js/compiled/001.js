@@ -183,7 +183,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             $(entries[c]).children(".locationSelect").val(dailySchedule[c]['Location']).attr("disabled","disabled");
             $(entries[c]).children(".deploymentLocationSelect").val(dailySchedule[c]['ScreenLocation']).attr("disabled","disabled");
             $(entries[c]).children(".presenterSelect").val(dailySchedule[c]['PresenterName']).attr("disabled","disabled");
-            $(entries[c]).children(buttonID).attr("disabled","disabled");
+            $(entries[c]).children(buttonID).attr("disabled","disabled").attr("Index",dailySchedule[c]["Index"]);
             $(entries[c]).addClass("scheduled");
         }
     }
@@ -402,8 +402,6 @@ jQuery.expr[':'].parents = function(a,i,m){
             }
 
             InitiatlizeEventMarkers(function(){
-
-
                 $(noEventMarkers).click(function(e){
                     $(presentationEntryContainer).html('');
                     $(headerMessageContainer).html('');
@@ -514,7 +512,12 @@ jQuery.expr[':'].parents = function(a,i,m){
             {
                 var deleteEntry = window.confirm("You sure you want to delete this entry? Make your own confirmation dialog lazy.");
                 if(deleteEntry)
+                {
                     console.log("Submit deletion to backend :");
+
+                    //after callback
+                    $(this).parent().remove();
+                }
                 else
                     console.log("They don't want to delete it ...");
             }
@@ -574,7 +577,6 @@ jQuery.expr[':'].parents = function(a,i,m){
             e.preventDefault();
             e.stopImmediatePropagation();
             BuildIndividualPayloadAndSubmit(e);
-
         });
     }
 
@@ -584,7 +586,8 @@ jQuery.expr[':'].parents = function(a,i,m){
         var selects = $(e.target).siblings('select'),
             payLoad = [],
             entryString = [],
-            selectedDate = $('.selectedDay').attr("data-date");
+            selectedDate = $('.selectedDay').attr("data-date"),
+            existingEntryIndex = $(e.target).attr("index");
 
         $(e.target).parent().addClass("scheduled");
 
@@ -597,16 +600,21 @@ jQuery.expr[':'].parents = function(a,i,m){
 
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
 
-        payLoad = {"presentation":entryString,"type":1};
+        if($(e.target).attr("index"))
+        {
+            entryString.push({"rowName":"Index","rowValue": existingEntryIndex});
+            payLoad = {"presentation":entryString,"type":2};
+        }
+        else
+            payLoad = {"presentation":entryString,"type":1};
+
         CreateNewIndividualPresentation(payLoad,function(response){
             $('.fc-next-button').trigger("click");
             $('.fc-prev-button').trigger("click");
             setTimeout(function(){
-                CheckDatabaseForMonthlyEvents(e,function()
-                {
-                    $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
-                    $(headerMessageContainer).html(response['message']);
-                });
+                CheckDatabaseForMonthlyEvents(e);
+                $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
+                $(headerMessageContainer).html(response['message']);
             },100);
 
         });
@@ -663,7 +671,10 @@ jQuery.expr[':'].parents = function(a,i,m){
     function GetDateFromEventTokenParentPutInDateInput(e)
     {
         var date = null,
-            dayNumber = null;
+            dayNumber = null,
+            result = null,
+            updatedDate = null;
+
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -673,8 +684,8 @@ jQuery.expr[':'].parents = function(a,i,m){
         date = $(e.target).parent().attr("data-date");
         dayNumber = $(e.target).siblings().html();
 
-        var result = BuildDayDateString(date,dayNumber),
-            updatedDate ="<option selected >" + result + "</option>";
+        result = BuildDayDateString(date,dayNumber);
+        updatedDate ="<option selected >" + result + "</option>";
         $(dateSelect).html(updatedDate);
     }
 
@@ -741,9 +752,10 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function CreateNewIndividualPresentation(payload, callback)
     {
-        var payload = JSON.stringify(payload);
+        var payload = JSON.stringify(payload),
+            method = "POST";
         $.ajax({
-            method: "POST",
+            method: method,
             url: "../_serverSide/createDailyPresentations.php",
             data: payload,
             async: true,

@@ -27,26 +27,31 @@ switch($method)
   {
       switch($type)
       {
-        case 1: //single presentation
+        case 1: //Create
         {
-
           BuildDailyPresentationArrays($rowArray,$valueArray,$presentation,$rowString, $valueString);
           if($db->WriteNewPresentationToDatabase("scheduledPresentation", $rowString, $valueString, $valueArray))
             $responseMessage =["message"=>"Presentation : <b> ".$valueArray[2]."</b> successfully scheduled.","code"=>200];
           else
-            $responseMessage =["message"=>"There was an error updating, contact your webservice admin.","code"=>500];
+            $responseMessage =["message"=>"There was an error updating, ".$valueArray[2]. " contact your webservice admin.","code"=>500];
 
-          echo json_encode($responseMessage);
           break;
         }
-        case 2: //array of presentations
+        case 2: //Update
         {
+          $adjustedPresentations = RemoveWhiteSpaceFromRowNames($presentation);
+          if($db->UpdateExistingEntry("scheduledPresentation", $adjustedPresentations))
+            $responseMessage =["message"=>"Presentation : <b> ".$presentation[2]['rowValue']."</b> successfully updated.","code"=>200];
+          else
+            $responseMessage =["message"=>"There was an error updating ".$presentation[2].", contact your webservice admin.","code"=>500];
+
           break;
         }
         default:
           break;
       }
 
+    echo json_encode($responseMessage);
     break;
   }
   default:
@@ -101,6 +106,15 @@ function RemoveWhiteSpaceFromString($string)
   return $string;
 }
 
+function RemoveWhiteSpaceFromRowNames(&$presentationArray)
+{
+  for( $i = 0; $i < (sizeof($presentationArray)-1); $i++)
+  {
+    $rowTitle = RemoveWhiteSpaceFromString($presentationArray[$i]["rowName"]);
+    $presentationArray[$i]["rowName"] = $rowTitle;
+  }
 
+  return $presentationArray;
+}
 
 ?>

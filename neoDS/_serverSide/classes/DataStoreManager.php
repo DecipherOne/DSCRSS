@@ -95,7 +95,7 @@ class DataStoreManager
   {
     if (!$this->_isInitialized)
     {
-      error_log(" Unable to DataStoreManager::WriteToDatabase : Not Initialized.");
+      error_log(" Unable to DataStoreManager::WriteNewPresentationToDatabase : Not Initialized.");
       return;
     }
     try
@@ -131,6 +131,57 @@ class DataStoreManager
   private function ConstructInsertQueryStructure($targetTabel = '', $targetColumns = '', $values = '')
   {
     $query = " INSERT INTO " . $targetTabel . $targetColumns . " VALUES" . $values ;
+    return $query;
+  }
+
+  public function UpdateExistingEntry($targetTabel = '', $presentation)
+  {
+
+    if (!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::UpdateExistingEntry : Not Initialized.");
+      return;
+    }
+    try
+    {
+      $updateQuery = $this->ConstructUpdateQueryStructure($targetTabel, $presentation);
+
+      if (!$queryHandle = $this->_pdo->prepare($updateQuery))
+        echo("error preparing statment " . $updateQuery);
+
+      $index = $presentation[7]["rowValue"];
+
+      $queryHandle->bindParam(':StartTime', $presentation[0]["rowValue"]);
+      $queryHandle->bindParam(':EndTime', $presentation[1]["rowValue"]);
+      $queryHandle->bindParam(':Title', $presentation[2]["rowValue"]);
+      $queryHandle->bindParam(':Location', $presentation[3]["rowValue"]);
+      $queryHandle->bindParam(':PresenterName', $presentation[4]["rowValue"]);
+      $queryHandle->bindParam(':ScreenLocation', $presentation[5]["rowValue"]);
+      $queryHandle->bindParam(':ScheduledDate', $presentation[6]["rowValue"]);
+      $queryHandle->bindParam(':Index', $index, PDO::PARAM_INT);
+
+      $success = $queryHandle->execute();
+
+      if ($success)
+        return true;
+      else
+        return false;
+    }
+    catch (\PDOException $e)
+    {
+      echo "error message : " . $e->getMessage() . " error code : " . $e->getCode();
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    }
+  }
+
+  private function ConstructUpdateQueryStructure($targetTabel = '')
+  {
+    $query = " UPDATE " .$targetTabel;
+    $query .= " SET StartTime = :StartTime, EndTime = :EndTime, Title = :Title,";
+    $query .= " Location = :Location, PresenterName = :PresenterName,";
+    $query .= " ScreenLocation = :ScreenLocation, ScheduledDate = :ScheduledDate";
+    $query .=" WHERE \"Index\" =:Index ";
+
     return $query;
   }
 }
