@@ -673,8 +673,14 @@ jQuery.expr[':'].parents = function(a,i,m){
             presentationClassReference = null;
 
         index = $('#presentationEntryContainer div:last-child').attr('class');
-        index = index.replace("presentationEntry",'');
-        index = parseInt(index);
+        if(index === undefined || index === null)
+            index = 0;
+        else
+        {
+            index = index.replace("presentationEntry",'');
+            index = parseInt(index);
+        }
+
         index +=1;
         presentationClassReference = "presentationEntry"+index;
         submitEventLineButton = "<button class='submitEventLineButton" + index + "' >Submit</button>";
