@@ -216,4 +216,9 @@ class DataStoreManager
 
     return $query;
   }
+
+  public function GetLastInsertedIndex()
+  {
+    return $this->_pdo->lastInsertId();
+  }
 }

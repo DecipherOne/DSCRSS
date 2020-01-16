@@ -594,6 +594,17 @@ jQuery.expr[':'].parents = function(a,i,m){
         });
     }
 
+    function VerifyRequiredFieldsAreSet(valueArray)
+    {
+        for(var i=0; i<valueArray.length; i++)
+            if(valueArray[i]["rowName"]===valueArray[i]["rowValue"])
+                if(valueArray[i]["rowName"]==="Presenter Name")
+                    continue;
+                else
+                    return false;
+        return true;
+    }
+
     function BuildIndividualPayloadAndSubmit(e)
     {
 
@@ -609,10 +620,14 @@ jQuery.expr[':'].parents = function(a,i,m){
         {
             var titleString =  $(selects[i]).find("option:first").html();
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
-                DisableSubmittedPresentationControls(selects[i],e.target);
         }
 
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
+
+        if(!VerifyRequiredFieldsAreSet(entryString))
+            return alert("The only non required Field is Presenter Name. Please update your selection");
+
+
 
         if($(e.target).attr("index"))
         {
@@ -628,6 +643,8 @@ jQuery.expr[':'].parents = function(a,i,m){
                 CheckDatabaseForMonthlyEvents(e);
                 $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
                 $(headerMessageContainer).html(response['message']);
+                DisableSubmittedPresentationControls(selects,e.target);
+                $(e.target).attr("index",response["Index"]);
             },100);
 
         });

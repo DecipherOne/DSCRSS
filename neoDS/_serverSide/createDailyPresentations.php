@@ -31,7 +31,10 @@ switch($method)
         {
           BuildDailyPresentationArrays($rowArray,$valueArray,$presentation,$rowString, $valueString);
           if($db->WriteNewPresentationToDatabase("scheduledPresentation", $rowString, $valueString, $valueArray))
-            $responseMessage =["message"=>"Presentation : <b> ".$valueArray[2]."</b> successfully scheduled.","code"=>200];
+            $responseMessage =[
+                "message"=>"Presentation : <b> ".$valueArray[2]."</b> successfully scheduled.",
+                "code"=>200,
+                "Index" => $db->GetLastInsertedIndex()];
           else
             $responseMessage =["message"=>"There was an error updating, ".$valueArray[2]. " contact your webservice admin.","code"=>500];
 
