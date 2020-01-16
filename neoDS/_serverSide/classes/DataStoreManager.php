@@ -134,6 +134,38 @@ class DataStoreManager
     return $query;
   }
 
+  public function DeleteEntryFromTable($targetTabel = '', $rowIndex)
+  {
+    if (!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::UpdateExistingEntry : Not Initialized.");
+      return;
+    }
+    try
+    {
+      $deleteQuery = $this->ConstructUpdateQueryStructure($targetTabel, $presentation);
+
+      if (!$queryHandle = $this->_pdo->prepare($deleteQuery))
+        echo("error preparing statment " . $deleteQuery);
+
+      $index = $presentation[7]["rowValue"];
+
+      $queryHandle->bindParam(':Index', $index, PDO::PARAM_INT);
+
+      $success = $queryHandle->execute();
+
+      if ($success)
+        return true;
+      else
+        return false;
+    }
+    catch (\PDOException $e)
+    {
+      echo "error message : " . $e->getMessage() . " error code : " . $e->getCode();
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    }
+  }
+
   public function UpdateExistingEntry($targetTabel = '', $presentation)
   {
 

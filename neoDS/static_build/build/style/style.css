@@ -518,8 +518,8 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 #schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
 
-#toolBar { height: 2.22222rem; width: 80%; background-color: #202029; margin-top: 1.11111rem; }
+#toolBar { height: 2.22222rem; width: 80%; background-color: #202029; margin-top: 1.11111rem; display: inline-flex; justify-content: center; }
 
-.toolbarSlot { border-right: solid 0.05556rem #4a4949; }
+.toolbarSlot { border-right: solid 0.05556rem #4a4949; border-left: solid 0.05556rem #4a4949; }
 
 #headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; }

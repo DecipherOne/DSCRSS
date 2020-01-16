@@ -235,10 +235,13 @@ button[class^="submitEventLineButton"]{
   width:80%;
   background-color: #202029;
   margin-top:PixelToRem(20);
+  display:inline-flex;
+  justify-content: center;
 }
 
 .toolbarSlot{
-  border-right: solid PixelToRem(1) #4a4949
+  border-right: solid PixelToRem(1) #4a4949;
+  border-left: solid PixelToRem(1) #4a4949;
 }
 
 #headerMessageContainer

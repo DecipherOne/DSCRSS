@@ -72,7 +72,7 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function InitializePredefinedPresentationNode()
     {
-        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'>-</span></span><span class='modifyPresentationEntry left'><span class='controlLabel'>Y</span></span>";
+        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'></span></span><span class='modifyPresentationEntry left'><span class='controlLabel'></span></span>";
         var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option>Start Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option >End Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
@@ -766,9 +766,9 @@ jQuery.expr[':'].parents = function(a,i,m){
             timeout:0,
             contentType: 'application/json; charset=utf-8'
         })
-            .done(function( msg ) {
-                return callback(msg);
-            });
+        .done(function( msg ) {
+            return callback(msg);
+        });
 
     }
 
@@ -801,9 +801,9 @@ jQuery.expr[':'].parents = function(a,i,m){
             timeout:0,
             contentType: 'application/json; charset=utf-8'
         })
-            .done(function( msg ) {
-                return callback(msg);
-            });
+        .done(function( msg ) {
+            return callback(msg);
+        });
     }
 
     function UpdateDailyPresentationNumber(number)
