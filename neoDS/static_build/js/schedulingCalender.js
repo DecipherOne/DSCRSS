@@ -505,7 +505,8 @@
 
         $('.deletePresentationEntry').click(function(){
 
-            if($(this).parent().hasClass("scheduled"))
+            var isScheduled = $(this).parent().hasClass("scheduled");
+            if(isScheduled)
             {
                 var deleteEntry = window.confirm("You sure you want to delete this entry? Make your own confirmation dialog lazy.");
                 if(deleteEntry)
@@ -525,10 +526,10 @@
         $('.modifyPresentationEntry').click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            var lineItemComponents = $(e.target).parent().siblings();
+            var lineItemComponents = $(e.target).parent().children();
 
-            $(e.target).parent().siblings(".deletePresentationEntry").show();
-            $(e.target).parent().hide();
+            $(e.target).parent().children(".deletePresentationEntry").show();
+            $(e.target).hide();
 
             for(var i = 0; i< lineItemComponents.length; i++)
                 $(lineItemComponents[i]).removeAttr("disabled");
@@ -543,7 +544,8 @@
         $("#addEntryButton").click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            AppendPresentationNode();
+            var isScheduled = $(this).parent().hasClass("scheduled");
+            AppendPresentationNode(e);
         });
 
         $(".editSelections").click(function(e){
@@ -625,27 +627,29 @@
         $(submitButton).siblings('.modifyPresentationEntry').show();
     }
 
-    function AppendPresentationNode()
+    function AppendPresentationNode(e)
     {
 
         var index = null,
             submitEventLineButton = null,
-            selectionString = null;
+            selectionString = null,
+            presentationClassReference = null;
 
         index = $('#presentationEntryContainer div:last-child').attr('class');
         index = index.replace("presentationEntry",'');
         index = parseInt(index);
         index +=1;
+        presentationClassReference = "presentationEntry"+index;
         submitEventLineButton = "<button class='submitEventLineButton" + index + "' >Submit</button>";
-        presentationEntryContainer.append("<div class='presentationEntry" + index +"'>"+predefinedPresentationNode +
+        presentationEntryContainer.append("<div class='" + presentationClassReference +"'>"+predefinedPresentationNode +
             submitEventLineButton + "</div>");
 
-        selectionString = $(".presentationEntry"+index);
+        selectionString = $("."+presentationClassReference);
 
         RetrieveScheduleTablesFromDataStore(function(response){
             PopulatePresentationEntrySelects(selectionString,response,function(){
                 AddControlClickEventHandlers();
-                $('.modifyPresentationEntry').hide();
+                $(selectionString).children('.modifyPresentationEntry').hide();
                 return;
             });
         });

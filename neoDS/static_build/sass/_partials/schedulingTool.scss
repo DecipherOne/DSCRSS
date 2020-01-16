@@ -83,6 +83,10 @@
   margin-left:PixelToRem(29.5);
 }
 
+.controlLabel{
+  pointer-events: none;
+}
+
 .deletePresentationEntry
 {
   border: solid PixelToRem(10) red;

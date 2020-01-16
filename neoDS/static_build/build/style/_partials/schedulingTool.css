@@ -24,6 +24,8 @@
 
 .schedulingToolSelect:nth-of-type(4) { margin-left: PixelToRem(29.5); }
 
+.controlLabel { pointer-events: none; }
+
 .deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: table; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
 

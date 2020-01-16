@@ -487,6 +487,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .schedulingToolSelect:nth-of-type(4) { margin-left: 1.63889rem; }
 
+.controlLabel { pointer-events: none; }
+
 .deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: table; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
 
