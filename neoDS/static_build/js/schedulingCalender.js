@@ -85,7 +85,6 @@
         currentDay = todaysDate.getDate().toString();
         todaysDate = todaysDate.getFullYear() + "-" + ParseMonthIndex(todaysDate.getMonth()) +
             "-"+todaysDate.getDate();
-
     }
 
     function InitiatlizeEventMarkers(callback)
@@ -468,7 +467,7 @@
 
         if(ScheduledDateHasPassed(selectedDayString,todaysDate) && !ScheduledDateIsToday(todaysDate,selectedDayString))
         {
-            $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> This day is in the past and can not be scheduled.</span> </br> ");
+            $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> This day is in the past and can not be altered.</span> </br> ");
             return true;
         }
 
@@ -505,21 +504,33 @@
 
             if(isScheduled)
             {
-                var deleteEntry = window.confirm("You sure you want to delete this entry? Make your own confirmation dialog lazy.");
+                var deleteEntry = window.confirm("You sure you want to delete this entry? "), //TODO :Make your own confirmation dialog lazy.
+                     selectedDate = $(".selectedDay").attr("data-date"),
+                    message = null;
                 if(deleteEntry)
                 {
-                    console.log("Submit deletion to backend :");
+                    DeleteExistingEntry(existingEntryIndex,function(response){
+                        message = response['message'];
+                        RefreshCalendar();
+                        setTimeout(function(){
+                            CheckDatabaseForMonthlyEvents(e,function(){
+                                $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
+                                setTimeout(function(){
+                                    $(".selectedDay").children("span").trigger("click");
+                                    $(headerMessageContainer).html(message);
+                                },100);
+                            });
+                        },100);
 
-                    DeleteExistingEntry(existingEntryIndex);
-                    //after callback
-                    $(this).parent().remove();
+                    });
                 }
                 else
                 {
-                    $(this).siblings(".modifyPresentationEntry").show();
+                    var selects = $(this).siblings("select"),
+                        button = $(this).siblings("button");
+                    DisableSubmittedPresentationControls(selects,button);
                     $(this).hide();
                 }
-
             }
             else
                 $(this).parent().remove();
@@ -533,8 +544,7 @@
             $(e.target).parent().children(".deletePresentationEntry").show();
             $(e.target).hide();
 
-            for(var i = 0; i< lineItemComponents.length; i++)
-                $(lineItemComponents[i]).removeAttr("disabled");
+            $(lineItemComponents).removeAttr("disabled");
         });
 
         $(".addEntry").click(function(e){
@@ -610,8 +620,7 @@
             payLoad = {"presentation":entryString,"type":1};
 
         CreateNewIndividualPresentation(payLoad,function(response){
-            $('.fc-next-button').trigger("click");
-            $('.fc-prev-button').trigger("click");
+            RefreshCalendar();
             setTimeout(function(){
                 CheckDatabaseForMonthlyEvents(e);
                 $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
@@ -619,6 +628,12 @@
             },100);
 
         });
+    }
+
+    function RefreshCalendar()
+    {
+        $('.fc-next-button').trigger("click");
+        $('.fc-prev-button').trigger("click");
     }
 
     function DisableSubmittedPresentationControls(select,submitButton)
@@ -744,7 +759,6 @@
                 return "Saturday";
                 break;
             }
-
         }
     }
 
@@ -753,7 +767,7 @@
        return month+1;
     }
 
-    function DeleteExistingEntry(index)
+    function DeleteExistingEntry(index,callback)
     {
         var payload = {"presentation":{"rowName":"Index","rowValue":index},"type":3},
             method = "POST";
