@@ -134,7 +134,7 @@ class DataStoreManager
     return $query;
   }
 
-  public function DeleteEntryFromTable($targetTabel = '', $rowIndex)
+  public function DeleteExistingEntry($targetTabel = '', $valueArray)
   {
     if (!$this->_isInitialized)
     {
@@ -143,12 +143,12 @@ class DataStoreManager
     }
     try
     {
-      $deleteQuery = $this->ConstructUpdateQueryStructure($targetTabel, $presentation);
+      $deleteQuery = " DELETE FROM " .$targetTabel ." WHERE \"Index\" =:Index ";
 
       if (!$queryHandle = $this->_pdo->prepare($deleteQuery))
         echo("error preparing statment " . $deleteQuery);
 
-      $index = $presentation[7]["rowValue"];
+      $index = $valueArray["rowValue"];
 
       $queryHandle->bindParam(':Index', $index, PDO::PARAM_INT);
 

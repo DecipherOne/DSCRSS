@@ -47,6 +47,16 @@ switch($method)
 
           break;
         }
+
+        case 3: //Delete
+        {
+          if($db->DeleteExistingEntry("scheduledPresentation", $presentation))
+            $responseMessage =["message"=>"The Event has been removed from the schedule.","code"=>200];
+          else
+            $responseMessage =["message"=>"There was an error updating ".$presentation[2].", contact your webservice admin.","code"=>500];
+
+          break;
+        }
         default:
           break;
       }

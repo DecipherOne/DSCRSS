@@ -1,8 +1,6 @@
 #calendar { background-color: #989898; }
 
-#schedulingFormContainer { background-color: #6f6c6c; min-height: PixelToRem(320); max-height: PixelToRem(650); overflow-y: auto; }
-
-#scheduleHeader { padding-top: PixelToRem(10); }
+#schedulingFormContainer { background-color: #6f6c6c; height: PixelToRem(650); overflow-y: auto; }
 
 .archivedEventCircleMarker { border: solid PixelToRem(25) purple; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
 

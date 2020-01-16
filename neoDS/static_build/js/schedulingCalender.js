@@ -195,8 +195,6 @@
         });
     }
 
-
-
     function PrepopulateDefaultDailySchedule(entries)
     {
         for(var c=0; c < entries.length; c++)
@@ -323,7 +321,6 @@
                 }));
             }
         }
-
         return callback();
     }
 
@@ -374,7 +371,6 @@
                                 "SCI</span></span>";
                             foundMatch = true;
                         }
-
                         if(foundMatch)
                         {
                             $(dayNumberSpans[c]).after(nodeBuffer);
@@ -388,7 +384,6 @@
                             "SCI</span></span>";
                         $(dayNumberSpans[c]).after(nodeBuffer);
                     }
-
                 }
                 else
                 {
@@ -503,9 +498,11 @@
     function AddControlClickEventHandlers()
     {
 
-        $('.deletePresentationEntry').click(function(){
+        $('.deletePresentationEntry').click(function(e){
 
-            var isScheduled = $(this).parent().hasClass("scheduled");
+            var isScheduled = $(this).parent().hasClass("scheduled"),
+                existingEntryIndex = $(e.target).siblings('button[class^="submitEventLineButton"]').attr("index");
+
             if(isScheduled)
             {
                 var deleteEntry = window.confirm("You sure you want to delete this entry? Make your own confirmation dialog lazy.");
@@ -513,11 +510,16 @@
                 {
                     console.log("Submit deletion to backend :");
 
+                    DeleteExistingEntry(existingEntryIndex);
                     //after callback
                     $(this).parent().remove();
                 }
                 else
-                    console.log("They don't want to delete it ...");
+                {
+                    $(this).siblings(".modifyPresentationEntry").show();
+                    $(this).hide();
+                }
+
             }
             else
                 $(this).parent().remove();
@@ -751,6 +753,24 @@
        return month+1;
     }
 
+    function DeleteExistingEntry(index)
+    {
+        var payload = {"presentation":{"rowName":"Index","rowValue":index},"type":3},
+            method = "POST";
+        payload = JSON.stringify(payload);
+        $.ajax({
+            method: method,
+            url: "../_serverSide/createDailyPresentations.php",
+            data: payload,
+            async: true,
+            timeout:0,
+            contentType: 'application/json; charset=utf-8'
+        })
+            .done(function( msg ) {
+                return callback(msg);
+            });
+    }
+
     function CreateNewIndividualPresentation(payload, callback)
     {
         var payload = JSON.stringify(payload),
@@ -766,7 +786,6 @@
         .done(function( msg ) {
             return callback(msg);
         });
-
     }
 
     function GetMonthlySchedule(month,year,callback)
@@ -807,6 +826,4 @@
     {
         $(presentationNumberSpan).html(number);
     }
-
-
 })(window, jQuery = window.jQuery || {} );
