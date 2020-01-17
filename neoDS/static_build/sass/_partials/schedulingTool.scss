@@ -6,7 +6,6 @@
 #schedulingFormContainer{
   background-color: #6f6c6c;
   height: PixelToRem(650);
-  overflow-y:auto;
 }
 
 #scheduleHeader
@@ -232,7 +231,7 @@ button[class^="submitEventLineButton"]{
 {
   height:PixelToRem(40);
   width:80%;
-  background-color: #202029;
+  background-color: #1f2831;
   margin-top:PixelToRem(20);
   display:inline-flex;
   justify-content: center;
@@ -252,4 +251,9 @@ button[class^="submitEventLineButton"]{
   font-size: PixelToRem(18);
   color: orange;
   padding:PixelToRem(10);
+}
+
+#presentationScrollContainer{
+  overflow-y:auto;
+  height:PixelToRem(520);
 }

@@ -498,6 +498,8 @@
     {
 
         $('.deletePresentationEntry').click(function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
 
             var isScheduled = $(this).parent().hasClass("scheduled"),
                 existingEntryIndex = $(e.target).siblings('button[class^="submitEventLineButton"]').attr("index");

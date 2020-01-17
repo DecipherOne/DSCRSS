@@ -6,38 +6,43 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-  <title>Science Center of Iowa Daily Schedule </title>
-  <script src="../js/3rdParty.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../style/style.min.css">
-  <link rel="shortcut icon" href="https://www.sciowa.org/favicon-194x194.png" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <title>Science Center of Iowa Daily Schedule </title>
+    <script src="../js/3rdParty.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style/style.min.css">
+    <link rel="shortcut icon" href="https://www.sciowa.org/favicon-194x194.png"/>
 </head>
 <body>
 <div id="scheduleContainer" class="relativelyCentered">
-  <div id="scheduleHeader" class="bottomMargin20">
-    <h3>Science Center of Des Moines Digital Scheduling</h3>
-      <div id="headerMessageContainer" class="relativelyCentered halfWidth">
+    <div id="scheduleHeader" class="bottomMargin20">
+        <h3>Science Center of Des Moines Digital Scheduling</h3>
+        <div id="headerMessageContainer" class="relativelyCentered halfWidth">
 
-      </div>
-  </div>
-  <div id='calendar' class="halfWidth left"></div>
-  <div id="schedulingFormContainer" class="halfWidth left">
-      <form id="dailySchedulingForm">
-        <fieldset id="schedulingToolFieldset">
-          <label id="schedulingToolDateLabel"  class="left" for="schedulingToolDateInput">
-            Date
-          </label>
-          <select id="schedulingToolDateSelect" class="schedulingToolSelect left" disabled>
-                <option selected >Day - 00/00/0000</option>
-          </select>
-          <div id="schedulingToolNumberOfPresentations"><span id="presentationNumberSpan">0</span> Presentations Scheduled.  </div>
-        </fieldset>
-        <fieldset id="scheduledPresentationsFieldSet">
-            <div id="presentationEntryContainer">
+        </div>
+    </div>
+    <div id='calendar' class="halfWidth left"></div>
+    <div id="schedulingFormContainer" class="halfWidth left">
+        <div id="dailySchedulingForm">
+            <div id="dailyScheduleFormHeader">
+                <fieldset id="schedulingToolFieldset">
+                    <label id="schedulingToolDateLabel" class="left" for="schedulingToolDateInput">
+                        Date
+                    </label>
+                    <select id="schedulingToolDateSelect" class="schedulingToolSelect left" disabled>
+                        <option selected>Day - 00/00/0000</option>
+                    </select>
+                    <div id="schedulingToolNumberOfPresentations"><span id="presentationNumberSpan">0</span>
+                        Presentations Scheduled.
+                    </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset id="scheduledToolBottomFieldSet">
+            <div id="presentationScrollContainer">
+                <fieldset id="scheduledPresentationsFieldSet">
+                    <div id="presentationEntryContainer">
+                    </div>
+                </fieldset>
+            </div>
             <div id="toolBar" class="relativelyCentered hidden">
                 <div class="toolbarSlot addEntry left">
                     <button id="addEntryButton">Add Presentation</button>
@@ -45,23 +50,15 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                 <div class="toolbarSlot editSelections left">
                     <button id="editSelectionsButton">Edit Selections</button>
                 </div>
-                <!-- <div class="toolbarSlot submitAllPresentations left">
-                     <span id="sumbitAllPresentationsControl" class=" left">
-                         <span class="controlLabel">S</span>
-                     </span>
-                      <button id="submitAllPresentationsButton">Submit All</button>
-                </div>-->
             </div>
-        </fieldset>
-
-      </form>
-  </div>
+        </div>
+    </div>
 </div>
 </body>
 <footer>
-  <!-- <script src="../js/001.min.js"></script> -->
+    <!-- <script src="../js/001.min.js"></script> -->
     <script src="../static_build/js/compiled/001.js"></script>
-  <h6>Donated By : Will Canada circa 2020 <a href="http://decipherone.com" target="_blank">DecipherOne</a>
-  in partnership with <a href="http://grandconsulting.com/" target="_blank">Grand Consulting</a> </h6>
+    <h6>Donated By : Will Canada circa 2020 <a href="http://decipherone.com" target="_blank">DecipherOne</a>
+        in partnership with <a href="http://grandconsulting.com/" target="_blank">Grand Consulting</a></h6>
 </footer>
 </html>

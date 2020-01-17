@@ -453,7 +453,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-dayGrid-view td.fc-week-number > * { /* work around the way we do column resizing and ensure a minimum width */ display: inline-block; min-width: 1.25em; }
 
-#scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; }
+#scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; padding: 1.11111rem; }
 
 #scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
 
@@ -463,7 +463,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #calendar { background-color: #989898; }
 
-#schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; overflow-y: auto; }
+#schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; }
 
 .archivedEventCircleMarker { border: solid 1.38889rem purple; border-radius: 1.38889rem; display: inline-block; cursor: pointer; }
 
@@ -516,8 +516,10 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 #schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
 
-#toolBar { height: 2.22222rem; width: 80%; background-color: #202029; margin-top: 1.11111rem; display: inline-flex; justify-content: center; }
+#toolBar { height: 2.22222rem; width: 80%; background-color: #1f2831; margin-top: 1.11111rem; display: inline-flex; justify-content: center; }
 
 .toolbarSlot { border-right: solid 0.05556rem #4a4949; border-left: solid 0.05556rem #4a4949; }
 
 #headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; }
+
+#presentationScrollContainer { overflow-y: auto; height: 28.88889rem; }
