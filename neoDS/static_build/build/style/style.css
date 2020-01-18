@@ -487,6 +487,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .controlLabel { pointer-events: none; }
 
+.archivedPresentationEntry { border: solid 0.55556rem #8c8b8d; border-radius: 0.55556rem; display: table; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
+.archivedPresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
+
 .deletePresentationEntry { border: solid 0.55556rem red; border-radius: 0.55556rem; display: table; cursor: pointer; color: #000000; margin: 0.27778rem; margin-top: 0.55556rem; }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(-0.16667rem, -0.66667rem); }
 
@@ -511,6 +514,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: 1.11111rem; }
 
 #presentationEntryContainer { display: table; }
+#presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
 
 button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 
@@ -522,4 +526,4 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 #headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; }
 
-#presentationScrollContainer { overflow-y: auto; height: 28.88889rem; }
+#presentationScrollContainer { overflow-y: auto; height: 28.88889rem; border: solid black 0.04167rem; border-radius: 0.38889rem; }

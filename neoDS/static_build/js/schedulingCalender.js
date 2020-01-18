@@ -69,7 +69,7 @@
 
     function InitializePredefinedPresentationNode()
     {
-        var topControls = "<span class='deletePresentationEntry left'><span class='controlLabel'></span></span><span class='modifyPresentationEntry left'><span class='controlLabel'></span></span>";
+        var topControls = "<span class='archivedPresentationEntry left'><span class='controlLabel'></span></span><span class='deletePresentationEntry left'><span class='controlLabel'></span></span><span class='modifyPresentationEntry left'><span class='controlLabel'></span></span>";
         var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option>Start Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option >End Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
@@ -408,6 +408,7 @@
                     GenerateDefaultPresentationNodes(8,function(){
                         GetScheduleLabelsAndPopulateSelects();
                         $('.modifyPresentationEntry').hide();
+                        $('.archivedPresentationEntry').hide();
                         ShowPresentationToolBar();
                         AddControlClickEventHandlers();
                     });
@@ -426,6 +427,7 @@
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
                             $('.deletePresentationEntry').hide();
+                            $('.archivedPresentationEntry').hide();
                             $('.modifyPresentationEntry').show();
                             ShowPresentationToolBar();
                             AddControlClickEventHandlers();
@@ -439,10 +441,21 @@
                     PlaceSelectedDayClass(e.target);
                     UpdateDailyPresentationNumber(0);
                     GetDateFromEventTokenParentPutInDateInput(e);
-                    $('.deletePresentationEntry').hide();
-                    $('.modifyPresentationEntry').hide();
-                    HidePresentationToolBar();
-                    AddControlClickEventHandlers(); //TO DO : call this after loading scheduled events
+
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+                    GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
+                        var numberOfNodes = dailyScheduleEntry.length;
+                        GenerateDefaultPresentationNodes(numberOfNodes,function(){
+                            UpdateDailyPresentationNumber(numberOfNodes);
+                            GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
+                            $('.deletePresentationEntry').hide();
+                            $('.modifyPresentationEntry').hide();
+                            $('.archivedPresentationEntry').show();
+                            $(presentationEntryContainer).append('<span class="relativelyCentered">This day is in the past and can not be altered.</span>');
+                            HidePresentationToolBar();
+                            AddControlClickEventHandlers();
+                        });
+                    });
                 });
             });
         });
@@ -692,6 +705,7 @@
             PopulatePresentationEntrySelects(selectionString,response,function(){
                 AddControlClickEventHandlers();
                 $(selectionString).children('.modifyPresentationEntry').hide();
+                $(selectionString).children('.archivedPresentationEntry').hide();
                 return;
             });
         });

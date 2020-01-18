@@ -85,6 +85,21 @@
   pointer-events: none;
 }
 
+.archivedPresentationEntry
+{
+  border: solid PixelToRem(10) #8c8b8d;
+  border-radius:PixelToRem(10);
+  display:table;
+  cursor:pointer;
+  color:#000000;
+  margin:PixelToRem(5);
+  margin-top:PixelToRem(10);
+  .controlLabel {
+    position: absolute;
+    transform: translate(PixelToRem(-3),PixelToRem(-12));
+  }
+}
+
 .deletePresentationEntry
 {
   border: solid PixelToRem(10) red;
@@ -180,6 +195,12 @@ div[class^="presentationEntry"]{
 
 #presentationEntryContainer{
   display:table;
+  .relativelyCentered
+  {
+    clear: both;
+    transform: none !important;
+    left: 25%;
+  }
 }
 
 .startTimeSelect
@@ -256,4 +277,6 @@ button[class^="submitEventLineButton"]{
 #presentationScrollContainer{
   overflow-y:auto;
   height:PixelToRem(520);
+  border: solid black PixelToRem(0.75);
+  border-radius: PixelToRem(7);
 }

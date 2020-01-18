@@ -24,6 +24,9 @@
 
 .controlLabel { pointer-events: none; }
 
+.archivedPresentationEntry { border: solid PixelToRem(10) #8c8b8d; border-radius: PixelToRem(10); display: table; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
+.archivedPresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
+
 .deletePresentationEntry { border: solid PixelToRem(10) red; border-radius: PixelToRem(10); display: table; cursor: pointer; color: #000000; margin: PixelToRem(5); margin-top: PixelToRem(10); }
 .deletePresentationEntry .controlLabel { position: absolute; transform: translate(PixelToRem(-3), PixelToRem(-12)); }
 
@@ -48,6 +51,7 @@
 div[class^="presentationEntry"] { width: 100%; min-height: PixelToRem(50); clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: PixelToRem(20); }
 
 #presentationEntryContainer { display: table; }
+#presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
 
 button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToRem(42); border: solid PixelToRem(1) black; border-radius: PixelToRem(3); cursor: pointer; }
 
@@ -59,4 +63,4 @@ button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToR
 
 #headerMessageContainer { border: solid PixelToRem(1) #202029; min-height: PixelToRem(42); max-height: PixelToRem(84); font-family: "Courier New", "SansSerif"; font-size: PixelToRem(18); color: orange; padding: PixelToRem(10); }
 
-#presentationScrollContainer { overflow-y: auto; height: PixelToRem(520); }
+#presentationScrollContainer { overflow-y: auto; height: PixelToRem(520); border: solid black PixelToRem(0.75); border-radius: PixelToRem(7); }
