@@ -61,6 +61,24 @@ button[class^="submitEventLineButton"] { width: PixelToRem(75); height: PixelToR
 
 .toolbarSlot { border-right: solid PixelToRem(1) #4a4949; border-left: solid PixelToRem(1) #4a4949; }
 
-#headerMessageContainer { border: solid PixelToRem(1) #202029; min-height: PixelToRem(42); max-height: PixelToRem(84); font-family: "Courier New", "SansSerif"; font-size: PixelToRem(18); color: orange; padding: PixelToRem(10); }
+#headerMessageContainer { border: solid PixelToRem(1) #202029; min-height: PixelToRem(42); max-height: PixelToRem(84); font-family: "Courier New", "SansSerif"; font-size: PixelToRem(18); color: orange; padding: PixelToRem(10); margin-top: PixelToRem(20); }
 
 #presentationScrollContainer { overflow-y: auto; height: PixelToRem(520); border: solid black PixelToRem(0.75); border-radius: PixelToRem(7); }
+
+#schedulingToolLegend { height: PixelToRem(142); width: PixelToRem(225); padding: PixelToRem(8); margin: PixelToRem(18); display: block; float: left; background-color: #dddddd; color: #989898; }
+#schedulingToolLegend div { margin: PixelToRem(2); text-align: initial; }
+#schedulingToolLegend span { margin-right: PixelToRem(10); }
+
+#headerTitleContainer { text-align: initial; left: 12%; position: relative; top: PixelToRem(20); }
+
+#legendTitle { color: #4a4949 !important; text-decoration: underline; text-align: center !important; }
+
+#legendTodayMarker { background-color: #d7b064a8 !important; width: PixelToRem(20); height: PixelToRem(20); display: block; cursor: pointer; float: left; }
+
+#legendSelectedDayMarker { background-image: url("../images/currentselection.jpg") !important; background-size: cover !important; height: PixelToRem(20); width: PixelToRem(20); display: block; cursor: pointer; float: left; }
+
+#legendArchivedMarker { border: solid PixelToRem(10) purple; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; display: block; float: left; }
+
+#legendScheduledEventMarker { border: solid PixelToRem(10) #B1C625; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; display: block; float: left; }
+
+#legendUnscheduledDayMarker { border: solid PixelToRem(10) #393939; border-radius: PixelToRem(10); display: inline-block; cursor: pointer; display: block; float: left; }

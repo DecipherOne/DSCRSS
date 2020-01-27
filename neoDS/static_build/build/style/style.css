@@ -455,7 +455,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; padding: 1.11111rem; }
 
-#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 6.66667rem; }
+#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 10rem; }
 
 #scheduleBody { width: 100%; text-align: center; min-height: 6.66667rem; }
 
@@ -524,6 +524,24 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 .toolbarSlot { border-right: solid 0.05556rem #4a4949; border-left: solid 0.05556rem #4a4949; }
 
-#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; }
+#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; margin-top: 1.11111rem; }
 
 #presentationScrollContainer { overflow-y: auto; height: 28.88889rem; border: solid black 0.04167rem; border-radius: 0.38889rem; }
+
+#schedulingToolLegend { height: 7.88889rem; width: 12.5rem; padding: 0.44444rem; margin: 1rem; display: block; float: left; background-color: #dddddd; color: #989898; }
+#schedulingToolLegend div { margin: 0.11111rem; text-align: initial; }
+#schedulingToolLegend span { margin-right: 0.55556rem; }
+
+#headerTitleContainer { text-align: initial; left: 12%; position: relative; top: 1.11111rem; }
+
+#legendTitle { color: #4a4949 !important; text-decoration: underline; text-align: center !important; }
+
+#legendTodayMarker { background-color: #d7b064a8 !important; width: 1.11111rem; height: 1.11111rem; display: block; cursor: pointer; float: left; }
+
+#legendSelectedDayMarker { background-image: url("../images/currentselection.jpg") !important; background-size: cover !important; height: 1.11111rem; width: 1.11111rem; display: block; cursor: pointer; float: left; }
+
+#legendArchivedMarker { border: solid 0.55556rem purple; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }
+
+#legendScheduledEventMarker { border: solid 0.55556rem #B1C625; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }
+
+#legendUnscheduledDayMarker { border: solid 0.55556rem #393939; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }

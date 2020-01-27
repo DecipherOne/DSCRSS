@@ -1,6 +1,6 @@
 #scheduleContainer { max-width: PixelToRem(1536); min-width: PixelToRem(320); background-color: #000000; padding: PixelToRem(20); }
 
-#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: PixelToRem(120); }
+#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: PixelToRem(180); }
 
 #scheduleBody { width: 100%; text-align: center; min-height: PixelToRem(120); }
 

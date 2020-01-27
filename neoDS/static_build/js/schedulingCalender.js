@@ -639,8 +639,6 @@
         if(!VerifyRequiredFieldsAreSet(entryString))
             return alert("The only non required Field is Presenter Name. Please update your selection");
 
-
-
         if($(e.target).attr("index"))
         {
             entryString.push({"rowName":"Index","rowValue": existingEntryIndex});
@@ -678,7 +676,6 @@
 
     function AppendPresentationNode(e)
     {
-
         var index = null,
             submitEventLineButton = null,
             selectionString = null,
