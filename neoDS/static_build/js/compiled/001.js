@@ -45,6 +45,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
             CheckDatabaseForMonthlyEvents(e);
+            $(presentationEntryContainer).html('');
         });
     });
 

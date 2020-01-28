@@ -10,7 +10,7 @@ a { color: #ACC314; }
 a:hover { color: #bb9800; }
 a:visited { color: #00a1bb; }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 .absolutelyCentered { position: absolute; left: 50%; transform: translate(-50%, -0.42rem); }
 
