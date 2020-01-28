@@ -3,14 +3,10 @@
 namespace DSCRSS;
 header('Content-Type:application/json; charset=utf-8');
 
-
 $path=  $_SERVER['DOCUMENT_ROOT'];
 require_once($path."/DSCRSS/neoDS/_serverSide/classes/pch.php");
-
-
-
 $method = $_SERVER['REQUEST_METHOD'];
-$requestPayload = json_decode(file_get_contents('php://input'),true);
+
 
 switch($method) {
   case "POST":

@@ -2,6 +2,8 @@
 
 #schedulingFormContainer { background-color: #6f6c6c; height: PixelToRem(650); }
 
+#scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: PixelToRem(180); }
+
 .archivedEventCircleMarker { border: solid PixelToRem(25) purple; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }
 
 .scheduledEventCircleMarker { border: solid PixelToRem(25) #B1C625; border-radius: PixelToRem(25); display: inline-block; cursor: pointer; }

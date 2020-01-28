@@ -8,6 +8,13 @@
   height: PixelToRem(650);
 }
 
+#scheduleHeader{
+  width:100%;
+  text-align:center;
+  background-color: #4a4949;
+  height:PixelToRem(180);
+}
+
 .archivedEventCircleMarker
 {
   border: solid PixelToRem(25) purple;

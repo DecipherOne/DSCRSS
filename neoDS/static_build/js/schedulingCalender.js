@@ -42,7 +42,6 @@
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
             CheckDatabaseForMonthlyEvents(e);
-            $(presentationEntryContainer).html('');
         });
     });
 

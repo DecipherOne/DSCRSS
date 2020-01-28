@@ -47,7 +47,8 @@ module.exports = function(grunt) {
             projectMain:{
                 src:[
                     'static_build/js/main.js',
-                    'static_build/js/schedulingCalender.js'
+                    'static_build/js/schedulingCalender.js',
+                    'static_build/js/dailySchedule.js'
                 ],
                 dest:'static_build/js/compiled/001.js',
                 nonull: true

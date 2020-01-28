@@ -62,7 +62,7 @@ class DataStoreManager
     }
     catch (\PDOException $e)
     {
-      throw new MyDatabaseException($e->getMessage(), (int)$e->getCode());
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
 
     $results = [];
@@ -88,6 +88,7 @@ class DataStoreManager
     if ($limit != '')
       $query .= " LIMIT " . $limit;
 
+   // echo "Final Query -> " .$query;
     return $query;
   }
 
