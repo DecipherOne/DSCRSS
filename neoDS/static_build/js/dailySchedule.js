@@ -7,37 +7,24 @@
         pageLinkJDAT = null,
         pageLinkStar = null,
         pageLinkAll = null,
-        pageLinkTools = null;
+        pageLinkTools = null,
+        scheduleCurrentTime = null;
 
     $(document).ready(function()
     {
         InitializeLocalReferences(function(){
-
-            $(pageLinkBoxOffice).click(function(){
-                GetDailySchedule(0,0,0,'"Box Office"');
-            });
-
-            $(pageLinkFounders).click(function(){
-                GetDailySchedule(0,0,0,'"Founders Hall"');
-            });
-
-            $(pageLinkJDAT).click(function(){
-                GetDailySchedule(0,0,0,'"JDAT"');
-            });
-
-            $(pageLinkStar).click(function(){
-                GetDailySchedule(0,0,0,'"Star Theater"');
-            });
-
-            $(pageLinkAll).click(function(){
-                GetDailySchedule(0,0,0,'" "');
-            });
-
-            $(pageLinkTools).click(function(){
-                NavigateToToolPage();
-            });
+            InitializeNavigationClickEvents();
+            InitializeScheduleClock();
         });
     });
+
+    function InitializeScheduleClock()
+    {
+        if(scheduleCurrentTime!==null && scheduleCurrentTime !== undefined)
+            setInterval(function(){
+                $(scheduleCurrentTime).html('<h2>' + GetCurrentTime() + '</h2>');
+            },100);
+    }
 
     function InitializeLocalReferences(callback)
     {
@@ -47,13 +34,41 @@
         pageLinkStar = $("#pageLinkStar");
         pageLinkAll = $("#pageLinkAll"),
         pageLinkTools = $("#pageLinkTools");
+        scheduleCurrentTime = $("#scheduleCurrentTime");
 
         return callback();
     }
 
+    function InitializeNavigationClickEvents()
+    {
+        $(pageLinkBoxOffice).click(function(){
+            GetDailySchedule(0,0,0,'"Box Office"');
+        });
+
+        $(pageLinkFounders).click(function(){
+            GetDailySchedule(0,0,0,'"Founders Hall"');
+        });
+
+        $(pageLinkJDAT).click(function(){
+            GetDailySchedule(0,0,0,'"JDAT"');
+        });
+
+        $(pageLinkStar).click(function(){
+            GetDailySchedule(0,0,0,'"Star Theater"');
+        });
+
+        $(pageLinkAll).click(function(){
+            GetDailySchedule(0,0,0,'" "');
+        });
+
+        $(pageLinkTools).click(function(){
+            NavigateToToolPage();
+        });
+    }
+
     function GetDailySchedule(day, month, year, screen)
     {
-        var payload = BuildRequestPayload(day,month,year,screen),
+        var payload = {day:day, month:month, year:year, screen:screen},
             url = "_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
                 payload["month"] + "&year=" + payload["year"] + "&screen=" + payload["screen"];
 
@@ -63,22 +78,91 @@
     function NavigateToToolPage()
     {
         var url = "tools/";
-
         window.open(url,"_blank");
-
     }
 
-    function BuildRequestPayload(day,month,year,screen)
+    function GetCurrentTime()
     {
-        var date = new Date();
-        if(day === 0|| month === 0 || year === 0)
-        {
-            day = date.getDate();
-            month = date.getMonth()+1;
-            year = date.getFullYear();
-        }
+        var dateTime = new Date(),
+            dayName = null,
+            convertedHoursString = _24HoursTo12(dateTime),
+            convertedMinutesString = PrependZeroToTimeValue(dateTime.getMinutes()),
+            convertedSecondsString = PrependZeroToTimeValue(dateTime.getSeconds()),
+            convertedMonthString = dateTime.getMonth() + 1,
+            dateTimeString = convertedMonthString + "/" + dateTime.getDate() + "/" +
+                dateTime.getFullYear()+ " " + convertedHoursString + ":" +
+                convertedMinutesString + ":" + convertedSecondsString;
 
-        return {day:day, month:month, year:year, screen:screen};
+        if(dateTime.getHours().valueOf()>11)
+            dateTimeString += "pm";
+        else
+            dateTimeString += "am";
+
+        dayName = dateTime.getDay();
+        dayName = GetDayNameString(dayName);
+        return dayName + " " + dateTimeString;
+    };
+
+    function _24HoursTo12(dateTime)
+    {
+        var hours = dateTime.getHours().valueOf();
+        if(hours>12)
+            return hours - 12;
+        else if(hours==0)
+            return 12;
+        else
+            return hours;
+    }
+
+    function PrependZeroToTimeValue(dateTime)
+    {
+        var timeDenomination = dateTime.valueOf();
+        if(timeDenomination<10)
+            return '0'+timeDenomination.toString();
+        else
+            return timeDenomination;
+    }
+
+    function GetDayNameString(dayIndex)
+    {
+        switch(dayIndex)
+        {
+            case 0:
+            {
+                return "Sunday";
+                break;
+            }
+            case 1:
+            {
+                return "Monday";
+                break;
+            }
+            case 2:
+            {
+                return "Tuesday";
+                break;
+            }
+            case 3:
+            {
+                return "Wednesday";
+                break;
+            }
+            case 4:
+            {
+                return "Thursday";
+                break;
+            }
+            case 5:
+            {
+                return "Friday";
+                break;
+            }
+            case 6:
+            {
+                return "Saturday";
+                break;
+            }
+        }
     }
 
 })(window, jQuery = window.jQuery || {} );

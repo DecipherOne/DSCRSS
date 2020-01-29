@@ -10,3 +10,19 @@
 
 .schedulePageLink { clear: both; width: PixelToRem(280); display: grid; margin: PixelToRem(8); cursor: pointer; color: #ACC313; text-align: initial; }
 .schedulePageLink:hover { color: #ad11c3; }
+
+#scheduleDisplayHeader, .scheduleCalendarEntry, #currentPresentation { width: 100%; display: inline-flex; flex-wrap: wrap; justify-content: flex-start; }
+
+#scheduleDisplayHeader { justify-content: space-evenly; }
+
+#currentPresentation { background-color: #4a4949; font-size: PixelToRem(42); }
+
+#scheduleDisplayBody { padding: PixelToRem(20); }
+
+.presentationLabel { padding: PixelToRem(4); margin-right: PixelToRem(3); color: #ACC313; }
+
+.presentationEntry { padding: PixelToRem(4); margin-right: PixelToRem(3); }
+
+.scheduleCalendarEntry { min-height: PixelToRem(60); }
+
+.gray { background-color: #4a4949; }

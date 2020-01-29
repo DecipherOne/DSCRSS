@@ -466,6 +466,22 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 .schedulePageLink { clear: both; width: 15.55556rem; display: grid; margin: 0.44444rem; cursor: pointer; color: #ACC313; text-align: initial; }
 .schedulePageLink:hover { color: #ad11c3; }
 
+#scheduleDisplayHeader, .scheduleCalendarEntry, #currentPresentation { width: 100%; display: inline-flex; flex-wrap: wrap; justify-content: flex-start; }
+
+#scheduleDisplayHeader { justify-content: space-evenly; }
+
+#currentPresentation { background-color: #4a4949; font-size: 2.33333rem; }
+
+#scheduleDisplayBody { padding: 1.11111rem; }
+
+.presentationLabel { padding: 0.22222rem; margin-right: 0.16667rem; color: #ACC313; }
+
+.presentationEntry { padding: 0.22222rem; margin-right: 0.16667rem; }
+
+.scheduleCalendarEntry { min-height: 3.33333rem; }
+
+.gray { background-color: #4a4949; }
+
 #calendar { background-color: #989898; }
 
 #schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; }
