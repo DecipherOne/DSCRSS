@@ -474,9 +474,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #scheduleDisplayBody { padding: 1.11111rem; }
 
-.presentationLabel { padding: 0.22222rem; margin-right: 0.16667rem; color: #ACC313; }
+.presentationLabel { padding: 0.22222rem; margin-right: 0.11111rem; color: #ACC313; }
 
-.presentationEntry { padding: 0.22222rem; margin-right: 0.16667rem; }
+.presentationEntry { padding: 0.22222rem; margin-right: 0.22222rem; }
 
 .scheduleCalendarEntry { min-height: 3.33333rem; }
 

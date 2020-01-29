@@ -19,9 +19,9 @@
 
 #scheduleDisplayBody { padding: PixelToRem(20); }
 
-.presentationLabel { padding: PixelToRem(4); margin-right: PixelToRem(3); color: #ACC313; }
+.presentationLabel { padding: PixelToRem(4); margin-right: PixelToRem(2); color: #ACC313; }
 
-.presentationEntry { padding: PixelToRem(4); margin-right: PixelToRem(3); }
+.presentationEntry { padding: PixelToRem(4); margin-right: PixelToRem(4); }
 
 .scheduleCalendarEntry { min-height: PixelToRem(60); }
 

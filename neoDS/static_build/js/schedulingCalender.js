@@ -47,10 +47,10 @@
 
     function InitializeFormTimeValues()
     {
-        formTimeValues = ["6:00","6:15","6:30","6:45",
-            "7:00","7:15","7:30","7:45",
-            "8:00","8:15","8:30","8:45",
-            "9:00","9:15","9:30","9:45",
+        formTimeValues = ["06:00","06:15","06:30","06:45",
+            "07:00","07:15","07:30","07:45",
+            "08:00","08:15","08:30","08:45",
+            "09:00","09:15","09:30","09:45",
             "10:00","10:15","10:30","10:45",
             "11:00","11:15","11:30","11:45",
             "12:00","12:15","12:30","12:45",
@@ -201,7 +201,7 @@
             switch(c)
             {
                 case 0:{
-                    $(entries[c]).children(".startTimeSelect").val("9:30");
+                    $(entries[c]).children(".startTimeSelect").val("09:30");
                     $(entries[c]).children(".endTimeSelect").val("10:00");
                     $(entries[c]).children(".titleSelect").val("Storytime Under the Stars");
                     $(entries[c]).children(".locationSelect").val("Why the Sky?, Upper Level");
