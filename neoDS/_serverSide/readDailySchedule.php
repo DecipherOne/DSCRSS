@@ -54,6 +54,11 @@ switch($method) {
   }
 }
 
+function ConvertTimeTo12HourFormat($time)
+{
+  return date("g:i a", strtotime($time));
+}
+
 function ParseAndOutputResults($response,$haveResults)
 {
 
@@ -61,34 +66,42 @@ function ParseAndOutputResults($response,$haveResults)
     for($i =0; $i < sizeof($response); $i++)
     {
       if($i % 2==0)
-        echo "<div class='scheduleCalendarEntry '>";
-      else
         echo "<div class='scheduleCalendarEntry gray'>";
+      else
+        echo "<div class='scheduleCalendarEntry '>";
 
-      echo  "        <span class=\"presentationLabel\">
+      echo  "<div class='scheduleEntryGroup entryGroupStartTime'>        
+                    <span class=\"presentationLabel\">
                           Begins @
                       </span>
                       <span class=\"presentationEntry\">";
-      echo          $response[$i]->StartTime;
-      echo  "</span>
+      echo              ConvertTimeTo12HourFormat($response[$i]->StartTime);
+      echo  "        </span>
+             </div>
+             <div  class='scheduleEntryGroup entryGroupEndTime'>
                       <span class=\"presentationLabel\">
                           Ends @
                       </span>
                       <span class=\"presentationEntry\">";
-      echo        $response[$i]->EndTime;
-      echo "</span>
+      echo              ConvertTimeTo12HourFormat($response[$i]->EndTime);
+      echo "          </span>
+             </div>
+             <div class='scheduleEntryGroup'>
                         <span class=\"presentationLabel\">
                           Presentation :
                       </span>
                       <span class=\"presentationEntry\">";
-      echo          $response[$i]->Title;
-      echo  "</span>
+      echo                $response[$i]->Title;
+      echo  "        </span>
+             </div>
+             <div class='scheduleEntryGroup'>
                       <span class=\"presentationLabel\">
                           Building Location :
                       </span>
                       <span class=\"presentationEntry\">";
-      echo        $response[$i]->Location;
-      echo "</span>
+      echo              $response[$i]->Location;
+      echo "          </span>
+             </div>
                   </div> ";
     }
   else
@@ -133,6 +146,27 @@ function ParseAndOutputResults($response,$haveResults)
       </div>
     </div>
   <div id="scheduleDisplayBody">
+    <div id="nextPresentation">
+        <span class="presentationLabel">
+          Up Next :
+        </span>
+        <span class="presentationEntry">
+           Next Presentation
+        </span>
+        <span class="presentationLabel">
+          starts @ :
+        </span>
+        <span class="presentationEntry">
+          00:00pm
+        </span>
+        <span class="presentationLabel">
+          Where :
+        </span>
+        <span class="presentationEntry">
+          Star Theater
+        </span>
+    </div>
+    <span id="comingAttractionsHeader"><h2><u>Coming Attractions</u></h2></span>
       <?php
         ParseAndOutputResults($response, $haveResults);
       ?>

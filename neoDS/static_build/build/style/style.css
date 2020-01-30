@@ -466,9 +466,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 .schedulePageLink { clear: both; width: 15.55556rem; display: grid; margin: 0.44444rem; cursor: pointer; color: #ACC313; text-align: initial; }
 .schedulePageLink:hover { color: #ad11c3; }
 
-#scheduleDisplayHeader, .scheduleCalendarEntry, #currentPresentation { width: 100%; display: inline-flex; flex-wrap: wrap; justify-content: flex-start; }
+#scheduleDisplayHeader, .scheduleCalendarEntry, #currentPresentation, #nextPresentation { width: 100%; display: inline-flex; flex-wrap: wrap; justify-content: flex-start; }
 
-#scheduleDisplayHeader { justify-content: space-evenly; }
+#scheduleDisplayHeader { justify-content: space-evenly; border: solid 1px #acc313; }
 
 #currentPresentation { background-color: #4a4949; font-size: 2.33333rem; }
 
@@ -478,9 +478,17 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .presentationEntry { padding: 0.22222rem; margin-right: 0.22222rem; }
 
-.scheduleCalendarEntry { min-height: 3.33333rem; }
+.scheduleCalendarEntry { min-height: 3.33333rem; font-size: 1.55556rem; }
 
 .gray { background-color: #4a4949; }
+
+.scheduleEntryGroup { padding: 0.55556rem; }
+
+.entryGroupStartTime, .entryGroupEndTime { width: 16.11111rem; }
+
+#comingAttractionsHeader { background-color: #000000; }
+
+#nextPresentation { font-size: 1.33333rem; }
 
 #calendar { background-color: #989898; }
 

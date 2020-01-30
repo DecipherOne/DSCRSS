@@ -48,7 +48,7 @@
 }
 
 #scheduleDisplayHeader, .scheduleCalendarEntry,
-#currentPresentation{
+#currentPresentation, #nextPresentation{
   width:100%;
   display:inline-flex;
   flex-wrap:wrap;
@@ -57,6 +57,7 @@
 
 #scheduleDisplayHeader{
   justify-content: space-evenly;
+  border: solid 1px #acc313;
 }
 #currentPresentation{
   background-color: #4a4949;
@@ -79,13 +80,30 @@
 
 .scheduleCalendarEntry{
   min-height:PixelToRem(60);
+  font-size:PixelToRem(28);
 }
 
 .gray{
   background-color: #4a4949;
 }
 
+.scheduleEntryGroup
+{
+  padding:PixelToRem(10);
+}
 
+.entryGroupStartTime, .entryGroupEndTime
+{
+  width:PixelToRem(290);
+}
+
+#comingAttractionsHeader{
+  background-color:#000000;
+}
+
+#nextPresentation{
+  font-size:PixelToRem(24);
+}
 
 
 
