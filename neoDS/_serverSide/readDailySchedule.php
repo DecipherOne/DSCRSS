@@ -11,14 +11,27 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch($method) {
   case "GET":
   {
-    $month = $_GET['month'];
-    $year = $_GET['year'];
-    $day = $_GET['day'];
+
+    if(isset($_GET['month']))
+      $month = $_GET['month'];
+    else
+      $month = 0;
+
+    if(isset($_GET['year']))
+      $year = $_GET['year'];
+    else
+      $year = 0;
+
+    if(isset($_GET['day']))
+      $day = $_GET['day'];
+    else
+      $day = 0;
+
     $screen = '';
     $where = '';
     $haveResults = false;
 
-    if($month==0) //Pull in todays schedules if a specific day wasn't requested
+    if($month==0 || $day == 0 || $year == 0) //Pull in todays schedules if a specific day wasn't requested
     {
        $month =  date("m");
        $day = date("d");
