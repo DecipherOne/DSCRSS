@@ -23,7 +23,7 @@
 
 .presentationEntry { padding: PixelToRem(4); margin-right: PixelToRem(4); }
 
-.scheduleCalendarEntry { min-height: PixelToRem(60); font-size: PixelToRem(28); }
+.scheduleCalendarEntry { min-height: PixelToRem(60); font-size: PixelToRem(24); }
 
 .gray { background-color: #4a4949; }
 
@@ -33,4 +33,4 @@
 
 #comingAttractionsHeader { background-color: #000000; }
 
-#nextPresentation { font-size: PixelToRem(24); }
+#nextPresentation { font-size: PixelToRem(30); }

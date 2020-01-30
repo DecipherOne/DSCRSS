@@ -478,7 +478,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .presentationEntry { padding: 0.22222rem; margin-right: 0.22222rem; }
 
-.scheduleCalendarEntry { min-height: 3.33333rem; font-size: 1.55556rem; }
+.scheduleCalendarEntry { min-height: 3.33333rem; font-size: 1.33333rem; }
 
 .gray { background-color: #4a4949; }
 
@@ -488,7 +488,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #comingAttractionsHeader { background-color: #000000; }
 
-#nextPresentation { font-size: 1.33333rem; }
+#nextPresentation { font-size: 1.66667rem; }
 
 #calendar { background-color: #989898; }
 

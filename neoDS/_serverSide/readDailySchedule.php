@@ -24,6 +24,8 @@ switch($method) {
        $day = date("d");
        $year = date("Y");
     }
+    else if(((int)$month) <= 9)
+      $month = "0".$month;
 
     $query = $year."-".$month."-".$day;
 
@@ -65,8 +67,9 @@ function ParseAndOutputResults($response,$haveResults)
   if($haveResults)
     for($i =0; $i < sizeof($response); $i++)
     {
+        $index = $i+1;
       if($i % 2==0)
-        echo "<div class='scheduleCalendarEntry gray'>";
+        echo "<div class='scheduleCalendarEntry gray' index='$index'>";
       else
         echo "<div class='scheduleCalendarEntry '>";
 
@@ -96,7 +99,7 @@ function ParseAndOutputResults($response,$haveResults)
              </div>
              <div class='scheduleEntryGroup'>
                       <span class=\"presentationLabel\">
-                          Building Location :
+                          Where :
                       </span>
                       <span class=\"presentationEntry\">";
       echo              $response[$i]->Location;
@@ -131,40 +134,58 @@ function ParseAndOutputResults($response,$haveResults)
         <h2>00:00:00am</h2>
       </div>
       <div id="currentPresentation">
-        <span class="presentationLabel">
-          Current Presentation :
-        </span>
-        <span class="presentationEntry">
-          The Presentation that is happening now
-        </span>
-        <span class="presentationLabel">
-          Ends @ :
-        </span>
-        <span class="presentationEntry">
-          00:00pm
-        </span>
+        <div class='scheduleEntryGroup'>
+          <span class="presentationLabel">
+            Now Showing :
+          </span>
+          <span class="presentationEntry">
+            Enjoy your day!
+          </span>
+        </div>
+        <div class='scheduleEntryGroup'>
+          <span class="presentationLabel">
+            Where :
+          </span>
+          <span class="presentationEntry">
+            Every Where!
+          </span>
+        </div>
+        <div class='scheduleEntryGroup'>
+          <span class="presentationLabel">
+            Ends @ :
+          </span>
+          <span class="presentationEntry">
+            00:00pm
+          </span>
+        </div>
       </div>
     </div>
   <div id="scheduleDisplayBody">
-    <div id="nextPresentation">
+    <div id="nextPresentation" class="relativelyCentered">
+      <div class='scheduleEntryGroup'>
         <span class="presentationLabel">
           Up Next :
         </span>
         <span class="presentationEntry">
            Next Presentation
         </span>
+      </div>
+      <div class='scheduleEntryGroup'>
         <span class="presentationLabel">
-          starts @ :
+          Begins @ :
         </span>
         <span class="presentationEntry">
           00:00pm
         </span>
+      </div>
+      <div class='scheduleEntryGroup'>
         <span class="presentationLabel">
           Where :
         </span>
         <span class="presentationEntry">
           Star Theater
         </span>
+      </div>
     </div>
     <span id="comingAttractionsHeader"><h2><u>Coming Attractions</u></h2></span>
       <?php
