@@ -84,7 +84,7 @@ function ParseAndOutputResults($response,$haveResults)
       if($i % 2==0)
         echo "<div class='scheduleCalendarEntry gray' index='$index'>";
       else
-        echo "<div class='scheduleCalendarEntry '>";
+        echo "<div class='scheduleCalendarEntry ' index='$index'>";
 
       echo  "<div class='scheduleEntryGroup entryGroupStartTime'>        
                     <span class=\"presentationLabel\">
@@ -102,7 +102,7 @@ function ParseAndOutputResults($response,$haveResults)
       echo              ConvertTimeTo12HourFormat($response[$i]->EndTime);
       echo "          </span>
              </div>
-             <div class='scheduleEntryGroup'>
+             <div class='scheduleEntryGroup entryGroupTitle'>
                         <span class=\"presentationLabel\">
                           Presentation :
                       </span>
@@ -110,15 +110,31 @@ function ParseAndOutputResults($response,$haveResults)
       echo                $response[$i]->Title;
       echo  "        </span>
              </div>
-             <div class='scheduleEntryGroup'>
+             <div class='scheduleEntryGroup entryGroupLocation'>
                       <span class=\"presentationLabel\">
                           Where :
                       </span>
                       <span class=\"presentationEntry\">";
       echo              $response[$i]->Location;
       echo "          </span>
-             </div>
-                  </div> ";
+             </div> ";
+
+
+      if($response[$i]->PresenterName != "Presenter Name")
+      {
+        echo " <div class='scheduleEntryGroup entryGroupLocation'>
+                        <span class=\"presentationLabel\">
+                            Presented By :
+                        </span>
+                        <span class=\"presentationEntry\">";
+        echo              $response[$i]->PresenterName;
+        echo "          </span>
+               </div>
+                    </div> ";
+      }
+
+        else
+          echo "</div>";
     }
   else
     echo " No Scheduled presentation for this day and screen.";

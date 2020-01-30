@@ -34,3 +34,5 @@
 #comingAttractionsHeader { background-color: #000000; }
 
 #nextPresentation { font-size: PixelToRem(30); }
+
+.entryGroupLocation { min-width: 40%; }

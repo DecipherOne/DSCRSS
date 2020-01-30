@@ -490,6 +490,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #nextPresentation { font-size: 1.66667rem; }
 
+.entryGroupLocation { min-width: 40%; }
+
 #calendar { background-color: #989898; }
 
 #schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; }

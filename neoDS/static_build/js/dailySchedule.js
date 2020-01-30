@@ -8,7 +8,8 @@
         pageLinkStar = null,
         pageLinkAll = null,
         pageLinkTools = null,
-        scheduleCurrentTime = null;
+        scheduleCurrentTime = null,
+        todaysEvents = null;
 
     $(document).ready(function()
     {
@@ -163,6 +164,16 @@
                 break;
             }
         }
+    }
+
+    function PushCurrentEventToHeader()
+    {
+
+    }
+
+    function GetEventsDataFromDom()
+    {
+
     }
 
 })(window, jQuery = window.jQuery || {} );
