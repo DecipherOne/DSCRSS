@@ -9,13 +9,17 @@
         pageLinkAll = null,
         pageLinkTools = null,
         scheduleCurrentTime = null,
-        todaysEvents = null;
+        todaysEvents = null,
+        comingAttractionsScrollArea = null,
+        scrollAreaHeight = null;
 
     $(document).ready(function()
     {
         InitializeLocalReferences(function(){
             InitializeNavigationClickEvents();
             InitializeScheduleClock();
+            scrollAreaHeight = 1;
+            setInterval(ScrollComingAttractions,50);
         });
     });
 
@@ -36,7 +40,8 @@
         pageLinkAll = $("#pageLinkAll"),
         pageLinkTools = $("#pageLinkTools");
         scheduleCurrentTime = $("#scheduleCurrentTime");
-
+        todaysEvents = $(".scheduleCalendarEntry");
+        comingAttractionsScrollArea = $("#comingAttractionsScrollArea");
         return callback();
     }
 
@@ -173,6 +178,28 @@
 
     function GetEventsDataFromDom()
     {
+
+    }
+
+    function ScrollComingAttractions()
+    {
+
+        if(todaysEvents === null && todaysEvents === undefined)
+            return;
+
+        scrollAreaHeight -=  1;
+       for(var i=0; i < todaysEvents.length; i++)
+        {
+
+            $(todaysEvents[i]).css("top", scrollAreaHeight);
+          /*  var val = toInteger($(todaysEvents[i]).data("index")),
+                topBounds =  val * 100,
+                bottomBounds = $("#comingAttractionsScrollArea").outerHeight();
+            if($(todaysEvents[i]).position().top > topBounds)
+                $(todaysEvents[i]).css("top", bottomBounds);*/
+        }
+
+
 
     }
 

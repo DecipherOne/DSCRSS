@@ -81,6 +81,7 @@
 .scheduleCalendarEntry{
   min-height:PixelToRem(60);
   font-size:PixelToRem(24);
+  position:relative;
 }
 
 .gray{
@@ -109,4 +110,16 @@
 .entryGroupLocation
 {
   min-width: 40%;
+}
+
+#comingAttractionsContainer
+{
+  overflow:hidden;
+}
+
+#comingAttractionsScrollArea
+{
+  display:block;
+  position:relative;
+  scroll-behavior: smooth;
 }

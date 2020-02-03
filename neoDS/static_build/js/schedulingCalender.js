@@ -393,12 +393,11 @@
             }
 
             InitiatlizeEventMarkers(function(){
+
                 $(noEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
+
+                    UpdateSchedulingHeader(e);
+
                     if(CheckForPassedCalendarDay(e))
                     {
                         HidePresentationToolBar();
@@ -415,12 +414,14 @@
                 });
 
                 $(scheduledEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
-                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+
+                    UpdateSchedulingHeader(e);
+
+                    var day = $(this).prev().html();
+                    if(day.length===1)
+                        day = "0"+day;
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + day;
+
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -436,13 +437,13 @@
                 });
 
                 $(pastEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
 
-                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+                    UpdateSchedulingHeader(e);
+                    var day = $(this).prev().html();
+                    if(day.length===1)
+                        day = "0"+day;
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + day;
+
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -464,6 +465,14 @@
             return callback();
     }
 
+    function UpdateSchedulingHeader(e)
+    {
+        $(presentationEntryContainer).html('');
+        $(headerMessageContainer).html('');
+        PlaceSelectedDayClass(e.target);
+        UpdateDailyPresentationNumber(0);
+        GetDateFromEventTokenParentPutInDateInput(e);
+    }
     function HidePresentationToolBar()
     {
         $('#toolBar').addClass('hidden');

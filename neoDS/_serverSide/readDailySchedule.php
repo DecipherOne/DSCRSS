@@ -216,10 +216,15 @@ function ParseAndOutputResults($response,$haveResults)
         </span>
       </div>
     </div>
+
     <span id="comingAttractionsHeader"><h2><u>Coming Attractions</u></h2></span>
-      <?php
-        ParseAndOutputResults($response, $haveResults);
-      ?>
+    <div id="comingAttractionsContainer">
+      <div id="comingAttractionsScrollArea">
+        <?php
+          ParseAndOutputResults($response, $haveResults);
+        ?>
+      </div>
+    </div>
   </div>
   <div id="scheduleFooter">
 

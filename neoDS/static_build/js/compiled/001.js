@@ -396,12 +396,11 @@ jQuery.expr[':'].parents = function(a,i,m){
             }
 
             InitiatlizeEventMarkers(function(){
+
                 $(noEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
+
+                    UpdateSchedulingHeader(e);
+
                     if(CheckForPassedCalendarDay(e))
                     {
                         HidePresentationToolBar();
@@ -418,12 +417,14 @@ jQuery.expr[':'].parents = function(a,i,m){
                 });
 
                 $(scheduledEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
-                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+
+                    UpdateSchedulingHeader(e);
+
+                    var day = $(this).prev().html();
+                    if(day.length===1)
+                        day = "0"+day;
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + day;
+
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -439,13 +440,13 @@ jQuery.expr[':'].parents = function(a,i,m){
                 });
 
                 $(pastEventMarkers).click(function(e){
-                    $(presentationEntryContainer).html('');
-                    $(headerMessageContainer).html('');
-                    PlaceSelectedDayClass(e.target);
-                    UpdateDailyPresentationNumber(0);
-                    GetDateFromEventTokenParentPutInDateInput(e);
 
-                    calendarDateString = currentYear + "-" + currentMonth + "-" + $(this).prev().html();
+                    UpdateSchedulingHeader(e);
+                    var day = $(this).prev().html();
+                    if(day.length===1)
+                        day = "0"+day;
+                    calendarDateString = currentYear + "-" + currentMonth + "-" + day;
+
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         var numberOfNodes = dailyScheduleEntry.length;
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -467,6 +468,14 @@ jQuery.expr[':'].parents = function(a,i,m){
             return callback();
     }
 
+    function UpdateSchedulingHeader(e)
+    {
+        $(presentationEntryContainer).html('');
+        $(headerMessageContainer).html('');
+        PlaceSelectedDayClass(e.target);
+        UpdateDailyPresentationNumber(0);
+        GetDateFromEventTokenParentPutInDateInput(e);
+    }
     function HidePresentationToolBar()
     {
         $('#toolBar').addClass('hidden');
@@ -891,13 +900,17 @@ jQuery.expr[':'].parents = function(a,i,m){
         pageLinkAll = null,
         pageLinkTools = null,
         scheduleCurrentTime = null,
-        todaysEvents = null;
+        todaysEvents = null,
+        comingAttractionsScrollArea = null,
+        scrollAreaHeight = null;
 
     $(document).ready(function()
     {
         InitializeLocalReferences(function(){
             InitializeNavigationClickEvents();
             InitializeScheduleClock();
+            scrollAreaHeight = 1;
+            setInterval(ScrollComingAttractions,50);
         });
     });
 
@@ -918,7 +931,8 @@ jQuery.expr[':'].parents = function(a,i,m){
         pageLinkAll = $("#pageLinkAll"),
         pageLinkTools = $("#pageLinkTools");
         scheduleCurrentTime = $("#scheduleCurrentTime");
-
+        todaysEvents = $(".scheduleCalendarEntry");
+        comingAttractionsScrollArea = $("#comingAttractionsScrollArea");
         return callback();
     }
 
@@ -1055,6 +1069,28 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function GetEventsDataFromDom()
     {
+
+    }
+
+    function ScrollComingAttractions()
+    {
+
+        if(todaysEvents === null && todaysEvents === undefined)
+            return;
+
+        scrollAreaHeight -=  1;
+       for(var i=0; i < todaysEvents.length; i++)
+        {
+
+            $(todaysEvents[i]).css("top", scrollAreaHeight);
+          /*  var val = toInteger($(todaysEvents[i]).data("index")),
+                topBounds =  val * 100,
+                bottomBounds = $("#comingAttractionsScrollArea").outerHeight();
+            if($(todaysEvents[i]).position().top > topBounds)
+                $(todaysEvents[i]).css("top", bottomBounds);*/
+        }
+
+
 
     }
 
