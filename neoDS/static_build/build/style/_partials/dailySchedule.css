@@ -37,6 +37,6 @@
 
 .entryGroupLocation { min-width: 40%; }
 
-#comingAttractionsContainer { overflow: hidden; }
+#comingAttractionsContainer { overflow: hidden; height: PixelToRem(300); }
 
 #comingAttractionsScrollArea { display: block; position: relative; scroll-behavior: smooth; }

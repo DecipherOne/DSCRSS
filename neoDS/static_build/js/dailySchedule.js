@@ -18,8 +18,8 @@
         InitializeLocalReferences(function(){
             InitializeNavigationClickEvents();
             InitializeScheduleClock();
-            scrollAreaHeight = 1;
-            setInterval(ScrollComingAttractions,50);
+            scrollAreaHeight = 320;
+            setInterval(ScrollComingAttractions,60);
         });
     });
 
@@ -183,24 +183,34 @@
 
     function ScrollComingAttractions()
     {
+        var topBounds  = $(comingAttractionsScrollArea).offset().top,
+        bottomBounds = 0,
+        eventDivBounds = null;
 
         if(todaysEvents === null && todaysEvents === undefined)
             return;
 
-        scrollAreaHeight -=  1;
-       for(var i=0; i < todaysEvents.length; i++)
+        scrollAreaHeight -=  1 * 0.6;
+
+        for(var i=0; i < todaysEvents.length; i++)
         {
+            bottomBounds = 400 + (100 * i);
 
-            $(todaysEvents[i]).css("top", scrollAreaHeight);
-          /*  var val = toInteger($(todaysEvents[i]).data("index")),
-                topBounds =  val * 100,
-                bottomBounds = $("#comingAttractionsScrollArea").outerHeight();
-            if($(todaysEvents[i]).position().top > topBounds)
-                $(todaysEvents[i]).css("top", bottomBounds);*/
+            if(i===0)
+                eventDivBounds = $(todaysEvents[i]).offset().top + 100;
+            else
+                eventDivBounds = $(todaysEvents[i]).offset().top + (100*i);
+
+            if(eventDivBounds < topBounds)
+            {
+                $(todaysEvents[i]).css("top", bottomBounds);
+                if(i=== (todaysEvents.length/2))
+                    scrollAreaHeight = 320;
+            }
+            else
+                $(todaysEvents[i]).css("top", scrollAreaHeight);
+
         }
-
-
-
     }
 
 })(window, jQuery = window.jQuery || {} );

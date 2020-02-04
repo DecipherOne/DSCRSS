@@ -25,14 +25,14 @@
     dailyScheduleEntry = [],
     headerMessageContainer = null;
 
+
+
     $(document).ready(function() {
 
         InitializeFormTimeValues();
         InitializePredefinedPresentationNode();
         InitializeTodaysDate();
         InitializeCalendar();
-        if(!calendarEl)
-            return console.log("Error: Could not create Calendar : schedulingCalendar.js");
 
         calendar.render();
         presentationEntryContainer = $('#presentationEntryContainer');

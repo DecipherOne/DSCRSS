@@ -492,7 +492,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .entryGroupLocation { min-width: 40%; }
 
-#comingAttractionsContainer { overflow: hidden; }
+#comingAttractionsContainer { overflow: hidden; height: 16.66667rem; }
 
 #comingAttractionsScrollArea { display: block; position: relative; scroll-behavior: smooth; }
 
