@@ -34,6 +34,9 @@
         InitializeTodaysDate();
         InitializeCalendar();
 
+        if(!calendarEl)
+            return;
+
         calendar.render();
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');

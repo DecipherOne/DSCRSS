@@ -163,7 +163,7 @@ function ParseAndOutputResults($response,$haveResults)
         <h2>00:00:00am</h2>
       </div>
       <div id="currentPresentation">
-        <div class='scheduleEntryGroup'>
+        <div class='scheduleEntryGroup entryGroupTitle'>
           <span class="presentationLabel">
             Now Showing :
           </span>
@@ -171,7 +171,7 @@ function ParseAndOutputResults($response,$haveResults)
             Enjoy your day!
           </span>
         </div>
-        <div class='scheduleEntryGroup'>
+        <div class='scheduleEntryGroup entryGroupLocation'>
           <span class="presentationLabel">
             Where :
           </span>
@@ -179,7 +179,7 @@ function ParseAndOutputResults($response,$haveResults)
             Every Where!
           </span>
         </div>
-        <div class='scheduleEntryGroup'>
+        <div class='scheduleEntryGroup entryGroupEndTime'>
           <span class="presentationLabel">
             Ends @ :
           </span>
@@ -191,7 +191,7 @@ function ParseAndOutputResults($response,$haveResults)
     </div>
   <div id="scheduleDisplayBody">
     <div id="nextPresentation" class="relativelyCentered">
-      <div class='scheduleEntryGroup'>
+      <div class='scheduleEntryGroup entryGroupTitle'>
         <span class="presentationLabel">
           Up Next :
         </span>
@@ -199,7 +199,7 @@ function ParseAndOutputResults($response,$haveResults)
            Next Presentation
         </span>
       </div>
-      <div class='scheduleEntryGroup'>
+      <div class='scheduleEntryGroup entryGroupStartTime'>
         <span class="presentationLabel">
           Begins @ :
         </span>
@@ -207,7 +207,7 @@ function ParseAndOutputResults($response,$haveResults)
           00:00pm
         </span>
       </div>
-      <div class='scheduleEntryGroup'>
+      <div class='scheduleEntryGroup entryGroupLocation'>
         <span class="presentationLabel">
           Where :
         </span>

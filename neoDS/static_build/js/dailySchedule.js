@@ -11,7 +11,10 @@
         scheduleCurrentTime = null,
         todaysEvents = null,
         comingAttractionsScrollArea = null,
-        scrollAreaHeight = null;
+        scrollAreaHeight = null,
+        currentPresentation = null,
+        nextPresentation = null,
+        numberOfVisibleEvents = 0;
 
     $(document).ready(function()
     {
@@ -20,6 +23,8 @@
             InitializeScheduleClock();
             scrollAreaHeight = 320;
             setInterval(ScrollComingAttractions,60);
+            ParseEventsForNowShowingAndUpNext();
+            setInterval(ParseEventsForNowShowingAndUpNext,60000);
         });
     });
 
@@ -27,7 +32,7 @@
     {
         if(scheduleCurrentTime!==null && scheduleCurrentTime !== undefined)
             setInterval(function(){
-                $(scheduleCurrentTime).html('<h2>' + GetCurrentTime() + '</h2>');
+                $(scheduleCurrentTime).html('<h2>' + GetCurrentDayNameDateAndTime() + '</h2>');
             },100);
     }
 
@@ -41,7 +46,11 @@
         pageLinkTools = $("#pageLinkTools");
         scheduleCurrentTime = $("#scheduleCurrentTime");
         todaysEvents = $(".scheduleCalendarEntry");
+        numberOfVisibleEvents = todaysEvents.length;
         comingAttractionsScrollArea = $("#comingAttractionsScrollArea");
+        currentPresentation = $("#currentPresentation");
+        nextPresentation = $("#nextPresentation");
+
         return callback();
     }
 
@@ -87,7 +96,7 @@
         window.open(url,"_blank");
     }
 
-    function GetCurrentTime()
+    function GetCurrentDayNameDateAndTime()
     {
         var dateTime = new Date(),
             dayName = null,
@@ -100,9 +109,9 @@
                 convertedMinutesString + ":" + convertedSecondsString;
 
         if(dateTime.getHours().valueOf()>11)
-            dateTimeString += "pm";
+            dateTimeString += " pm";
         else
-            dateTimeString += "am";
+            dateTimeString += " am";
 
         dayName = dateTime.getDay();
         dayName = GetDayNameString(dayName);
@@ -171,15 +180,104 @@
         }
     }
 
-    function PushCurrentEventToHeader()
+    function ParseEventsForNowShowingAndUpNext()
     {
+
+        var timeString = GetHourMinuteTimeString(),
+            eventStartTime = null,
+            eventEndTime = null,
+            convertedEventStartTime = null,
+            convertedEventEndTime = null,
+            eventTitle = null,
+            eventLocation = null,
+            currentEventIndex = 0;
+
+
+        for(var i=0; i< todaysEvents.length; i++)
+        {
+            currentEventIndex = $(todaysEvents[i]).attr("index");
+            currentEventIndex = parseInt(currentEventIndex);
+            eventStartTime = $(todaysEvents[i]).children(".entryGroupStartTime").children(".presentationEntry").html();
+            eventEndTime = $(todaysEvents[i]).children(".entryGroupEndTime").children(".presentationEntry").html();
+            eventTitle = $(todaysEvents[i]).children(".entryGroupTitle").children(".presentationEntry").html();
+            eventLocation = $(todaysEvents[i]).children(".entryGroupLocation").children(".presentationEntry").html();
+
+            convertedEventStartTime = Convert12HourTo24Hour(eventStartTime);
+            convertedEventEndTime = Convert12HourTo24Hour(eventEndTime);
+
+            var date = new Date(),
+                dateString = date.getFullYear() + "-" + (parseInt(date.getMonth())+1) + "-" + date.getDate();
+
+            var eventStartTimeStamp = Date.parse(dateString + " " + convertedEventStartTime),
+                eventEndTimeStamp = Date.parse(dateString + " " + convertedEventEndTime),
+                currentTimeStamp = Date.parse(dateString + " " + timeString);
+
+
+            if(currentTimeStamp >= eventStartTimeStamp  && currentTimeStamp <= eventEndTimeStamp)
+            {
+                $(currentPresentation).children(".entryGroupTitle").children(".presentationEntry").html(eventTitle);
+                $(currentPresentation).children(".entryGroupLocation").children(".presentationEntry").html(eventLocation);
+                $(currentPresentation).children(".entryGroupEndTime").children(".presentationEntry").html(eventEndTime);
+
+                $(todaysEvents[i]).addClass("hidden");
+                SetNextEventData(currentEventIndex);
+                numberOfVisibleEvents -=1;
+            }
+            else if(currentTimeStamp > eventStartTimeStamp   &&  currentTimeStamp > eventEndTimeStamp )
+            {
+                $(todaysEvents[i]).addClass("hidden");
+                numberOfVisibleEvents -=1;
+            }
+
+        }
+    }
+
+    function SetNextEventData(index)
+    {
+        var startTime = $(todaysEvents[index+1]).children(".entryGroupStartTime").children(".presentationEntry").html(),
+            title = $(todaysEvents[index+1]).children(".entryGroupStartTitle").children(".presentationEntry").html(),
+            location = $(todaysEvents[index+1]).children(".entryGroupStartLocation").children(".presentationEntry").html();
+
+        $(nextPresentation).children(".entryGroupTitle").children(".presentationEntry").html(title);
+        $(nextPresentation).children(".entryGroupLocation").children(".presentationEntry").html(location);
+        $(nextPresentation).children(".entryGroupStartTime").children(".presentationEntry").html(startTime);
+    }
+
+
+    function GetHourMinuteTimeString()
+    {
+        var currentTime = new Date(),
+            convertedHoursString = currentTime.getHours(),
+            convertedMinutesString = PrependZeroToTimeValue(currentTime.getMinutes()),
+            timeString = convertedHoursString+":"+convertedMinutesString;
+
+
+        return timeString;
+    }
+
+    function Convert12HourTo24Hour(hours)
+    {
+        var meridiem = hours.replace(/ /g,''),
+            convertedTimeString = hours.replace(/ /g,''),
+            convertedHours = 0,
+            storedMinutes = 0;
+
+        convertedTimeString = convertedTimeString.substring(0,convertedTimeString.length -2);
+        meridiem = meridiem.substring(meridiem.length -2, meridiem.length);
+
+        if(meridiem === "pm")
+        {
+            convertedHours = convertedTimeString.substring(0,convertedTimeString.indexOf(":"));
+            storedMinutes = convertedTimeString.substring(convertedTimeString.indexOf(":"),convertedTimeString.length);
+            if(convertedHours !== "12")
+                convertedHours = parseInt(convertedHours) + 12;
+            convertedTimeString = convertedHours + storedMinutes;
+        }
+
+        return convertedTimeString;
 
     }
 
-    function GetEventsDataFromDom()
-    {
-
-    }
 
     function ScrollComingAttractions()
     {
@@ -187,10 +285,10 @@
         bottomBounds = 0,
         eventDivBounds = null;
 
-        if(todaysEvents === null && todaysEvents === undefined)
+        if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
             return;
 
-        scrollAreaHeight -=  1 * 0.6;
+        scrollAreaHeight -=  0.6;
 
         for(var i=0; i < todaysEvents.length; i++)
         {
@@ -204,8 +302,11 @@
             if(eventDivBounds < topBounds)
             {
                 $(todaysEvents[i]).css("top", bottomBounds);
-                if(i=== (todaysEvents.length/2))
+
+                if(i >= (numberOfVisibleEvents/3)&& numberOfVisibleEvents >= 2)
                     scrollAreaHeight = 320;
+                else
+                    scrollAreaHeight = -10;
             }
             else
                 $(todaysEvents[i]).css("top", scrollAreaHeight);
