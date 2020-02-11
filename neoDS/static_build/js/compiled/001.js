@@ -1109,7 +1109,9 @@ jQuery.expr[':'].parents = function(a,i,m){
             eventLocation = $(todaysEvents[i]).children(".entryGroupLocation").children(".presentationEntry").html();
 
             convertedEventStartTime = Convert12HourTo24Hour(eventStartTime);
+            convertedEventStartTime += ":00";
             convertedEventEndTime = Convert12HourTo24Hour(eventEndTime);
+            convertedEventEndTime += ":00";
 
             var date = new Date(),
                 dateString = date.getFullYear() + "-" + (parseInt(date.getMonth())+1) + "-" + date.getDate();
