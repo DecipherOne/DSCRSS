@@ -28,7 +28,7 @@
             ParseEventsForNowShowingAndUpNext();
             setInterval(ScrollComingAttractions,33);
             setInterval(ParseEventsForNowShowingAndUpNext,1000);
-            setInterval(RefreshPageEveryFifteenMinutes,45000);
+            setInterval(RefreshPageEveryFifteenMinutes,42000);
         });
     });
 
@@ -113,9 +113,9 @@
                 convertedMinutesString + ":" + convertedSecondsString;
 
         if(dateTime.getHours().valueOf()>11)
-            dateTimeString += " pm";
+            dateTimeString += "pm";
         else
-            dateTimeString += " am";
+            dateTimeString += "am";
 
         dayName = dateTime.getDay();
         dayName = GetDayNameString(dayName);

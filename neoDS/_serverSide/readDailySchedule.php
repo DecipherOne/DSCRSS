@@ -71,7 +71,7 @@ switch($method) {
 
 function ConvertTimeTo12HourFormat($time)
 {
-  return date("g:i a", strtotime($time));
+  return date("g:ia", strtotime($time));
 }
 
 function ParseAndOutputResults($response,$haveResults)
