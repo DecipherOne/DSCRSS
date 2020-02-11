@@ -26,6 +26,7 @@
             ParseEventsForNowShowingAndUpNext();
             setInterval(ScrollComingAttractions,60);
             setInterval(ParseEventsForNowShowingAndUpNext,1000);
+            setInterval(RefreshPageEveryFifteenMinutes,10000);
         });
     });
 
@@ -118,6 +119,15 @@
         dayName = GetDayNameString(dayName);
         return dayName + " " + dateTimeString;
     };
+
+    function RefreshPageEveryFifteenMinutes()
+    {
+        var minutes = new Date();
+        minutes = minutes.getMinutes();
+
+        if(minutes === 30|| minutes === 0 || minutes === 45|| minutes === 15)
+            window.reload();
+    }
 
     function _24HoursTo12(dateTime)
     {
@@ -324,8 +334,10 @@
                         scrollAreaHeight = 320;
                     else
                         scrollAreaHeight = 320 + (i*10);
-                else if(numberOfVisibleEvents < 3)
+                else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
                     scrollAreaHeight = -10;
+                else if(numberOfVisibleEvents == 1)
+                    scrollAreaHeight = 0;
             }
             else
                 $(todaysEvents[i]).css("top", scrollAreaHeight);

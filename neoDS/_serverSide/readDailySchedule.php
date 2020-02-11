@@ -176,7 +176,7 @@ function ParseAndOutputResults($response,$haveResults)
             Where :
           </span>
           <span class="presentationEntry">
-            Here @ The Science Center
+            The Science Center
           </span>
         </div>
         <div class='scheduleEntryGroup entryGroupEndTime'>

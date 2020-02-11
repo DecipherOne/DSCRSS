@@ -62,6 +62,10 @@
 #currentPresentation{
   background-color: #4a4949;
   font-size:PixelToRem(42);
+  .entryGroupEndTime
+  {
+    width:100%;
+  }
 }
 
 #scheduleDisplayBody{
@@ -104,6 +108,10 @@
 
 #nextPresentation{
   font-size:PixelToRem(30);
+  .entryGroupStartTime
+  {
+    width:PixelToRem(400);
+  }
 }
 
 

@@ -16,6 +16,7 @@
 #scheduleDisplayHeader { justify-content: space-evenly; border: solid 1px #acc313; }
 
 #currentPresentation { background-color: #4a4949; font-size: PixelToRem(42); }
+#currentPresentation .entryGroupEndTime { width: 100%; }
 
 #scheduleDisplayBody { padding: PixelToRem(20); }
 
@@ -34,6 +35,7 @@
 #comingAttractionsHeader { background-color: #000000; }
 
 #nextPresentation { font-size: PixelToRem(30); }
+#nextPresentation .entryGroupStartTime { width: PixelToRem(400); }
 
 .entryGroupLocation { min-width: 40%; }
 
