@@ -24,7 +24,7 @@
         InitializeLocalReferences(function(){
             InitializeNavigationClickEvents();
             InitializeScheduleClock();
-            scrollAreaHeight = 320;
+            scrollAreaHeight = 300;
             ParseEventsForNowShowingAndUpNext();
             setInterval(ScrollComingAttractions,33);
             setInterval(ParseEventsForNowShowingAndUpNext,1000);
@@ -308,8 +308,7 @@
     {
         var topBounds  = $(comingAttractionsScrollArea).offset().top,
         bottomBounds = 0,
-        eventDivBounds = null,
-        localDateObject = new Date();
+        lastEventDivBounds = null;
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
             return;
@@ -327,29 +326,24 @@
                 continue;
 
             bottomBounds = 400 + (100 * i);
+            lastEventDivBounds = $(todaysEvents[todaysEvents.length-1]).offset().top + 150;
 
-            if(i===0)
-                eventDivBounds = $(todaysEvents[i]).offset().top + 100;
-            else
-                eventDivBounds = $(todaysEvents[i]).offset().top + (100*i);
-
-            if(eventDivBounds < topBounds)
+            if(lastEventDivBounds < topBounds)
             {
                 $(todaysEvents[i]).css("top", bottomBounds);
 
                 if(i >= (numberOfVisibleEvents/2)&& numberOfVisibleEvents >= 3)
                     if(i===0)
-                        scrollAreaHeight = 320;
+                        scrollAreaHeight = 300;
                     else
-                        scrollAreaHeight = 320 + (i*10);
+                        scrollAreaHeight = 300 + (i*10);
                 else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
-                    scrollAreaHeight = -10;
+                    scrollAreaHeight = 300;
                 else if(numberOfVisibleEvents == 1)
                     scrollAreaHeight = 0;
             }
             else
                 $(todaysEvents[i]).css("top", scrollAreaHeight);
-
         }
 
         previousLoopTime = Date.now();
