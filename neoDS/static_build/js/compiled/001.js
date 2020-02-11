@@ -908,7 +908,8 @@ jQuery.expr[':'].parents = function(a,i,m){
         scrollAreaHeight = null,
         currentPresentation = null,
         nextPresentation = null,
-        numberOfVisibleEvents = 0;
+        numberOfVisibleEvents = 0,
+        previouslyPassedIndex = null;
 
     $(document).ready(function()
     {
@@ -916,9 +917,9 @@ jQuery.expr[':'].parents = function(a,i,m){
             InitializeNavigationClickEvents();
             InitializeScheduleClock();
             scrollAreaHeight = 320;
-            setInterval(ScrollComingAttractions,60);
             ParseEventsForNowShowingAndUpNext();
-            setInterval(ParseEventsForNowShowingAndUpNext,60000);
+            setInterval(ScrollComingAttractions,60);
+            setInterval(ParseEventsForNowShowingAndUpNext,1000);
         });
     });
 
@@ -1084,13 +1085,12 @@ jQuery.expr[':'].parents = function(a,i,m){
             convertedEventEndTime = null,
             eventTitle = null,
             eventLocation = null,
-            currentEventIndex = 0;
+            currentEventIndex = 0,
+            setCurrentEvent = false;
 
 
         for(var i=0; i< todaysEvents.length; i++)
         {
-            currentEventIndex = $(todaysEvents[i]).attr("index");
-            currentEventIndex = parseInt(currentEventIndex);
             eventStartTime = $(todaysEvents[i]).children(".entryGroupStartTime").children(".presentationEntry").html();
             eventEndTime = $(todaysEvents[i]).children(".entryGroupEndTime").children(".presentationEntry").html();
             eventTitle = $(todaysEvents[i]).children(".entryGroupTitle").children(".presentationEntry").html();
@@ -1107,34 +1107,47 @@ jQuery.expr[':'].parents = function(a,i,m){
                 currentTimeStamp = Date.parse(dateString + " " + timeString);
 
 
-            if(currentTimeStamp >= eventStartTimeStamp  && currentTimeStamp <= eventEndTimeStamp)
+            if(currentTimeStamp >= eventStartTimeStamp  && currentTimeStamp <= eventEndTimeStamp && !$(todaysEvents[i]).hasClass("hidden"))
             {
                 $(currentPresentation).children(".entryGroupTitle").children(".presentationEntry").html(eventTitle);
                 $(currentPresentation).children(".entryGroupLocation").children(".presentationEntry").html(eventLocation);
                 $(currentPresentation).children(".entryGroupEndTime").children(".presentationEntry").html(eventEndTime);
 
                 $(todaysEvents[i]).addClass("hidden");
-                SetNextEventData(currentEventIndex);
                 numberOfVisibleEvents -=1;
+                setCurrentEvent = true;
+                currentEventIndex = i;
+                break;
             }
-            else if(currentTimeStamp > eventStartTimeStamp   &&  currentTimeStamp > eventEndTimeStamp )
+            else if(currentTimeStamp > eventStartTimeStamp   &&  currentTimeStamp > eventEndTimeStamp)
             {
+                if($(todaysEvents[i]).hasClass("hidden"))
+                    continue;
                 $(todaysEvents[i]).addClass("hidden");
                 numberOfVisibleEvents -=1;
             }
-
         }
+
+        if(!setCurrentEvent)
+            currentEventIndex = todaysEvents.length - numberOfVisibleEvents -1;
+
+        SetNextEventData(currentEventIndex);
     }
 
     function SetNextEventData(index)
     {
+        if(index === previouslyPassedIndex)
+            return;
+
         var startTime = $(todaysEvents[index+1]).children(".entryGroupStartTime").children(".presentationEntry").html(),
-            title = $(todaysEvents[index+1]).children(".entryGroupStartTitle").children(".presentationEntry").html(),
-            location = $(todaysEvents[index+1]).children(".entryGroupStartLocation").children(".presentationEntry").html();
+            title = $(todaysEvents[index+1]).children(".entryGroupTitle").children(".presentationEntry").html(),
+            location = $(todaysEvents[index+1]).children(".entryGroupLocation").children(".presentationEntry").html();
 
         $(nextPresentation).children(".entryGroupTitle").children(".presentationEntry").html(title);
         $(nextPresentation).children(".entryGroupLocation").children(".presentationEntry").html(location);
         $(nextPresentation).children(".entryGroupStartTime").children(".presentationEntry").html(startTime);
+
+        previouslyPassedIndex = index;
     }
 
 
@@ -1186,6 +1199,9 @@ jQuery.expr[':'].parents = function(a,i,m){
 
         for(var i=0; i < todaysEvents.length; i++)
         {
+            if($(todaysEvents[i]).hasClass("hidden"))
+                continue;
+
             bottomBounds = 400 + (100 * i);
 
             if(i===0)
@@ -1197,9 +1213,12 @@ jQuery.expr[':'].parents = function(a,i,m){
             {
                 $(todaysEvents[i]).css("top", bottomBounds);
 
-                if(i >= (numberOfVisibleEvents/3)&& numberOfVisibleEvents >= 2)
-                    scrollAreaHeight = 320;
-                else
+                if(i >= (numberOfVisibleEvents/2)&& numberOfVisibleEvents >= 3)
+                    if(i===0)
+                        scrollAreaHeight = 320;
+                    else
+                        scrollAreaHeight = 320 + (i*10);
+                else if(numberOfVisibleEvents < 3)
                     scrollAreaHeight = -10;
             }
             else

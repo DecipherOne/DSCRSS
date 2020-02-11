@@ -176,7 +176,7 @@ function ParseAndOutputResults($response,$haveResults)
             Where :
           </span>
           <span class="presentationEntry">
-            Every Where!
+            Here @ The Science Center
           </span>
         </div>
         <div class='scheduleEntryGroup entryGroupEndTime'>
@@ -184,7 +184,7 @@ function ParseAndOutputResults($response,$haveResults)
             Ends @ :
           </span>
           <span class="presentationEntry">
-            00:00pm
+             To Infinity And Beyond!
           </span>
         </div>
       </div>
