@@ -909,7 +909,9 @@ jQuery.expr[':'].parents = function(a,i,m){
         currentPresentation = null,
         nextPresentation = null,
         numberOfVisibleEvents = 0,
-        previouslyPassedIndex = null;
+        previouslyPassedIndex = null,
+        loopTime = null,
+        previousLoopTime = null;
 
     $(document).ready(function()
     {
@@ -918,9 +920,9 @@ jQuery.expr[':'].parents = function(a,i,m){
             InitializeScheduleClock();
             scrollAreaHeight = 320;
             ParseEventsForNowShowingAndUpNext();
-            setInterval(ScrollComingAttractions,60);
+            setInterval(ScrollComingAttractions,75);
             setInterval(ParseEventsForNowShowingAndUpNext,1000);
-            setInterval(RefreshPageEveryFifteenMinutes,10000);
+            setInterval(RefreshPageEveryFifteenMinutes,45000);
         });
     });
 
@@ -1020,7 +1022,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         minutes = minutes.getMinutes();
 
         if(minutes === 30|| minutes === 0 || minutes === 45|| minutes === 15)
-            window.reload();
+            window.location.reload();
     }
 
     function _24HoursTo12(dateTime)
@@ -1200,12 +1202,18 @@ jQuery.expr[':'].parents = function(a,i,m){
     {
         var topBounds  = $(comingAttractionsScrollArea).offset().top,
         bottomBounds = 0,
-        eventDivBounds = null;
+        eventDivBounds = null,
+        localDateObject = new Date();
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
             return;
 
-        scrollAreaHeight -=  0.6;
+        if(previousLoopTime)
+            loopTime = Date.now() - previousLoopTime;
+        else
+            loopTime = 1;
+
+        scrollAreaHeight -=  0.0142 * loopTime;
 
         for(var i=0; i < todaysEvents.length; i++)
         {
@@ -1237,6 +1245,8 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(todaysEvents[i]).css("top", scrollAreaHeight);
 
         }
+
+        previousLoopTime = Date.now();
     }
 
 })(window, jQuery = window.jQuery || {} );
