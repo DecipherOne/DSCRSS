@@ -6,7 +6,6 @@
         pageLinkFounders = null,
         pageLinkJDAT = null,
         pageLinkStar = null,
-        pageLinkAll = null,
         pageLinkTools = null,
         scheduleCurrentTime = null,
         todaysEvents = null,
@@ -46,7 +45,6 @@
         pageLinkFounders = $("#pageLinkFoundersHall");
         pageLinkJDAT = $("#pageLinkJDAT");
         pageLinkStar = $("#pageLinkStar");
-        pageLinkAll = $("#pageLinkAll"),
         pageLinkTools = $("#pageLinkTools");
         scheduleCurrentTime = $("#scheduleCurrentTime");
         todaysEvents = $(".scheduleCalendarEntry");
@@ -74,10 +72,6 @@
 
         $(pageLinkStar).click(function(){
             GetDailySchedule(0,0,0,'"Star Theater"');
-        });
-
-        $(pageLinkAll).click(function(){
-            GetDailySchedule(0,0,0,'" "');
         });
 
         $(pageLinkTools).click(function(){
@@ -313,7 +307,13 @@
         lastEventDivBounds = null;
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
+        {
+            if(!$(todaysEvents[todaysEvents.length-1]).hasClass("hidden"))
+                $(todaysEvents[todaysEvents.length-1]).addClass("hidden");
+
             return;
+        }
+
 
         if(previousLoopTime)
             loopTime = Date.now() - previousLoopTime;

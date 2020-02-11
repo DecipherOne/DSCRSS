@@ -26,7 +26,6 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         <span id="pageLinkFoundersHall" class="schedulePageLink">Founders Hall</span>
         <span id="pageLinkJDAT" class="schedulePageLink">John Deer Adventure Theater</span>
         <span id="pageLinkStar" class="schedulePageLink">Star Theater</span>
-        <span id="pageLinkAll" class="schedulePageLink">All Locations</span>
       </div>
     </div>
     <div id="scheduleFooter">

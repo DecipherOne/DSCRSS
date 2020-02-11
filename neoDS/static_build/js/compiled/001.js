@@ -900,7 +900,6 @@ jQuery.expr[':'].parents = function(a,i,m){
         pageLinkFounders = null,
         pageLinkJDAT = null,
         pageLinkStar = null,
-        pageLinkAll = null,
         pageLinkTools = null,
         scheduleCurrentTime = null,
         todaysEvents = null,
@@ -940,7 +939,6 @@ jQuery.expr[':'].parents = function(a,i,m){
         pageLinkFounders = $("#pageLinkFoundersHall");
         pageLinkJDAT = $("#pageLinkJDAT");
         pageLinkStar = $("#pageLinkStar");
-        pageLinkAll = $("#pageLinkAll"),
         pageLinkTools = $("#pageLinkTools");
         scheduleCurrentTime = $("#scheduleCurrentTime");
         todaysEvents = $(".scheduleCalendarEntry");
@@ -968,10 +966,6 @@ jQuery.expr[':'].parents = function(a,i,m){
 
         $(pageLinkStar).click(function(){
             GetDailySchedule(0,0,0,'"Star Theater"');
-        });
-
-        $(pageLinkAll).click(function(){
-            GetDailySchedule(0,0,0,'" "');
         });
 
         $(pageLinkTools).click(function(){
@@ -1207,7 +1201,13 @@ jQuery.expr[':'].parents = function(a,i,m){
         lastEventDivBounds = null;
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
+        {
+            if(!$(todaysEvents[todaysEvents.length-1]).hasClass("hidden"))
+                $(todaysEvents[todaysEvents.length-1]).addClass("hidden");
+
             return;
+        }
+
 
         if(previousLoopTime)
             loopTime = Date.now() - previousLoopTime;
