@@ -26,7 +26,7 @@
             InitializeScheduleClock();
             scrollAreaHeight = 320;
             ParseEventsForNowShowingAndUpNext();
-            setInterval(ScrollComingAttractions,75);
+            setInterval(ScrollComingAttractions,33);
             setInterval(ParseEventsForNowShowingAndUpNext,1000);
             setInterval(RefreshPageEveryFifteenMinutes,45000);
         });
@@ -319,7 +319,7 @@
         else
             loopTime = 1;
 
-        scrollAreaHeight -=  0.0142 * loopTime;
+        scrollAreaHeight -=  0.018 * loopTime;
 
         for(var i=0; i < todaysEvents.length; i++)
         {
