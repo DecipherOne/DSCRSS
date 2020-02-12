@@ -21,7 +21,12 @@
     $(document).ready(function()
     {
         InitializeLocalReferences(function(){
+
             InitializeNavigationClickEvents();
+
+            if(!todaysEvents.length)
+                return;
+
             InitializeScheduleClock();
             scrollAreaHeight = 300;
             ParseEventsForNowShowingAndUpNext();
@@ -114,7 +119,7 @@
         dayName = dateTime.getDay();
         dayName = GetDayNameString(dayName);
         return dayName + " " + dateTimeString;
-    };
+    }
 
     function RefreshPageEveryFifteenMinutes()
     {
@@ -341,7 +346,7 @@
                         scrollAreaHeight = 300 + (i*10);
                 else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
                     scrollAreaHeight = 300;
-                else if(numberOfVisibleEvents == 1)
+                else if(numberOfVisibleEvents === 1)
                     scrollAreaHeight = 0;
             }
             else

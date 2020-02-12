@@ -498,9 +498,11 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #comingAttractionsScrollArea { display: block; position: relative; scroll-behavior: smooth; }
 
-#calendar { background-color: #989898; }
+#calendar { background-color: #989898; min-width: 33.22222rem; }
+@media (max-width: 88.88889rem) { #calendar { float: none !important; width: 95%; } }
 
-#schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; }
+#schedulingFormContainer { background-color: #6f6c6c; height: 36.11111rem; min-width: 33.22222rem; }
+@media (max-width: 88.88889rem) { #schedulingFormContainer { float: none !important; width: 95%; } }
 
 #scheduleHeader { width: 100%; text-align: center; background-color: #4a4949; height: 10rem; }
 
@@ -556,6 +558,7 @@ div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: bo
 #presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
 
 button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
+@media only screen and (max-width: 45.27778rem) { button[class^="submitEventLineButton"] { margin-left: 1.55556rem; margin-top: 0.55556rem; } }
 
 #schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
 

@@ -1,11 +1,26 @@
+@import "mixins.scss";
 
 #calendar{
   background-color: #989898;
+  min-width:PixelToRem(598);
+  @media (max-width : $stackedBreakPoint)
+  {
+    float:none !important;
+    width:95%;
+  }
+
 }
 
 #schedulingFormContainer{
   background-color: #6f6c6c;
   height: PixelToRem(650);
+  min-width:PixelToRem(598);
+  @media (max-width : $stackedBreakPoint)
+  {
+    float:none !important;
+    width:95%;
+  }
+
 }
 
 #scheduleHeader{
@@ -237,6 +252,12 @@ button[class^="submitEventLineButton"]{
   border: solid PixelToRem(1) black;
   border-radius: PixelToRem(3);
   cursor: pointer;
+
+  @media only screen and (max-width : PixelToRem(815))
+  {
+    margin-left: PixelToRem(28);
+    margin-top: PixelToRem(10);
+  }
 }
 
 

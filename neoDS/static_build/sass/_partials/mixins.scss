@@ -2,3 +2,6 @@
 @function PixelToRem($pixels,$defaultEm : 18){
   @return $pixels/$defaultEm + rem;
 }
+
+$stackedBreakPoint: PixelToRem(1600);
+$cellPhoneBreakPoint : PixelToRem(667);
