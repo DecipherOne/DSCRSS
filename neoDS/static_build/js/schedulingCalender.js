@@ -360,14 +360,14 @@
 
                         calendarDayScheduleDayMatch = (scheduleDaySubstring === selectedDayString);
 
-                        if(!previouslyScheduledEvent && calendarDayScheduleDayMatch) //look for comparison
+                        if(!previouslyScheduledEvent && calendarDayScheduleDayMatch)
                         {
                             nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
 
                             foundMatch = true;
                         }
-                        else if(calendarDayScheduleDayMatch) //the day has a scheduled event that has passed.
+                        else if(calendarDayScheduleDayMatch)
                         {
                             nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
