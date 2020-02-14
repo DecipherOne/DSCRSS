@@ -88,7 +88,7 @@ function ParseAndOutputResults($response,$haveResults)
 
       echo  "<div class='scheduleEntryGroup entryGroupStartTime'>        
                     <span class=\"presentationLabel\">
-                          Begins @
+                          Begins @ :
                       </span>
                       <span class=\"presentationEntry\">";
       echo              ConvertTimeTo12HourFormat($response[$i]->StartTime);
@@ -96,7 +96,7 @@ function ParseAndOutputResults($response,$haveResults)
              </div>
              <div  class='scheduleEntryGroup entryGroupEndTime'>
                       <span class=\"presentationLabel\">
-                          Ends @
+                          Ends @ :
                       </span>
                       <span class=\"presentationEntry\">";
       echo              ConvertTimeTo12HourFormat($response[$i]->EndTime);
@@ -157,7 +157,7 @@ function ParseAndOutputResults($response,$haveResults)
 
     <div id="scheduleDisplayHeader">
       <div id="scheduleWelcomeMessage">
-        <h2>Welcome To The Science Center of Iowa</h2>
+        <h2>Welcome, to The Science Center of Iowa!</h2>
       </div>
       <div id="scheduleCurrentTime">
         <h2>00:00:00am</h2>
