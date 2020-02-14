@@ -25,7 +25,8 @@
     dailyScheduleEntry = [],
     headerMessageContainer = null,
     schedulingToolScreenLocationInput = null,
-    targetedScreen = null;
+    targetedScreen = null,
+    schedulingPreviewLink = null;
 
 
 
@@ -41,6 +42,7 @@
 
         calendar.render();
         InitializeScreenLocationValues();
+        schedulingPreviewLink = $("#schedulingPreviewLink");
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');
         headerMessageContainer = $('#headerMessageContainer');
@@ -426,7 +428,9 @@
 
                     UpdateSchedulingHeader(e);
 
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
 
                     if(day.length===1)
                         day = "0"+day;
@@ -438,6 +442,7 @@
                         if(!numberOfNodes)
                             return $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> Nothing Scheduled for this screen and date.</span> </br> ");
 
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -453,7 +458,9 @@
                 $(pastEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
                     if(day.length===1)
                         day = "0"+day;
                     calendarDateString = currentYear + "-" + currentMonth + "-" + day;
@@ -464,6 +471,7 @@
                         if(!numberOfNodes)
                             return $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> Nothing Scheduled for this screen and date.</span> </br> ");
 
+                        BuildPreviewLink(month,currentYear,preservedDay,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -499,13 +507,29 @@
         return matchingEvents;
     }
 
+    function BuildPreviewLink(month,year,day,screen)
+    {
+        var textForLink = "Preview This Schedule";
+        var payload = {day:day, month:month, year:year, screen:screen},
+            url = "../_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
+                payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
+
+        $(schedulingPreviewLink).html(textForLink);
+        $(schedulingPreviewLink).click(function(){
+            window.open(url,"_blank");
+        });
+
+    }
+
     function UpdateSchedulingHeader(e)
     {
         $(presentationEntryContainer).html('');
         $(headerMessageContainer).html('');
+        $(schedulingPreviewLink).html("");
         PlaceSelectedDayClass(e.target);
         UpdateDailyPresentationNumber(0);
         GetDateFromEventTokenParentPutInDateInput(e);
+
     }
     function HidePresentationToolBar()
     {
