@@ -440,7 +440,18 @@
                         dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
                         if(!numberOfNodes)
-                            return $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> Nothing Scheduled for this screen and date.</span> </br> ");
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
+
+                            return;
+                        }
+
 
                         BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -469,9 +480,20 @@
                         dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
                         if(!numberOfNodes)
-                            return $("#presentationEntryContainer").html("<br/><span class='relativelyCentered'> Nothing Scheduled for this screen and date.</span> </br> ");
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
 
-                        BuildPreviewLink(month,currentYear,preservedDay,targetedScreen);
+                            return;
+                        }
+
+
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -701,6 +723,7 @@
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
         }
 
+        entryString.push({"rowName" : "ScreenLocation","rowValue": targetedScreen});
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
 
         if(!VerifyRequiredFieldsAreSet(entryString))
