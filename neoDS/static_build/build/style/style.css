@@ -570,7 +570,7 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 .toolbarSlot { border-right: solid 0.05556rem #4a4949; border-left: solid 0.05556rem #4a4949; }
 
-#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Robto", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; margin-top: 1.11111rem; }
+#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Roboto", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; margin-top: 1.11111rem; }
 @media (max-width: 42.22222rem) { #headerMessageContainer { width: 80%; } }
 
 #presentationScrollContainer { overflow-y: auto; height: 23.33333rem; border: solid black 0.04167rem; border-radius: 0.38889rem; }
