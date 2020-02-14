@@ -75,7 +75,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                         </div>
                     </div>
                     <div id="schedulingToolPreviewLinkContainer">
-                        <span id="schedulingPreviewLink" class="schedulePageLink"></span>
+                        <span id="schedulingPreviewLink" class="schedulePageLink relativelyCentered"></span>
                     </div>
                 </fieldset>
             </div>

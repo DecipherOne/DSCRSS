@@ -2,7 +2,8 @@ html, body { width: 100%; margin: 0; padding: 0; background-color: black; font-s
 
 body { overflow-y: scroll; overflow-x: hidden; }
 
-footer { margin-left: 20%; clear: both; }
+footer { padding: PixelToRem(40); clear: both; }
+footer h6 { margin-left: 20%; }
 
 button { font-size: 18px; }
 
