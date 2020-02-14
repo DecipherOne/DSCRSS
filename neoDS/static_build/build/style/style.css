@@ -548,9 +548,11 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #presentationNumberSpan { padding: 0.44444rem; }
 
-#schedulingToolNumberOfPresentations, #schedulingToolDateLabel { font-size: 1.77778rem; line-height: 1.4; }
+#schedulingToolNumberOfPresentations, #schedulingToolDateLabel, #schedulingToolScreenLocationLabel { font-size: 1.77778rem; line-height: 1.4; }
 
-#schedulingToolDateLabel { margin-right: 0.88889rem; }
+#schedulingToolDateLabel, #schedulingToolScreenLocationLabel { margin-right: 0.88889rem; }
+
+.schedulingToolHeaderItem { display: inline-flex; }
 
 div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: 1.11111rem; }
 
@@ -560,13 +562,13 @@ div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: bo
 button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 @media only screen and (max-width: 45.27778rem) { button[class^="submitEventLineButton"] { margin-left: 1.55556rem; margin-top: 0.55556rem; } }
 
-#schedulingToolDateSelect { max-width: 17.77778rem; font-size: 1.11111rem; }
+#schedulingToolDateSelect, #schedulingToolScreenLocationInput { max-width: 17.77778rem; font-size: 1.11111rem; }
 
 #toolBar { height: 2.22222rem; width: 80%; background-color: #1f2831; margin-top: 1.11111rem; display: inline-flex; justify-content: center; }
 
 .toolbarSlot { border-right: solid 0.05556rem #4a4949; border-left: solid 0.05556rem #4a4949; }
 
-#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Courier New", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; margin-top: 1.11111rem; }
+#headerMessageContainer { border: solid 0.05556rem #202029; min-height: 2.33333rem; max-height: 4.66667rem; font-family: "Robto", "SansSerif"; font-size: 1rem; color: orange; padding: 0.55556rem; margin-top: 1.11111rem; }
 
 #presentationScrollContainer { overflow-y: auto; height: 28.88889rem; border: solid black 0.04167rem; border-radius: 0.38889rem; }
 

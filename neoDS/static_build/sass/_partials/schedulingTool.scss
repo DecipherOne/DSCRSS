@@ -188,15 +188,22 @@
   padding:PixelToRem(8);
 }
 
-#schedulingToolNumberOfPresentations, #schedulingToolDateLabel
+#schedulingToolNumberOfPresentations, #schedulingToolDateLabel,
+#schedulingToolScreenLocationLabel
 {
   font-size: PixelToRem(32);
   line-height: 1.4;
 }
 
-#schedulingToolDateLabel
+#schedulingToolDateLabel,
+#schedulingToolScreenLocationLabel
 {
   margin-right:PixelToRem(16);
+}
+
+.schedulingToolHeaderItem
+{
+  display:inline-flex;
 }
 
 div[class^="presentationEntry"]{
@@ -261,7 +268,7 @@ button[class^="submitEventLineButton"]{
 }
 
 
-#schedulingToolDateSelect{
+#schedulingToolDateSelect, #schedulingToolScreenLocationInput{
   max-width:PixelToRem(320);
   font-size:PixelToRem(20);
 }
@@ -291,7 +298,7 @@ button[class^="submitEventLineButton"]{
   border: solid PixelToRem(1) #202029;
   min-height:PixelToRem(42);
   max-height:PixelToRem(84);
-  font-family:"Courier New", "SansSerif";
+  font-family:"Robto", "SansSerif";
   font-size: PixelToRem(18);
   color: orange;
   padding:PixelToRem(10);
