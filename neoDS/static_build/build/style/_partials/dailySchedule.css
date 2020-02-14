@@ -1,44 +1,46 @@
-#scheduleContainer { max-width: PixelToRem(1536); min-width: PixelToRem(320); background-color: #000000; padding: PixelToRem(20); }
+#scheduleContainer { max-width: 85.33333rem; min-width: 17.77778rem; background-color: #000000; padding: 1.11111rem; }
 #scheduleContainer h2 { color: #ACC313; }
 
-#scheduleBody { width: 100%; text-align: center; min-height: PixelToRem(420); }
+#scheduleBody { width: 100%; text-align: center; min-height: 23.33333rem; }
 
-#scheduleFooter { width: 100%; text-align: center; background-color: #4a4949; height: PixelToRem(40); }
-#scheduleFooter .schedulePageLink { position: relative; padding: PixelToRem(8); }
+#scheduleFooter { width: 100%; text-align: center; background-color: #4a4949; height: 2.22222rem; }
+#scheduleFooter .schedulePageLink { position: relative; padding: 0.44444rem; }
 
-#schedulePageLinksContainer { width: PixelToRem(320); }
+#schedulePageLinksContainer { width: 17.77778rem; }
 
-.schedulePageLink { clear: both; width: PixelToRem(280); display: grid; margin: PixelToRem(8); cursor: pointer; color: #ACC313; text-align: initial; }
+.schedulePageLink { clear: both; width: 15.55556rem; display: grid; margin: 0.44444rem; cursor: pointer; color: #ACC313; text-align: initial; }
 .schedulePageLink:hover { color: #ad11c3; }
 
 #scheduleDisplayHeader, .scheduleCalendarEntry, #currentPresentation, #nextPresentation { width: 100%; display: inline-flex; flex-wrap: wrap; justify-content: flex-start; }
 
 #scheduleDisplayHeader { justify-content: space-evenly; border: solid 1px #acc313; }
 
-#currentPresentation { background-color: #4a4949; font-size: PixelToRem(42); }
-#currentPresentation .entryGroupEndTime { min-width: PixelToRem(650); }
+#currentPresentation { background-color: #4a4949; font-size: 2.33333rem; justify-content: center; }
+@media (max-width: 88.88889rem) { #currentPresentation { justify-content: flex-start; } }
+#currentPresentation .entryGroupEndTime { min-width: 36.11111rem; }
 
-#scheduleDisplayBody { padding: PixelToRem(20); }
+#scheduleDisplayBody { padding: 1.11111rem; }
 
-.presentationLabel { padding: PixelToRem(4); margin-right: PixelToRem(2); color: #ACC313; }
+.presentationLabel { padding: 0.22222rem; margin-right: 0.11111rem; color: #ACC313; }
 
-.presentationEntry { padding: PixelToRem(4); margin-right: PixelToRem(4); }
+.presentationEntry { padding: 0.22222rem; margin-right: 0.22222rem; }
 
-.scheduleCalendarEntry { min-height: PixelToRem(60); font-size: PixelToRem(24); position: relative; }
+.scheduleCalendarEntry { min-height: 3.33333rem; font-size: 1.33333rem; position: relative; }
 
 .gray { background-color: #4a4949; }
 
-.scheduleEntryGroup { padding: PixelToRem(10); }
+.scheduleEntryGroup { padding: 0.55556rem; }
 
-.entryGroupStartTime, .entryGroupEndTime { width: PixelToRem(290); }
+.entryGroupStartTime, .entryGroupEndTime { width: 16.11111rem; }
 
 #comingAttractionsHeader { background-color: #000000; }
 
-#nextPresentation { font-size: PixelToRem(30); }
-#nextPresentation .entryGroupStartTime { width: PixelToRem(400); }
+#nextPresentation { font-size: 1.66667rem; justify-content: center; }
+@media (max-width: 88.88889rem) { #nextPresentation { justify-content: flex-start; } }
+#nextPresentation .entryGroupStartTime { width: 22.22222rem; }
 
 .entryGroupLocation { min-width: 40%; }
 
-#comingAttractionsContainer { overflow: hidden; height: PixelToRem(260); }
+#comingAttractionsContainer { overflow: hidden; height: 14.44444rem; }
 
 #comingAttractionsScrollArea { display: block; position: relative; scroll-behavior: smooth; }

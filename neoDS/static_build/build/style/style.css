@@ -470,7 +470,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #scheduleDisplayHeader { justify-content: space-evenly; border: solid 1px #acc313; }
 
-#currentPresentation { background-color: #4a4949; font-size: 2.33333rem; }
+#currentPresentation { background-color: #4a4949; font-size: 2.33333rem; justify-content: center; }
+@media (max-width: 88.88889rem) { #currentPresentation { justify-content: flex-start; } }
 #currentPresentation .entryGroupEndTime { min-width: 36.11111rem; }
 
 #scheduleDisplayBody { padding: 1.11111rem; }
@@ -489,7 +490,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 #comingAttractionsHeader { background-color: #000000; }
 
-#nextPresentation { font-size: 1.66667rem; }
+#nextPresentation { font-size: 1.66667rem; justify-content: center; }
+@media (max-width: 88.88889rem) { #nextPresentation { justify-content: flex-start; } }
 #nextPresentation .entryGroupStartTime { width: 22.22222rem; }
 
 .entryGroupLocation { min-width: 40%; }
