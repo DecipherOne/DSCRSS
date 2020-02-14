@@ -95,7 +95,7 @@
 
 .schedulingToolSelect:nth-of-type(4)
 {
-  margin-left:PixelToRem(29.5);
+  margin-left:PixelToRem(45);
 }
 
 .controlLabel{
@@ -213,7 +213,7 @@ div[class^="presentationEntry"]{
   display:inline-flex;
   flex-wrap:wrap;
   flex-direction: row;
-  justify-content: initial;
+  justify-content: center;
   margin-bottom:PixelToRem(20);
 }
 
@@ -390,4 +390,11 @@ button[class^="submitEventLineButton"]{
   cursor:pointer;
   display:block;
   float:left;
+}
+
+#schedulingToolPreviewLinkContainer
+{
+  width:100%;
+  justify-content: center;
+  min-height:PixelToRem(20);
 }

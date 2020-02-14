@@ -24,7 +24,7 @@
 
 .schedulingToolSelect { min-width: 4.16667rem; max-width: 15.55556rem; height: 2.33333rem; font-size: 0.66667rem; margin-right: 0.11111rem; }
 
-.schedulingToolSelect:nth-of-type(4) { margin-left: 1.63889rem; }
+.schedulingToolSelect:nth-of-type(4) { margin-left: 2.5rem; }
 
 .controlLabel { pointer-events: none; }
 
@@ -54,7 +54,7 @@
 
 .schedulingToolHeaderItem { display: inline-flex; }
 
-div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: initial; margin-bottom: 1.11111rem; }
+div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: center; margin-bottom: 1.11111rem; }
 
 #presentationEntryContainer { display: table; }
 #presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
@@ -89,3 +89,5 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 #legendScheduledEventMarker { border: solid 0.55556rem #B1C625; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }
 
 #legendUnscheduledDayMarker { border: solid 0.55556rem #393939; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }
+
+#schedulingToolPreviewLinkContainer { width: 100%; justify-content: center; min-height: 1.11111rem; }

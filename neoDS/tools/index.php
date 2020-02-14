@@ -74,6 +74,9 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
                             Presentations Scheduled.
                         </div>
                     </div>
+                    <div id="schedulingToolPreviewLinkContainer">
+                        <span id="schedulingPreviewLink" class="schedulePageLink"></span>
+                    </div>
                 </fieldset>
             </div>
             <div id="presentationScrollContainer">
