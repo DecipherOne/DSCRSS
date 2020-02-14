@@ -23,7 +23,10 @@
     presentationNumberSpan = null,
     formTimeValues=[],
     dailyScheduleEntry = [],
-    headerMessageContainer = null;
+    headerMessageContainer = null,
+    schedulingToolScreenLocationInput = null,
+    targetedScreen = null,
+    schedulingPreviewLink = null;
 
 
 
@@ -38,6 +41,8 @@
             return;
 
         calendar.render();
+        InitializeScreenLocationValues();
+        schedulingPreviewLink = $("#schedulingPreviewLink");
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');
         headerMessageContainer = $('#headerMessageContainer');
@@ -47,6 +52,16 @@
             CheckDatabaseForMonthlyEvents(e);
         });
     });
+
+    function InitializeScreenLocationValues()
+    {
+        schedulingToolScreenLocationInput = $("#schedulingToolScreenLocationInput");
+        targetedScreen = $(schedulingToolScreenLocationInput).val();
+        $(schedulingToolScreenLocationInput).on("change",function(){
+            targetedScreen = $(schedulingToolScreenLocationInput).val();
+            $('.selectedDay').children(".relativelyCentered").trigger("click");
+        });
+    }
 
     function InitializeFormTimeValues()
     {
@@ -78,7 +93,7 @@
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
         selects +=  '<select  class="schedulingToolSelect left locationSelect"><option>Location</option></select>';
         selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option>Presenter Name</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option>Screen Location</option></select>';
+
         predefinedPresentationNode = topControls + selects;
     }
 
@@ -315,13 +330,6 @@
                 }));
             }
 
-            for(var d=0; d < response['tables']['deploymentLocations'].length; d++)
-            {
-                $(entries[c]).children(".deploymentLocationSelect").append($('<option>', {
-                    value:response['tables']['deploymentLocations'][d]['deploymentLocation'],
-                    text: response['tables']['deploymentLocations'][d]['deploymentLocation']
-                }));
-            }
         }
         return callback();
     }
@@ -420,13 +428,31 @@
 
                     UpdateSchedulingHeader(e);
 
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
+
                     if(day.length===1)
                         day = "0"+day;
                     calendarDateString = currentYear + "-" + currentMonth + "-" + day;
 
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
+                        dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
+                        if(!numberOfNodes)
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
+                            return;
+                        }
+
+
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -442,13 +468,30 @@
                 $(pastEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
                     if(day.length===1)
                         day = "0"+day;
                     calendarDateString = currentYear + "-" + currentMonth + "-" + day;
 
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
+                        dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
+                        if(!numberOfNodes)
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
+                            return;
+                        }
+
+
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -468,13 +511,46 @@
             return callback();
     }
 
+    function ParseEventsForTargetedScreen(eventEntries,screen)
+    {
+        var matchingEvents = [];
+
+        for(var i=0; i < eventEntries.length; i++)
+        {
+            if(eventEntries[i]['ScreenLocation'] === screen)
+                if(matchingEvents.length ==0)
+                    matchingEvents[0] = eventEntries[i];
+                else
+                    matchingEvents.push(eventEntries[i]);
+        }
+
+        return matchingEvents;
+    }
+
+    function BuildPreviewLink(month,year,day,screen)
+    {
+        var textForLink = "Preview This Schedule";
+        var payload = {day:day, month:month, year:year, screen:screen},
+            url = "../_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
+                payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
+
+        $(schedulingPreviewLink).html(textForLink);
+        $(schedulingPreviewLink).unbind("click");
+        $(schedulingPreviewLink).click(function(){
+            window.open(url,"_blank");
+        });
+
+    }
+
     function UpdateSchedulingHeader(e)
     {
         $(presentationEntryContainer).html('');
         $(headerMessageContainer).html('');
+        $(schedulingPreviewLink).html("");
         PlaceSelectedDayClass(e.target);
         UpdateDailyPresentationNumber(0);
         GetDateFromEventTokenParentPutInDateInput(e);
+
     }
     function HidePresentationToolBar()
     {
@@ -646,6 +722,7 @@
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
         }
 
+        entryString.push({"rowName" : "ScreenLocation","rowValue": targetedScreen});
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
 
         if(!VerifyRequiredFieldsAreSet(entryString))

@@ -1,6 +1,8 @@
+@import "mixins.scss";
+
 #scheduleContainer{
   max-width:PixelToRem(1536);
-  min-width:PixelToRem(320);
+  min-width:PixelToRem(660);
   background-color:#000000;
   padding:PixelToRem(20);
 
@@ -20,7 +22,7 @@
 #scheduleFooter{
   width:100%;
   text-align:center;
-  background-color: #4a4949;
+  background-color: #222;
   height:PixelToRem(40);
   .schedulePageLink{
     position:relative;
@@ -60,8 +62,12 @@
   border: solid 1px #acc313;
 }
 #currentPresentation{
-  background-color: #4a4949;
+  background-color: #222;
   font-size:PixelToRem(42);
+  justify-content: center;
+  @media (max-width:$stackedBreakPoint) {
+    justify-content: flex-start;
+  }
   .entryGroupEndTime
   {
     min-width:PixelToRem(650);
@@ -108,9 +114,14 @@
 
 #nextPresentation{
   font-size:PixelToRem(30);
+  justify-content: center;
+
+  @media (max-width:$stackedBreakPoint) {
+    justify-content: flex-start;
+  }
   .entryGroupStartTime
   {
-    width:PixelToRem(400);
+    width:auto;
   }
 }
 
@@ -132,3 +143,4 @@
   position:relative;
   scroll-behavior: smooth;
 }
+

@@ -7,7 +7,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1"/>
     <title>Science Center of Iowa Daily Schedule </title>
     <script src="../js/3rdParty.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../style/style.min.css">
@@ -50,14 +50,32 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         <div id="dailySchedulingForm">
             <div id="dailyScheduleFormHeader">
                 <fieldset id="schedulingToolFieldset">
-                    <label id="schedulingToolDateLabel" class="left" for="schedulingToolDateInput">
-                        Date
-                    </label>
-                    <select id="schedulingToolDateSelect" class="schedulingToolSelect left" disabled>
-                        <option selected>Day - 00/00/0000</option>
-                    </select>
-                    <div id="schedulingToolNumberOfPresentations"><span id="presentationNumberSpan">0</span>
-                        Presentations Scheduled.
+                    <div class="schedulingToolHeaderItem">
+                        <label id="schedulingToolDateLabel" class="left" for="schedulingToolDateInput">
+                            Date
+                        </label>
+                        <select id="schedulingToolDateSelect" class="schedulingToolSelect left" disabled>
+                            <option selected>Day - 00/00/0000</option>
+                        </select>
+                    </div>
+                    <div class="schedulingToolHeaderItem">
+                        <label id="schedulingToolScreenLocationLabel" class="left" for="schedulingToolScreenLocationInput">
+                            Screen Location
+                        </label>
+                        <select id="schedulingToolScreenLocationInput" class="schedulingToolSelect left" >
+                            <option>Box Office</option>
+                            <option selected>Founders Hall</option>
+                            <option>JDAT</option>
+                            <option>Star Theater</option>
+                        </select>
+                    </div>
+                    <div class="schedulingToolHeaderItem">
+                        <div id="schedulingToolNumberOfPresentations"><span id="presentationNumberSpan">0</span>
+                            Presentations Scheduled.
+                        </div>
+                    </div>
+                    <div id="schedulingToolPreviewLinkContainer">
+                        <span id="schedulingPreviewLink" class="schedulePageLink relativelyCentered"></span>
                     </div>
                 </fieldset>
             </div>

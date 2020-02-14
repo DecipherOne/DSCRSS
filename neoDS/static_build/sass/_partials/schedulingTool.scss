@@ -6,7 +6,7 @@
   @media (max-width : $stackedBreakPoint)
   {
     float:none !important;
-    width:95%;
+    width:100%;
   }
 
 }
@@ -18,7 +18,7 @@
   @media (max-width : $stackedBreakPoint)
   {
     float:none !important;
-    width:95%;
+    width:100%;
   }
 
 }
@@ -95,7 +95,7 @@
 
 .schedulingToolSelect:nth-of-type(4)
 {
-  margin-left:PixelToRem(29.5);
+  margin-left:PixelToRem(45);
 }
 
 .controlLabel{
@@ -188,15 +188,23 @@
   padding:PixelToRem(8);
 }
 
-#schedulingToolNumberOfPresentations, #schedulingToolDateLabel
+#schedulingToolNumberOfPresentations, #schedulingToolDateLabel,
+#schedulingToolScreenLocationLabel
 {
   font-size: PixelToRem(32);
   line-height: 1.4;
 }
 
-#schedulingToolDateLabel
+#schedulingToolDateLabel,
+#schedulingToolScreenLocationLabel
 {
   margin-right:PixelToRem(16);
+}
+
+.schedulingToolHeaderItem
+{
+  display:inline-flex;
+  padding:PixelToRem(4);
 }
 
 div[class^="presentationEntry"]{
@@ -206,7 +214,7 @@ div[class^="presentationEntry"]{
   display:inline-flex;
   flex-wrap:wrap;
   flex-direction: row;
-  justify-content: initial;
+  justify-content: center;
   margin-bottom:PixelToRem(20);
 }
 
@@ -252,16 +260,10 @@ button[class^="submitEventLineButton"]{
   border: solid PixelToRem(1) black;
   border-radius: PixelToRem(3);
   cursor: pointer;
-
-  @media only screen and (max-width : PixelToRem(815))
-  {
-    margin-left: PixelToRem(28);
-    margin-top: PixelToRem(10);
-  }
 }
 
 
-#schedulingToolDateSelect{
+#schedulingToolDateSelect, #schedulingToolScreenLocationInput{
   max-width:PixelToRem(320);
   font-size:PixelToRem(20);
 }
@@ -291,16 +293,21 @@ button[class^="submitEventLineButton"]{
   border: solid PixelToRem(1) #202029;
   min-height:PixelToRem(42);
   max-height:PixelToRem(84);
-  font-family:"Courier New", "SansSerif";
+  font-family:"Roboto", "SansSerif";
   font-size: PixelToRem(18);
   color: orange;
   padding:PixelToRem(10);
   margin-top:PixelToRem(20);
+
+  @media (max-width: $cellPhoneBreakPoint)
+  {
+    width:80%;
+  }
 }
 
 #presentationScrollContainer{
   overflow-y:auto;
-  height:PixelToRem(520);
+  height:PixelToRem(420);
   border: solid black PixelToRem(0.75);
   border-radius: PixelToRem(7);
 }
@@ -321,6 +328,11 @@ button[class^="submitEventLineButton"]{
 
   span{
     margin-right:PixelToRem(10);
+  }
+
+  @media (max-width: $cellPhoneBreakPoint)
+  {
+    display:none;
   }
 }
 
@@ -383,4 +395,11 @@ button[class^="submitEventLineButton"]{
   cursor:pointer;
   display:block;
   float:left;
+}
+
+#schedulingToolPreviewLinkContainer
+{
+  width:100%;
+  justify-content: center;
+  min-height:PixelToRem(20);
 }

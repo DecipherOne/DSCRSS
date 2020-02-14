@@ -16,7 +16,8 @@
         numberOfVisibleEvents = 0,
         previouslyPassedIndex = null,
         loopTime = null,
-        previousLoopTime = null;
+        previousLoopTime = null,
+        previewMode = null;
 
     $(document).ready(function()
     {
@@ -29,12 +30,36 @@
 
             InitializeScheduleClock();
             scrollAreaHeight = 300;
-            ParseEventsForNowShowingAndUpNext();
             setInterval(ScrollComingAttractions,33);
-            setInterval(ParseEventsForNowShowingAndUpNext,1000);
-            setInterval(RefreshPageEveryFifteenMinutes,42000);
+
+            if(!previewMode)
+            {
+                ParseEventsForNowShowingAndUpNext();
+                setInterval(ParseEventsForNowShowingAndUpNext,1000);
+                setInterval(RefreshPageEveryFifteenMinutes,42000);
+            }
+
         });
     });
+
+    function CheckForPreviewParameter()
+    {
+        var preview = GetParameterByName("previewMode",window.location);
+        if(preview)
+            return true;
+
+        return false;
+    }
+
+    function GetParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 
     function InitializeScheduleClock()
     {
@@ -57,6 +82,7 @@
         comingAttractionsScrollArea = $("#comingAttractionsScrollArea");
         currentPresentation = $("#currentPresentation");
         nextPresentation = $("#nextPresentation");
+        previewMode = CheckForPreviewParameter();
 
         return callback();
     }
@@ -118,6 +144,15 @@
 
         dayName = dateTime.getDay();
         dayName = GetDayNameString(dayName);
+        if(previewMode)
+        {
+            var day = GetParameterByName("day",window.location),
+                month = GetParameterByName("month",window.location),
+                year = GetParameterByName("year",window.location);
+
+            return " Preview Mode : " + month + "/" + day + "/" + year + " 12:00:00am";
+        }
+
         return dayName + " " + dateTimeString;
     }
 

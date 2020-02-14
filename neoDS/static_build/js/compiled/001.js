@@ -26,7 +26,10 @@ jQuery.expr[':'].parents = function(a,i,m){
     presentationNumberSpan = null,
     formTimeValues=[],
     dailyScheduleEntry = [],
-    headerMessageContainer = null;
+    headerMessageContainer = null,
+    schedulingToolScreenLocationInput = null,
+    targetedScreen = null,
+    schedulingPreviewLink = null;
 
 
 
@@ -41,6 +44,8 @@ jQuery.expr[':'].parents = function(a,i,m){
             return;
 
         calendar.render();
+        InitializeScreenLocationValues();
+        schedulingPreviewLink = $("#schedulingPreviewLink");
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');
         headerMessageContainer = $('#headerMessageContainer');
@@ -50,6 +55,16 @@ jQuery.expr[':'].parents = function(a,i,m){
             CheckDatabaseForMonthlyEvents(e);
         });
     });
+
+    function InitializeScreenLocationValues()
+    {
+        schedulingToolScreenLocationInput = $("#schedulingToolScreenLocationInput");
+        targetedScreen = $(schedulingToolScreenLocationInput).val();
+        $(schedulingToolScreenLocationInput).on("change",function(){
+            targetedScreen = $(schedulingToolScreenLocationInput).val();
+            $('.selectedDay').children(".relativelyCentered").trigger("click");
+        });
+    }
 
     function InitializeFormTimeValues()
     {
@@ -81,7 +96,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
         selects +=  '<select  class="schedulingToolSelect left locationSelect"><option>Location</option></select>';
         selects +=  '<select  class="schedulingToolSelect left presenterSelect"><option>Presenter Name</option></select>';
-        selects +=  '<select  class="schedulingToolSelect left deploymentLocationSelect"><option>Screen Location</option></select>';
+
         predefinedPresentationNode = topControls + selects;
     }
 
@@ -318,13 +333,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                 }));
             }
 
-            for(var d=0; d < response['tables']['deploymentLocations'].length; d++)
-            {
-                $(entries[c]).children(".deploymentLocationSelect").append($('<option>', {
-                    value:response['tables']['deploymentLocations'][d]['deploymentLocation'],
-                    text: response['tables']['deploymentLocations'][d]['deploymentLocation']
-                }));
-            }
         }
         return callback();
     }
@@ -363,14 +371,14 @@ jQuery.expr[':'].parents = function(a,i,m){
 
                         calendarDayScheduleDayMatch = (scheduleDaySubstring === selectedDayString);
 
-                        if(!previouslyScheduledEvent && calendarDayScheduleDayMatch) //look for comparison
+                        if(!previouslyScheduledEvent && calendarDayScheduleDayMatch)
                         {
                             nodeBuffer = "<span class=\"scheduledEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
 
                             foundMatch = true;
                         }
-                        else if(calendarDayScheduleDayMatch) //the day has a scheduled event that has passed.
+                        else if(calendarDayScheduleDayMatch)
                         {
                             nodeBuffer = "<span class=\"archivedEventCircleMarker relativelyCentered topMargin20\"><span class='eventMarkerLabel'>" +
                                 "SCI</span></span>";
@@ -423,13 +431,31 @@ jQuery.expr[':'].parents = function(a,i,m){
 
                     UpdateSchedulingHeader(e);
 
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
+
                     if(day.length===1)
                         day = "0"+day;
                     calendarDateString = currentYear + "-" + currentMonth + "-" + day;
 
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
+                        dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
+                        if(!numberOfNodes)
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
+                            return;
+                        }
+
+
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -445,13 +471,30 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(pastEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
-                    var day = $(this).prev().html();
+                    var day = $(this).prev().html(),
+                        month = new Date;
+                    month = month.getMonth()+1;
                     if(day.length===1)
                         day = "0"+day;
                     calendarDateString = currentYear + "-" + currentMonth + "-" + day;
 
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
+                        dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
+                        if(!numberOfNodes)
+                        {
+                            GenerateDefaultPresentationNodes(8,function(){
+                                GetScheduleLabelsAndPopulateSelects();
+                                $('.modifyPresentationEntry').hide();
+                                $('.archivedPresentationEntry').hide();
+                                ShowPresentationToolBar();
+                                AddControlClickEventHandlers();
+                            });
+                            return;
+                        }
+
+
+                        BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -471,13 +514,46 @@ jQuery.expr[':'].parents = function(a,i,m){
             return callback();
     }
 
+    function ParseEventsForTargetedScreen(eventEntries,screen)
+    {
+        var matchingEvents = [];
+
+        for(var i=0; i < eventEntries.length; i++)
+        {
+            if(eventEntries[i]['ScreenLocation'] === screen)
+                if(matchingEvents.length ==0)
+                    matchingEvents[0] = eventEntries[i];
+                else
+                    matchingEvents.push(eventEntries[i]);
+        }
+
+        return matchingEvents;
+    }
+
+    function BuildPreviewLink(month,year,day,screen)
+    {
+        var textForLink = "Preview This Schedule";
+        var payload = {day:day, month:month, year:year, screen:screen},
+            url = "../_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
+                payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
+
+        $(schedulingPreviewLink).html(textForLink);
+        $(schedulingPreviewLink).unbind("click");
+        $(schedulingPreviewLink).click(function(){
+            window.open(url,"_blank");
+        });
+
+    }
+
     function UpdateSchedulingHeader(e)
     {
         $(presentationEntryContainer).html('');
         $(headerMessageContainer).html('');
+        $(schedulingPreviewLink).html("");
         PlaceSelectedDayClass(e.target);
         UpdateDailyPresentationNumber(0);
         GetDateFromEventTokenParentPutInDateInput(e);
+
     }
     function HidePresentationToolBar()
     {
@@ -649,6 +725,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 entryString.push({ "rowName" : titleString, "rowValue" : $(selects[i]).val()});
         }
 
+        entryString.push({"rowName" : "ScreenLocation","rowValue": targetedScreen});
         entryString.push({"rowName" : "ScheduledDate","rowValue": selectedDate});
 
         if(!VerifyRequiredFieldsAreSet(entryString))
@@ -910,7 +987,8 @@ jQuery.expr[':'].parents = function(a,i,m){
         numberOfVisibleEvents = 0,
         previouslyPassedIndex = null,
         loopTime = null,
-        previousLoopTime = null;
+        previousLoopTime = null,
+        previewMode = null;
 
     $(document).ready(function()
     {
@@ -923,12 +1001,36 @@ jQuery.expr[':'].parents = function(a,i,m){
 
             InitializeScheduleClock();
             scrollAreaHeight = 300;
-            ParseEventsForNowShowingAndUpNext();
             setInterval(ScrollComingAttractions,33);
-            setInterval(ParseEventsForNowShowingAndUpNext,1000);
-            setInterval(RefreshPageEveryFifteenMinutes,42000);
+
+            if(!previewMode)
+            {
+                ParseEventsForNowShowingAndUpNext();
+                setInterval(ParseEventsForNowShowingAndUpNext,1000);
+                setInterval(RefreshPageEveryFifteenMinutes,42000);
+            }
+
         });
     });
+
+    function CheckForPreviewParameter()
+    {
+        var preview = GetParameterByName("previewMode",window.location);
+        if(preview)
+            return true;
+
+        return false;
+    }
+
+    function GetParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 
     function InitializeScheduleClock()
     {
@@ -951,6 +1053,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         comingAttractionsScrollArea = $("#comingAttractionsScrollArea");
         currentPresentation = $("#currentPresentation");
         nextPresentation = $("#nextPresentation");
+        previewMode = CheckForPreviewParameter();
 
         return callback();
     }
@@ -1012,6 +1115,15 @@ jQuery.expr[':'].parents = function(a,i,m){
 
         dayName = dateTime.getDay();
         dayName = GetDayNameString(dayName);
+        if(previewMode)
+        {
+            var day = GetParameterByName("day",window.location),
+                month = GetParameterByName("month",window.location),
+                year = GetParameterByName("year",window.location);
+
+            return " Preview Mode : " + month + "/" + day + "/" + year + " 12:00:00am";
+        }
+
         return dayName + " " + dateTimeString;
     }
 

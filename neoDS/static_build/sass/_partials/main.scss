@@ -16,8 +16,12 @@ body{
 }
 
 footer{
-  margin-left:20%;
+  padding:PixelToRem(40);
   clear:both;
+
+  h6{
+    margin-left:20%;
+  }
 }
 
 
