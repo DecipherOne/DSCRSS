@@ -161,7 +161,7 @@
         var minutes = new Date();
         minutes = minutes.getMinutes();
 
-        if(minutes === 30|| minutes === 0 || minutes === 45|| minutes === 15)
+        if(minutes === 31|| minutes === 1 || minutes === 46|| minutes === 16)
             window.location.reload();
     }
 

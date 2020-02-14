@@ -595,3 +595,5 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 #legendUnscheduledDayMarker { border: solid 0.55556rem #393939; border-radius: 0.55556rem; display: inline-block; cursor: pointer; display: block; float: left; }
 
 #schedulingToolPreviewLinkContainer { width: 100%; justify-content: center; min-height: 1.11111rem; }
+
+#editSelectsToolSelectTableLabel { padding: 0.66667rem; }

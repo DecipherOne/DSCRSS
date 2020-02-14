@@ -544,13 +544,18 @@
 
     function UpdateSchedulingHeader(e)
     {
+        ClearSchedulingHeaderDynamicData();
+        PlaceSelectedDayClass(e.target);
+        GetDateFromEventTokenParentPutInDateInput(e);
+
+    }
+
+    function ClearSchedulingHeaderDynamicData()
+    {
         $(presentationEntryContainer).html('');
         $(headerMessageContainer).html('');
         $(schedulingPreviewLink).html("");
-        PlaceSelectedDayClass(e.target);
         UpdateDailyPresentationNumber(0);
-        GetDateFromEventTokenParentPutInDateInput(e);
-
     }
     function HidePresentationToolBar()
     {
@@ -672,7 +677,9 @@
         $("#editSelectionsButton").click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            console.log("edit selections");
+            HidePresentationToolBar();
+            ClearSchedulingHeaderDynamicData();
+            LoadEditSelectsForm();
         });
 
         $(".submitAllPresentations").click(function(e){
@@ -692,6 +699,25 @@
             e.stopImmediatePropagation();
             BuildIndividualPayloadAndSubmit(e);
         });
+    }
+
+    function LoadEditSelectsForm()
+    {
+        var editSelectsForm = null;
+
+        $(presentationEntryContainer).html("");
+
+        editSelectsForm = "<fieldset id='scheduledPresentationsFieldSet'>" +
+            "<div class='schedulingToolHeaderItem'><label id='editSelectsToolSelectTableLabel' for='editSelectsToolSelectTable'>Select Which Table To Edit</label>" +
+            "<select class='schedulingToolSelect' id='editSelectsToolSelectTable'>" +
+            "<option value='title'>Title</option>" +
+            "<option value='presenterName'>PresenterName</option>" +
+            "<option value='location'>Location</option> " +
+            "</select></div> "+
+            " </fieldset>";
+
+        $(presentationEntryContainer).html(editSelectsForm);
+
     }
 
     function VerifyRequiredFieldsAreSet(valueArray)

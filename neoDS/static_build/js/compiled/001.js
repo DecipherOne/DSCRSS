@@ -547,13 +547,18 @@ jQuery.expr[':'].parents = function(a,i,m){
 
     function UpdateSchedulingHeader(e)
     {
+        ClearSchedulingHeaderDynamicData();
+        PlaceSelectedDayClass(e.target);
+        GetDateFromEventTokenParentPutInDateInput(e);
+
+    }
+
+    function ClearSchedulingHeaderDynamicData()
+    {
         $(presentationEntryContainer).html('');
         $(headerMessageContainer).html('');
         $(schedulingPreviewLink).html("");
-        PlaceSelectedDayClass(e.target);
         UpdateDailyPresentationNumber(0);
-        GetDateFromEventTokenParentPutInDateInput(e);
-
     }
     function HidePresentationToolBar()
     {
@@ -675,7 +680,9 @@ jQuery.expr[':'].parents = function(a,i,m){
         $("#editSelectionsButton").click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
-            console.log("edit selections");
+            HidePresentationToolBar();
+            ClearSchedulingHeaderDynamicData();
+            LoadEditSelectsForm();
         });
 
         $(".submitAllPresentations").click(function(e){
@@ -695,6 +702,25 @@ jQuery.expr[':'].parents = function(a,i,m){
             e.stopImmediatePropagation();
             BuildIndividualPayloadAndSubmit(e);
         });
+    }
+
+    function LoadEditSelectsForm()
+    {
+        var editSelectsForm = null;
+
+        $(presentationEntryContainer).html("");
+
+        editSelectsForm = "<fieldset id='scheduledPresentationsFieldSet'>" +
+            "<div class='schedulingToolHeaderItem'><label id='editSelectsToolSelectTableLabel' for='editSelectsToolSelectTable'>Select Which Table To Edit</label>" +
+            "<select class='schedulingToolSelect' id='editSelectsToolSelectTable'>" +
+            "<option value='title'>Title</option>" +
+            "<option value='presenterName'>PresenterName</option>" +
+            "<option value='location'>Location</option> " +
+            "</select></div> "+
+            " </fieldset>";
+
+        $(presentationEntryContainer).html(editSelectsForm);
+
     }
 
     function VerifyRequiredFieldsAreSet(valueArray)
@@ -1132,7 +1158,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         var minutes = new Date();
         minutes = minutes.getMinutes();
 
-        if(minutes === 30|| minutes === 0 || minutes === 45|| minutes === 15)
+        if(minutes === 31|| minutes === 1 || minutes === 46|| minutes === 16)
             window.location.reload();
     }
 
