@@ -451,7 +451,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                                 ShowPresentationToolBar();
                                 AddControlClickEventHandlers();
                             });
-
                             return;
                         }
 
@@ -491,7 +490,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                                 ShowPresentationToolBar();
                                 AddControlClickEventHandlers();
                             });
-
                             return;
                         }
 
@@ -540,6 +538,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
 
         $(schedulingPreviewLink).html(textForLink);
+        $(schedulingPreviewLink).unbind("click");
         $(schedulingPreviewLink).click(function(){
             window.open(url,"_blank");
         });

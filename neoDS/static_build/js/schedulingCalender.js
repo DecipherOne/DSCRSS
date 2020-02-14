@@ -448,7 +448,6 @@
                                 ShowPresentationToolBar();
                                 AddControlClickEventHandlers();
                             });
-
                             return;
                         }
 
@@ -488,7 +487,6 @@
                                 ShowPresentationToolBar();
                                 AddControlClickEventHandlers();
                             });
-
                             return;
                         }
 
@@ -537,6 +535,7 @@
                 payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
 
         $(schedulingPreviewLink).html(textForLink);
+        $(schedulingPreviewLink).unbind("click");
         $(schedulingPreviewLink).click(function(){
             window.open(url,"_blank");
         });
