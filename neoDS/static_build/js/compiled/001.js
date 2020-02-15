@@ -1158,7 +1158,7 @@ jQuery.expr[':'].parents = function(a,i,m){
         var minutes = new Date();
         minutes = minutes.getMinutes();
 
-        if(minutes === 31|| minutes === 1 || minutes === 46|| minutes === 16)
+        if(minutes === 30|| minutes === 0 || minutes === 45|| minutes === 15)
             window.location.reload();
     }
 
@@ -1258,7 +1258,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 currentTimeStamp = Date.parse(dateString + " " + timeString);
 
 
-            if(currentTimeStamp >= eventStartTimeStamp  && currentTimeStamp <= eventEndTimeStamp && !$(todaysEvents[i]).hasClass("hidden"))
+            if(currentTimeStamp >= eventStartTimeStamp  && currentTimeStamp < eventEndTimeStamp && !$(todaysEvents[i]).hasClass("hidden"))
             {
                 $(currentPresentation).children(".entryGroupTitle").children(".presentationEntry").html(eventTitle);
                 $(currentPresentation).children(".entryGroupLocation").children(".presentationEntry").html(eventLocation);

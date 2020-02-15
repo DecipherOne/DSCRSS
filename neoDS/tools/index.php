@@ -11,6 +11,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     <title>Science Center of Iowa Daily Schedule </title>
     <script src="../js/3rdParty.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../style/style.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="https://www.sciowa.org/favicon-194x194.png"/>
 </head>
 <body>
