@@ -1033,7 +1033,6 @@ jQuery.expr[':'].parents = function(a,i,m){
             {
                 ParseEventsForNowShowingAndUpNext();
                 setInterval(ParseEventsForNowShowingAndUpNext,1000);
-                setInterval(RefreshPageEveryFifteenMinutes,42000);
             }
 
         });
@@ -1365,19 +1364,20 @@ jQuery.expr[':'].parents = function(a,i,m){
                 continue;
 
             bottomBounds = 400 + (100 * i);
-            lastEventDivBounds = $(todaysEvents[todaysEvents.length-1]).offset().top + 150;
+            lastEventDivBounds = $(todaysEvents[todaysEvents.length-1]).offset().top + 80;
 
             if(lastEventDivBounds < topBounds)
             {
                 $(todaysEvents[i]).css("top", bottomBounds);
+                RefreshPageEveryFifteenMinutes();
 
                 if(i >= (numberOfVisibleEvents/2)&& numberOfVisibleEvents >= 3)
                     if(i===0)
-                        scrollAreaHeight = 300;
+                        scrollAreaHeight = 220;
                     else
-                        scrollAreaHeight = 300 + (i*10);
+                        scrollAreaHeight = 220 + (i*10);
                 else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
-                    scrollAreaHeight = 300;
+                    scrollAreaHeight = 220;
                 else if(numberOfVisibleEvents === 1)
                     scrollAreaHeight = 0;
             }
