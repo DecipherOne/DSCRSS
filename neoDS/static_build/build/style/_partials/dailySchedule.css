@@ -16,7 +16,6 @@
 #scheduleDisplayHeader { justify-content: space-evenly; border: solid 1px #acc313; }
 
 #currentPresentation { background-color: #222; font-size: 2.33333rem; justify-content: center; }
-@media (max-width: 88.88889rem) { #currentPresentation { justify-content: flex-start; } }
 #currentPresentation .entryGroupEndTime { min-width: 36.11111rem; }
 
 #scheduleDisplayBody { padding: 1.11111rem; }

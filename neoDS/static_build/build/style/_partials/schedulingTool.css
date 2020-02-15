@@ -75,7 +75,7 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 #schedulingToolLegend { height: 7.88889rem; width: 12.5rem; padding: 0.44444rem; margin: 1rem; display: block; float: left; background-color: #dddddd; color: #989898; }
 #schedulingToolLegend div { margin: 0.11111rem; text-align: initial; }
 #schedulingToolLegend span { margin-right: 0.55556rem; }
-@media (max-width: 42.22222rem) { #schedulingToolLegend { display: none; } }
+@media (max-width: 88.88889rem) { #schedulingToolLegend { display: none; } }
 
 #headerTitleContainer { text-align: initial; left: 12%; position: relative; top: 1.11111rem; }
 

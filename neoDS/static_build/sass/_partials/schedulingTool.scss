@@ -330,7 +330,7 @@ button[class^="submitEventLineButton"]{
     margin-right:PixelToRem(10);
   }
 
-  @media (max-width: $cellPhoneBreakPoint)
+  @media (max-width: $stackedBreakPoint)
   {
     display:none;
   }

@@ -65,9 +65,7 @@
   background-color: #222;
   font-size:PixelToRem(42);
   justify-content: center;
-  @media (max-width:$stackedBreakPoint) {
-    justify-content: flex-start;
-  }
+
   .entryGroupEndTime
   {
     min-width:PixelToRem(650);
