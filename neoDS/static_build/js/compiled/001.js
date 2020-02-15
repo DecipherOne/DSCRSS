@@ -411,6 +411,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(noEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
+                    $("#schedulingToolScreenLocationInput").removeAttr("disabled");
 
                     if(CheckForPassedCalendarDay(e))
                     {
@@ -430,7 +431,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(scheduledEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
-
+                    $("#schedulingToolScreenLocationInput").removeAttr("disabled");
                     var day = $(this).prev().html(),
                         month = new Date;
                     month = month.getMonth()+1;
@@ -471,6 +472,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(pastEventMarkers).click(function(e){
 
                     UpdateSchedulingHeader(e);
+                    $("#schedulingToolScreenLocationInput").removeAttr("disabled");
                     var day = $(this).prev().html(),
                         month = new Date;
                     month = month.getMonth()+1;
@@ -481,18 +483,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
-                        if(!numberOfNodes)
-                        {
-                            GenerateDefaultPresentationNodes(8,function(){
-                                GetScheduleLabelsAndPopulateSelects();
-                                $('.modifyPresentationEntry').hide();
-                                $('.archivedPresentationEntry').hide();
-                                ShowPresentationToolBar();
-                                AddControlClickEventHandlers();
-                            });
-                            return;
-                        }
-
 
                         BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
@@ -682,6 +672,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             e.stopImmediatePropagation();
             HidePresentationToolBar();
             ClearSchedulingHeaderDynamicData();
+            $("#schedulingToolScreenLocationInput").attr("disabled","disabled");
             LoadEditSelectsForm();
         });
 
@@ -1376,10 +1367,10 @@ jQuery.expr[':'].parents = function(a,i,m){
                         scrollAreaHeight = 220;
                     else
                         scrollAreaHeight = 220 + (i*10);
-                else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
-                    scrollAreaHeight = 220;
                 else if(numberOfVisibleEvents === 1)
                     scrollAreaHeight = 0;
+                else
+                    scrollAreaHeight = 220 + (i*10);
             }
             else
                 $(todaysEvents[i]).css("top", scrollAreaHeight);

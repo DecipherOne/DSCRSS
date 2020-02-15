@@ -379,10 +379,10 @@
                         scrollAreaHeight = 220;
                     else
                         scrollAreaHeight = 220 + (i*10);
-                else if(numberOfVisibleEvents < 3 && numberOfVisibleEvents > 1)
-                    scrollAreaHeight = 220;
                 else if(numberOfVisibleEvents === 1)
                     scrollAreaHeight = 0;
+                else
+                    scrollAreaHeight = 220 + (i*10);
             }
             else
                 $(todaysEvents[i]).css("top", scrollAreaHeight);
