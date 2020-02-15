@@ -670,6 +670,7 @@
             HidePresentationToolBar();
             ClearSchedulingHeaderDynamicData();
             $("#schedulingToolScreenLocationInput").attr("disabled","disabled");
+            $(".selectedDay").removeClass("selectedDay");
             LoadEditSelectsForm();
         });
 

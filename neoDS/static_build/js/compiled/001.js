@@ -673,6 +673,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             HidePresentationToolBar();
             ClearSchedulingHeaderDynamicData();
             $("#schedulingToolScreenLocationInput").attr("disabled","disabled");
+            $(".selectedDay").removeClass("selectedDay");
             LoadEditSelectsForm();
         });
 
