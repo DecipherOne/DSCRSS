@@ -709,10 +709,11 @@
             "<div class='schedulingToolHeaderItem' id='updateTableValues'><label id='editSelectsToolSelectTableValueLabel' for='editSelectsToolSelectTableValue'>Select Which Value To Edit</label>" +
             "<select class='schedulingToolSelect' id='editSelectsToolSelectTableValue'></select>" +
             "<textarea id='editSelectsToolTableValueTextarea' maxlength=\"255\"></textarea>"+
-            "<button id=\"submitUpdateTableValue\" disabled=\"disabled\">Submit</button></div>"+
+            "<button id=\"submitUpdateTableValue\" disabled=\"disabled\">Update</button>" +
+            "<button id=\"submitDeleteTableValue\" disabled=\"disabled\">Delete</button></div>"+
             "<div class='schedulingToolHeaderItem' id='createNewTableValue'><label id='editSelectsToolCreateNewValueLabel' for='editSelectsToolCreateNewValueTextarea'>Add A New Value</label>" +
             "<textarea id='editSelectsToolCreateNewValueTextarea' maxlength=\"255\"></textarea>"+
-            "<button id=\"submitCreateTableValue\" disabled=\"disabled\">Submit</button></div>"+
+            "<button id=\"submitCreateTableValue\" disabled=\"disabled\">Create</button></div>"+
             " </fieldset>";
 
         $(presentationEntryContainer).html(editSelectsForm);

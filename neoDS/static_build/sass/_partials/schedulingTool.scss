@@ -258,8 +258,8 @@ div[class^="presentationEntry"]{
 
 button[class^="submitEventLineButton"],
 #submitCreateTableValue,
-#submitUpdateTableValue{
-  width:PixelToRem(75);
+#submitUpdateTableValue,
+#submitDeleteTableValue{
   height:PixelToRem(42);
   border: solid PixelToRem(1) black;
   border-radius: PixelToRem(3);

@@ -561,7 +561,7 @@ div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: bo
 #presentationEntryContainer { display: table; width: 100%; }
 #presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
 
-button[class^="submitEventLineButton"], #submitCreateTableValue, #submitUpdateTableValue { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
+button[class^="submitEventLineButton"], #submitCreateTableValue, #submitUpdateTableValue, #submitDeleteTableValue { height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 
 #schedulingToolDateSelect, #schedulingToolScreenLocationInput { max-width: 17.77778rem; font-size: 1.11111rem; }
 
