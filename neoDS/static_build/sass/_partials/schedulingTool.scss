@@ -205,6 +205,7 @@
 {
   display:inline-flex;
   padding:PixelToRem(4);
+  justify-content: center;
 }
 
 div[class^="presentationEntry"]{
@@ -220,6 +221,7 @@ div[class^="presentationEntry"]{
 
 #presentationEntryContainer{
   display:table;
+  width:100%;
   .relativelyCentered
   {
     clear: both;
@@ -254,7 +256,9 @@ div[class^="presentationEntry"]{
 
 }
 
-button[class^="submitEventLineButton"]{
+button[class^="submitEventLineButton"],
+#submitCreateTableValue,
+#submitUpdateTableValue{
   width:PixelToRem(75);
   height:PixelToRem(42);
   border: solid PixelToRem(1) black;
@@ -404,6 +408,29 @@ button[class^="submitEventLineButton"]{
   min-height:PixelToRem(20);
 }
 
-#editSelectsToolSelectTableLabel{
+#editSelectsToolSelectTableLabel,
+#editSelectsToolSelectTableValueLabel,
+#editSelectsToolCreateNewValueLabel{
   padding:PixelToRem(12);
+}
+
+#editSelectsToolTableValueTextarea,
+#editSelectsToolCreateNewValueTextarea{
+  height:PixelToRem(150);
+  width:PixelToRem(320);
+  resize:none;
+  font-size:PixelToRem(20);
+}
+
+#editSelectsToolSelectTable,
+#editSelectsToolSelectTableValue{
+  font-size:PixelToRem(20);
+  width:PixelToRem(320);
+  max-width:none;
+}
+
+#updateTableValues, #createNewTableValue{
+  display:grid;
+  justify-content: start;
+  float:left;
 }

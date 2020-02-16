@@ -52,14 +52,14 @@
 
 #schedulingToolDateLabel, #schedulingToolScreenLocationLabel { margin-right: 0.88889rem; }
 
-.schedulingToolHeaderItem { display: inline-flex; padding: 0.22222rem; }
+.schedulingToolHeaderItem { display: inline-flex; padding: 0.22222rem; justify-content: center; }
 
 div[class^="presentationEntry"] { width: 100%; min-height: 2.77778rem; clear: both; display: inline-flex; flex-wrap: wrap; flex-direction: row; justify-content: center; margin-bottom: 1.11111rem; }
 
-#presentationEntryContainer { display: table; }
+#presentationEntryContainer { display: table; width: 100%; }
 #presentationEntryContainer .relativelyCentered { clear: both; transform: none !important; left: 25%; }
 
-button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
+button[class^="submitEventLineButton"], #submitCreateTableValue, #submitUpdateTableValue { width: 4.16667rem; height: 2.33333rem; border: solid 0.05556rem black; border-radius: 0.16667rem; cursor: pointer; }
 
 #schedulingToolDateSelect, #schedulingToolScreenLocationInput { max-width: 17.77778rem; font-size: 1.11111rem; }
 
@@ -93,4 +93,10 @@ button[class^="submitEventLineButton"] { width: 4.16667rem; height: 2.33333rem; 
 
 #schedulingToolPreviewLinkContainer { width: 100%; justify-content: center; min-height: 1.11111rem; }
 
-#editSelectsToolSelectTableLabel { padding: 0.66667rem; }
+#editSelectsToolSelectTableLabel, #editSelectsToolSelectTableValueLabel, #editSelectsToolCreateNewValueLabel { padding: 0.66667rem; }
+
+#editSelectsToolTableValueTextarea, #editSelectsToolCreateNewValueTextarea { height: 8.33333rem; width: 17.77778rem; resize: none; font-size: 1.11111rem; }
+
+#editSelectsToolSelectTable, #editSelectsToolSelectTableValue { font-size: 1.11111rem; width: 17.77778rem; max-width: none; }
+
+#updateTableValues, #createNewTableValue { display: grid; justify-content: start; float: left; }
