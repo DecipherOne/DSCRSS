@@ -29,7 +29,14 @@ jQuery.expr[':'].parents = function(a,i,m){
     headerMessageContainer = null,
     schedulingToolScreenLocationInput = null,
     targetedScreen = null,
-    schedulingPreviewLink = null;
+    schedulingPreviewLink = null,
+    editSelectsToolSelectTable = null,
+    editSelectsToolSelectTableValue = null,
+    editSelectsToolTableValueTextarea = null,
+    editSelectsToolCreateNewValueTextarea = null,
+    submitUpdateTableValue = null,
+    submitDeleteTableValue = null,
+    submitCreateTableValue = null;
 
 
 
@@ -49,12 +56,140 @@ jQuery.expr[':'].parents = function(a,i,m){
         presentationEntryContainer = $('#presentationEntryContainer');
         presentationNumberSpan = $('#presentationNumberSpan');
         headerMessageContainer = $('#headerMessageContainer');
+
         CheckDatabaseForMonthlyEvents();
         fullCalendarButton = document.getElementsByClassName('fc-button');
         $(fullCalendarButton).click(function(e){
             CheckDatabaseForMonthlyEvents(e);
         });
     });
+
+    function InitializeEditSelectsToolValues()
+    {
+        editSelectsToolSelectTable = $("#editSelectsToolSelectTable");
+        editSelectsToolSelectTableValue = $("#editSelectsToolSelectTableValue");
+        editSelectsToolTableValueTextarea = $("#editSelectsToolTableValueTextarea");
+        editSelectsToolCreateNewValueTextarea = $("#editSelectsToolCreateNewValueTextarea");
+        submitCreateTableValue = $("#submitCreateTableValue");
+        submitDeleteTableValue = $("#submitDeleteTableValue");
+        submitUpdateTableValue = $("#submitUpdateTableValue");
+
+        setTimeout(function(){
+            editSelectsToolSelectTable.trigger("change");
+        },150);
+
+        $(editSelectsToolSelectTable).on("change",function(){
+            GetCurrentPresentationTables(function(tables){
+                PopulateEditSelectsToolValueToEditSelect(tables);
+                UpdateEditSelectsTextAreaBasedOnSelectedValues();
+            });
+        });
+
+        $(editSelectsToolSelectTableValue).on("change", function() {
+            UpdateEditSelectsTextAreaBasedOnSelectedValues();
+        });
+
+        $(editSelectsToolCreateNewValueTextarea).on("focus", function() {
+            $(submitCreateTableValue).removeAttr("disabled");
+        });
+
+        $(editSelectsToolCreateNewValueTextarea).on("blur", function() {
+            $(submitCreateTableValue).attr("disabled","disabled");
+        });
+
+        $(submitCreateTableValue).click(function(e){
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            $(e.target).attr("disabled","disabled");
+            console.log("Create me, ooh!");
+        });
+
+        $(submitDeleteTableValue).click(function(e){
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            $(e.target).attr("disabled","disabled");
+            $(submitUpdateTableValue).attr("disabled","disabled");
+            console.log("Delete me, ooh!");
+        });
+
+        $(submitUpdateTableValue).click(function(e){
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            $(e.target).attr("disabled","disabled");
+            $(submitDeleteTableValue).attr("disabled","disabled");
+            console.log("Update me, ooh!");
+        });
+    }
+
+    function UpdateEditSelectsTextAreaBasedOnSelectedValues()
+    {
+        var currentSelectionIndex = $(editSelectsToolSelectTableValue).val(),
+            currentSelectedTable = $(editSelectsToolSelectTable).val(),
+            currentSelectedTableIndex = 0;
+
+        if(currentSelectedTable !=="presenterName")
+        {
+            if(currentSelectedTable === "title")
+                currentSelectedTableIndex = 1;
+            else if(currentSelectedTable === "location")
+                currentSelectedTableIndex = 2;
+
+            if(!CheckForNonEditableSelectValue(currentSelectionIndex,currentSelectedTableIndex))
+            {
+                currentSelectedTable = $("#editSelectsToolSelectTableValue :selected").text();
+                $(submitUpdateTableValue).removeAttr("disabled");
+                $(submitDeleteTableValue).removeAttr("disabled");
+                $(editSelectsToolTableValueTextarea).val(currentSelectedTable);
+            }
+            else
+            {
+                $(editSelectsToolTableValueTextarea).val("Due to schedule generation, this value can not be edited.");
+                $(submitUpdateTableValue).attr("disabled","disabled");
+                $(submitDeleteTableValue).attr("disabled", "disabled");
+            }
+        }
+        else
+        {
+            currentSelectedTable = $("#editSelectsToolSelectTableValue :selected").text();
+            $(submitUpdateTableValue).removeAttr("disabled");
+            $(submitDeleteTableValue).removeAttr("disabled");
+            $(editSelectsToolTableValueTextarea).val(currentSelectedTable);
+        }
+    }
+
+    function CheckForNonEditableSelectValue(index, type)
+    {
+        var titleIndecies = [39,22,47,4,36,5,18,33],
+            locationIndecies = [16,3,15,10,13];
+
+        switch(type)
+        {
+            case 1:
+            {
+                for(var i=0; i < titleIndecies.length; i++)
+                {
+                    if(titleIndecies[i]===parseInt(index))
+                        return true;
+                }
+                break;
+            }
+
+            case 2 :
+            {
+                for(var i=0; i < locationIndecies.length; i++)
+                {
+                    if(locationIndecies[i]===parseInt(index))
+                        return true;
+                }
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        return false;
+    }
 
     function InitializeScreenLocationValues()
     {
@@ -226,7 +361,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("10:00");
                     $(entries[c]).children(".titleSelect").val("Storytime Under the Stars");
                     $(entries[c]).children(".locationSelect").val("Why the Sky?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 1:{
@@ -234,7 +368,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("11:00");
                     $(entries[c]).children(".titleSelect").val("Meet Stuffee");
                     $(entries[c]).children(".locationSelect").val("John Deere Adventure Theater, Main Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 2:{
@@ -242,7 +375,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("13:00");
                     $(entries[c]).children(".titleSelect").val("WHO-HD Live Weather Forecast");
                     $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 3:{
@@ -250,7 +382,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("14:00");
                     $(entries[c]).children(".titleSelect").val("Cold Blooded Critters");
                     $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 4:{
@@ -258,7 +389,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("14:30");
                     $(entries[c]).children(".titleSelect").val("Snapping Turtle Feeding");
                     $(entries[c]).children(".locationSelect").val("What on Earth?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 5:{
@@ -266,7 +396,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("15:00");
                     $(entries[c]).children(".titleSelect").val("Dawn of the Space Age");
                     $(entries[c]).children(".locationSelect").val("Star Theater, Why the Sky?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 6:{
@@ -274,7 +403,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("16:00");
                     $(entries[c]).children(".titleSelect").val("Iowa Skies Tonight");
                     $(entries[c]).children(".locationSelect").val("Star Theater, Why the Sky?, Upper Level");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 case 7:{
@@ -282,7 +410,6 @@ jQuery.expr[':'].parents = function(a,i,m){
                     $(entries[c]).children(".endTimeSelect").val("17:30");
                     $(entries[c]).children(".titleSelect").val("SCIENCE CENTER OF IOWA CLOSES");
                     $(entries[c]).children(".locationSelect").val("Thank you for visiting. Have a great night!");
-                    $(entries[c]).children(".deploymentLocationSelect").val("Founders Hall");
                     break;
                 }
                 default:{
@@ -456,7 +583,9 @@ jQuery.expr[':'].parents = function(a,i,m){
                         }
 
 
-                        BuildPreviewLink(month,currentYear,day,targetedScreen);
+                        if(dailyScheduleEntry.length > 1)
+                            BuildPreviewLink(month,currentYear,day,targetedScreen);
+
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -483,8 +612,8 @@ jQuery.expr[':'].parents = function(a,i,m){
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
-
-                        BuildPreviewLink(month,currentYear,day,targetedScreen);
+                        if(dailyScheduleEntry.length > 1)
+                            BuildPreviewLink(month,currentYear,day,targetedScreen);
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -675,6 +804,10 @@ jQuery.expr[':'].parents = function(a,i,m){
             $("#schedulingToolScreenLocationInput").attr("disabled","disabled");
             $(".selectedDay").removeClass("selectedDay");
             LoadEditSelectsForm();
+            InitializeEditSelectsToolValues();
+            GetCurrentPresentationTables(function(tables){
+                PopulateEditSelectsToolValueToEditSelect(tables);
+            });
         });
 
         $(".submitAllPresentations").click(function(e){
@@ -694,6 +827,67 @@ jQuery.expr[':'].parents = function(a,i,m){
             e.stopImmediatePropagation();
             BuildIndividualPayloadAndSubmit(e);
         });
+    }
+
+    function GetCurrentPresentationTables(callback)
+    {
+        RetrieveScheduleTablesFromDataStore(function(tables){
+            return callback(tables);
+        });
+
+        return;
+    }
+
+    function PopulateEditSelectsToolValueToEditSelect(tableValues)
+    {
+        var targetedTable = $(editSelectsToolSelectTable).val(),
+            selectedValues = null;
+
+        $(editSelectsToolSelectTableValue).html("");
+
+        switch(targetedTable)
+        {
+            case "title":
+            {
+                selectedValues = tableValues["tables"]["presentationTitles"];
+                for(var i = 0; i < selectedValues.length; i++)
+                {
+                    $(editSelectsToolSelectTableValue).append($('<option>', {
+                        value: selectedValues[i]["index"],
+                        text: selectedValues[i]["title"]
+                    }));
+                }
+                break;
+            }
+            case "presenterName":
+            {
+                selectedValues = tableValues["tables"]["presenters"];
+                for(var i = 0; i < selectedValues.length; i++)
+                {
+                    $(editSelectsToolSelectTableValue).append($('<option>', {
+                        value: selectedValues[i]["index"],
+                        text: selectedValues[i]["Name"]
+                    }));
+                }
+                break;
+            }
+            case "location":
+            {
+                selectedValues = tableValues["tables"]["presentationLocation"];
+                for(var i = 0; i < selectedValues.length; i++)
+                {
+                    $(editSelectsToolSelectTableValue).append($('<option>', {
+                        value: selectedValues[i]["index"],
+                        text: selectedValues[i]["locationName"]
+                    }));
+                }
+                break;
+            }
+            default:
+                break;
+
+        }
+
     }
 
     function LoadEditSelectsForm()

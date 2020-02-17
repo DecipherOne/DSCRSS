@@ -597,7 +597,7 @@ button[class^="submitEventLineButton"], #submitCreateTableValue, #submitUpdateTa
 
 #editSelectsToolSelectTableLabel, #editSelectsToolSelectTableValueLabel, #editSelectsToolCreateNewValueLabel { padding: 0.66667rem; }
 
-#editSelectsToolTableValueTextarea, #editSelectsToolCreateNewValueTextarea { height: 8.33333rem; width: 17.77778rem; resize: none; font-size: 1.11111rem; }
+#editSelectsToolTableValueTextarea, #editSelectsToolCreateNewValueTextarea { height: 8.33333rem; width: 17.44444rem; resize: none; font-size: 1.11111rem; }
 
 #editSelectsToolSelectTable, #editSelectsToolSelectTableValue { font-size: 1.11111rem; width: 17.77778rem; max-width: none; }
 
