@@ -99,8 +99,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 </div>
 </body>
 <footer>
-    <!-- <script src="../js/001.min.js"></script> -->
-    <script src="../static_build/js/compiled/001.js"></script>
+     <script src="../js/001.min.js"></script>
+    <!--<script src="../static_build/js/compiled/001.js"></script>-->
     <h6>Donated By : Will Canada circa 2020 <a href="http://decipherone.com" target="_blank">DecipherOne</a>
         in partnership with <a href="http://grandconsulting.com/" target="_blank">Grand Consulting</a></h6>
 </footer>

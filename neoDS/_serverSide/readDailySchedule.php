@@ -233,9 +233,9 @@ function ParseAndOutputResults($response,$haveResults)
 </div>
 </body>
 <footer>
- <!-- <script src="../js/001.min.js"></script> -->
-  <script src="../static_build/js/compiled/001.js"></script>
-</footer>
-</html>
+  <script src="../js/001.min.js"></script>
+    <!--  <script src="../static_build/js/compiled/001.js"></script>-->
+    </footer>
+    </html>
 
 
