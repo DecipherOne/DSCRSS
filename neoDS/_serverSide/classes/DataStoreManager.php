@@ -167,6 +167,87 @@ class DataStoreManager
     }
   }
 
+  public function UpdateExistingTableEntry($targetTabel = '', $tableData)
+  {
+    if (!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::UpdateExistingEntry : Not Initialized.");
+      return;
+    }
+    try
+    {
+
+      $query = " UPDATE " .$targetTabel;
+
+      switch($targetTabel)
+      {
+        case "presentationLocations":
+        {
+          $query .= " SET locationName = :locationName";
+          break;
+        }
+        case "presentationTitles":
+        {
+          $query .= " SET title = :title";
+          break;
+        }
+        case "Presenters":
+        {
+          $query .= " SET Name = :Name";
+          break;
+        }
+        default:
+        {
+          break;
+        }
+      }
+
+      $query .=" WHERE \"index\" =:index ";
+
+      if (!$queryHandle = $this->_pdo->prepare($query))
+        echo("error preparing statment " . $query);
+
+      $index = $tableData["index"];
+
+      switch($targetTabel)
+      {
+        case "presentationLocations":
+        {
+          $queryHandle->bindParam(':locationName', $tableData["locationName"]);
+          break;
+        }
+        case "presentationTitles":
+        {
+          $queryHandle->bindParam(':title', $tableData["title"]);
+          break;
+        }
+        case "Presenters":
+        {
+          $queryHandle->bindParam(':Name', $tableData["Name"]);
+          break;
+        }
+        default:
+        {
+          break;
+        }
+      }
+
+      $queryHandle->bindParam(':index', $index, PDO::PARAM_INT);
+      $success = $queryHandle->execute();
+
+      if ($success)
+        return true;
+      else
+        return false;
+    }
+    catch (\PDOException $e)
+    {
+      echo "error message : " . $e->getMessage() . " error code : " . $e->getCode();
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    }
+
+  }
+
   public function UpdateExistingEntry($targetTabel = '', $presentation)
   {
 

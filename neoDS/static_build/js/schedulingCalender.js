@@ -114,8 +114,75 @@
             e.preventDefault();
             $(e.target).attr("disabled","disabled");
             $(submitDeleteTableValue).attr("disabled","disabled");
-            console.log("Update me, ooh!");
+
+            var targetTable = DetermineTargetedTableForModification(),
+                payload = BuildTableDataPayload(targetTable,2);
+
+            ModifySelectTableEntry(payload,function(response){
+
+                $(headerMessageContainer).html(response['message']);
+                $(editSelectsToolSelectTable).trigger("change");
+                setTimeout(function(){
+                    $(editSelectsToolSelectTableValue).val(response["index"]);
+                    $(editSelectsToolSelectTableValue).trigger("change");
+                },100);
+            });
+
         });
+    }
+
+    function BuildTableDataPayload(tableName,type)
+    {
+        var builtDataObject = [],
+            rowValue = $(editSelectsToolTableValueTextarea).val(),
+            rowIndex = $(editSelectsToolSelectTableValue).val();
+
+        switch(tableName)
+        {
+            case "presentationTitles": //titles
+            {
+                builtDataObject = {"tableData":{"tableName": tableName,
+                        "title":rowValue,"index":rowIndex},"type" : type};
+                break;
+            }
+            case "presentationLocations": //locations
+            {
+                builtDataObject = {"tableData":{"tableName": tableName,
+                    "locationName":rowValue,"index":rowIndex},"type" : type};
+                break;
+            }
+            case "Presenters": //Presenters
+            {
+                builtDataObject = {"tableData":{"tableName": tableName,
+                        "Name":rowValue,"index":rowIndex},"type" : type};
+                break;
+            }
+        }
+
+        return builtDataObject;
+    }
+
+    function DetermineTargetedTableForModification()
+    {
+        var selectedTable = $("#editSelectsToolSelectTable :selected").val();
+        switch(selectedTable)
+        {
+            case "title":
+            {
+                return "presentationTitles";
+                break;
+            }
+            case "presenterName":
+            {
+                return "Presenters";
+                break;
+            }
+            case "location":
+            {
+                return "presentationLocations";
+                break;
+            }
+        }
     }
 
     function UpdateEditSelectsTextAreaBasedOnSelectedValues()
@@ -222,7 +289,9 @@
 
     function InitializePredefinedPresentationNode()
     {
-        var topControls = "<span class='archivedPresentationEntry left'><span class='controlLabel'></span></span><span class='deletePresentationEntry left'><span class='controlLabel'></span></span><span class='modifyPresentationEntry left'><span class='controlLabel'></span></span>";
+        var topControls = "<span class='archivedPresentationEntry left'><span class='controlLabel'></span></span>" +
+            "<span class='deletePresentationEntry left'><span class='controlLabel'></span></span>" +
+            "<span class='modifyPresentationEntry left'><span class='controlLabel'></span></span>";
         var selects = '<select  class="schedulingToolSelect left startTimeSelect" ><option>Start Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left endTimeSelect" ><option >End Time</option></select>';
         selects +=  '<select  class="schedulingToolSelect left titleSelect" ><option >Title</option></select>';
@@ -456,7 +525,6 @@
                     text: response['tables']['presenters'][d]['Name']
                 }));
             }
-
         }
         return callback();
     }
@@ -482,7 +550,6 @@
 
                     for(var i=0; i < presentationsQueryResponse.length; i++)
                     {
-
                         scheduledDate = presentationsQueryResponse[i]['ScheduledDate'];
                         selectedDayString = $(dayNumberSpans[c]).html();
                         previouslyScheduledEvent =  ScheduledDateHasPassed(scheduledDate,todaysDate);
@@ -578,7 +645,6 @@
                             });
                             return;
                         }
-
 
                         if(dailyScheduleEntry.length > 1)
                             BuildPreviewLink(month,currentYear,day,targetedScreen);
@@ -807,18 +873,6 @@
             });
         });
 
-        $(".submitAllPresentations").click(function(e){
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            $("#submitAllPresentationsButton").trigger("click");
-        });
-
-        $("#submitAllPresentationsButton").click(function(e){
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            console.log("submit all presentations");
-        });
-
         $('button[class^="submitEventLineButton"]').click(function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -882,9 +936,7 @@
             }
             default:
                 break;
-
         }
-
     }
 
     function LoadEditSelectsForm()
@@ -897,7 +949,7 @@
             "<div class='schedulingToolHeaderItem'><label id='editSelectsToolSelectTableLabel' for='editSelectsToolSelectTable'>Select Which Table To Edit</label>" +
             "<select class='schedulingToolSelect' id='editSelectsToolSelectTable'>" +
             "<option value='title'>Title</option>" +
-            "<option value='presenterName'>PresenterName</option>" +
+            "<option value='presenterName'>Presenter</option>" +
             "<option value='location'>Location</option> " +
             "</select></div> "+
             "<div class='schedulingToolHeaderItem' id='updateTableValues'><label id='editSelectsToolSelectTableValueLabel' for='editSelectsToolSelectTableValue'>Select Which Value To Edit</label>" +
@@ -1112,6 +1164,23 @@
        return month+1;
     }
 
+    function ModifySelectTableEntry(payload, callback)
+    {
+        var payload = JSON.stringify(payload),
+            method = "POST";
+        $.ajax({
+            method: method,
+            url: "../_serverSide/createPresentationTableValues.php",
+            data: payload,
+            async: true,
+            timeout:0,
+            contentType: 'application/json; charset=utf-8'
+        })
+        .done(function( msg ) {
+            return callback(msg);
+        });
+    }
+
     function DeleteExistingEntry(index,callback)
     {
         var payload = {"presentation":{"rowName":"Index","rowValue":index},"type":3},
@@ -1125,9 +1194,9 @@
             timeout:0,
             contentType: 'application/json; charset=utf-8'
         })
-            .done(function( msg ) {
-                return callback(msg);
-            });
+        .done(function( msg ) {
+            return callback(msg);
+        });
     }
 
     function CreateNewIndividualPresentation(payload, callback)
