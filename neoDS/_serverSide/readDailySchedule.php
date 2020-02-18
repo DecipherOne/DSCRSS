@@ -145,7 +145,7 @@ function ParseAndOutputResults($response,$haveResults)
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1"/>
   <title>Science Center of Iowa Daily Schedule </title>
   <script src="../js/3rdParty.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../style/style.min.css">

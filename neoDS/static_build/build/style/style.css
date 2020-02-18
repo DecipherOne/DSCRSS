@@ -454,7 +454,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-dayGrid-view td.fc-week-number > * { /* work around the way we do column resizing and ensure a minimum width */ display: inline-block; min-width: 1.25em; }
 
-#scheduleContainer { max-width: 85.33333rem; min-width: 36.66667rem; background-color: #000000; padding: 1.11111rem; }
+#scheduleContainer { max-width: 85.33333rem; min-width: 23.33333rem; background-color: #000000; padding: 1.11111rem; }
+@media (max-width: 42.22222rem) { #scheduleContainer { left: 0px; transform: none !important; } }
 #scheduleContainer h2 { color: #ACC313; }
 
 #scheduleBody { width: 100%; text-align: center; min-height: 23.33333rem; }

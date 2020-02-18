@@ -2,9 +2,15 @@
 
 #scheduleContainer{
   max-width:PixelToRem(1536);
-  min-width:PixelToRem(660);
+  min-width:PixelToRem(420);
   background-color:#000000;
   padding:PixelToRem(20);
+
+  @media (max-width:$cellPhoneBreakPoint)
+  {
+    left:0px;
+    transform: none !important;
+  }
 
   h2{
     color:#ACC313;

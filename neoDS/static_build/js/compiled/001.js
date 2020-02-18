@@ -1044,6 +1044,18 @@ jQuery.expr[':'].parents = function(a,i,m){
             RefreshCalendar();
             setTimeout(function(){
                 CheckDatabaseForMonthlyEvents(e);
+                var scheduledEntries = $(presentationEntryContainer).children(".scheduled");
+                var month = selectedDate.substr(5,2),
+                    day = selectedDate.substr(8,2),
+                    year = selectedDate.substr(0,4),
+                    screen = $(schedulingToolScreenLocationInput).val();
+
+                if(parseInt(month)<=9)
+                    month = month.substr(1,1);
+
+                if(scheduledEntries.length > 1)
+                    BuildPreviewLink(month,year,day,screen);
+                UpdateDailyPresentationNumber(scheduledEntries.length);
                 $("td[data-date='"+selectedDate+"']").addClass("selectedDay");
                 $(headerMessageContainer).html(response['message']);
                 DisableSubmittedPresentationControls(selects,e.target);
