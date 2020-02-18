@@ -167,6 +167,83 @@ class DataStoreManager
     }
   }
 
+  public function WriteNewTableEntry($targetTable, $tableData)
+  {
+    if (!$this->_isInitialized)
+    {
+      error_log(" Unable to DataStoreManager::UpdateExistingEntry : Not Initialized.");
+      return;
+    }
+    try
+    {
+
+      $query = " INSERT INTO ".$targetTable;
+
+      switch($targetTable)
+      {
+        case "presentationLocations":
+        {
+          $query .= " (locationName) VALUES(:locationName)";
+          break;
+        }
+        case "presentationTitles":
+        {
+          $query .= " (title) VALUES(:title)";
+          break;
+        }
+        case "Presenters":
+        {
+          $query .= " (Name) VALUES(:Name)";
+          break;
+        }
+        default:
+        {
+          break;
+        }
+      }
+
+      if (!$queryHandle = $this->_pdo->prepare($query))
+        echo("error preparing statment " . $query);
+
+      $index = $tableData["index"];
+
+      switch($targetTable)
+      {
+        case "presentationLocations":
+        {
+          $queryHandle->bindParam(':locationName', $tableData["locationName"]);
+          break;
+        }
+        case "presentationTitles":
+        {
+          $queryHandle->bindParam(':title', $tableData["title"]);
+          break;
+        }
+        case "Presenters":
+        {
+          $queryHandle->bindParam(':Name', $tableData["Name"]);
+          break;
+        }
+        default:
+        {
+          break;
+        }
+      }
+
+      $success = $queryHandle->execute();
+
+      if ($success)
+        return true;
+      else
+        return false;
+    }
+    catch (\PDOException $e)
+    {
+      echo "error message : " . $e->getMessage() . " error code : " . $e->getCode();
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    }
+  }
+
   public function DeleteExistingTableEntry($targetTabel = '', $tableData)
   {
     if (!$this->_isInitialized)

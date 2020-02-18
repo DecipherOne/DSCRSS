@@ -90,34 +90,27 @@
             $(submitCreateTableValue).removeAttr("disabled");
         });
 
-        $(editSelectsToolCreateNewValueTextarea).on("blur", function() {
-            $(submitCreateTableValue).attr("disabled","disabled");
-        });
-
         $(submitCreateTableValue).click(function(e){
             e.stopImmediatePropagation();
             e.preventDefault();
             $(e.target).attr("disabled","disabled");
-            console.log("Create me, ooh!");
-        });
 
-        $(submitDeleteTableValue).click(function(e){
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            $(e.target).attr("disabled","disabled");
-            $(submitUpdateTableValue).attr("disabled","disabled");
+            if($(editSelectsToolCreateNewValueTextarea).val().length <= 1)
+                return;
 
             var targetTable = DetermineTargetedTableForModification(),
-                payload = BuildTableDataPayload(targetTable,3),
-                confirmDelete = null;
+                payload = BuildTableDataPayload(targetTable,1),
+                index = null;
 
-           confirmDelete =  window.confirm("Are you sure you want to delete this value?");
+            ModifySelectTableEntry(payload,function(response){
+                $(editSelectsToolCreateNewValueTextarea).val("");
+                $(headerMessageContainer).html(response['message']);
+                index = response["index"];
+                $(editSelectsToolSelectTable).trigger("change");
+                $(editSelectsToolSelectTableValue).val(index);
+                $(editSelectsToolSelectTableValue).trigger("change");
 
-           if(confirmDelete)
-                ModifySelectTableEntry(payload,function(response){
-                    $(headerMessageContainer).html(response['message']);
-                    $(editSelectsToolSelectTable).trigger("change");
-                });
+            });
         });
 
         $(submitUpdateTableValue).click(function(e){
@@ -140,6 +133,25 @@
             });
 
         });
+
+        $(submitDeleteTableValue).click(function(e){
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            $(e.target).attr("disabled","disabled");
+            $(submitUpdateTableValue).attr("disabled","disabled");
+
+            var targetTable = DetermineTargetedTableForModification(),
+                payload = BuildTableDataPayload(targetTable,3),
+                confirmDelete = null;
+
+            confirmDelete =  window.confirm("Are you sure you want to delete this value?");
+
+            if(confirmDelete)
+                ModifySelectTableEntry(payload,function(response){
+                    $(headerMessageContainer).html(response['message']);
+                    $(editSelectsToolSelectTable).trigger("change");
+                });
+        });
     }
 
     function BuildTableDataPayload(tableName,type)
@@ -147,6 +159,9 @@
         var builtDataObject = [],
             rowValue = $(editSelectsToolTableValueTextarea).val(),
             rowIndex = $(editSelectsToolSelectTableValue).val();
+
+        if(type==1)
+            rowValue = $(editSelectsToolCreateNewValueTextarea).val();
 
         switch(tableName)
         {
@@ -169,6 +184,9 @@
                 break;
             }
         }
+
+
+
 
         return builtDataObject;
     }

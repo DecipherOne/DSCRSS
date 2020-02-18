@@ -29,16 +29,15 @@ switch($method)
     {
       case 1: //Create
       {
-        /*
-        BuildDailyPresentationArrays($rowArray,$valueArray,$presentation,$rowString, $valueString);
-        if($db->WriteNewPresentationToDatabase("scheduledPresentation", $rowString, $valueString, $valueArray))
+
+        if($db->WriteNewTableEntry($tableData["tableName"], $tableData))
           $responseMessage =[
-              "message"=>"Presentation : <b> ".$valueArray[2]."</b> successfully scheduled.",
+              "message"=>"<b>Table Entry Successfully Created!</b>",
               "code"=>200,
               "Index" => $db->GetLastInsertedIndex()];
         else
           $responseMessage =["message"=>"There was an error updating, ".$valueArray[2]. " contact your webservice admin.","code"=>500];
-        */
+
         break;
       }
       case 2: //Update
