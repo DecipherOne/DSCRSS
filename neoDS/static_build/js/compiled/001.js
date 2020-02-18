@@ -109,7 +109,18 @@ jQuery.expr[':'].parents = function(a,i,m){
             e.preventDefault();
             $(e.target).attr("disabled","disabled");
             $(submitUpdateTableValue).attr("disabled","disabled");
-            console.log("Delete me, ooh!");
+
+            var targetTable = DetermineTargetedTableForModification(),
+                payload = BuildTableDataPayload(targetTable,3),
+                confirmDelete = null;
+
+           confirmDelete =  window.confirm("Are you sure you want to delete this value?");
+
+           if(confirmDelete)
+                ModifySelectTableEntry(payload,function(response){
+                    $(headerMessageContainer).html(response['message']);
+                    $(editSelectsToolSelectTable).trigger("change");
+                });
         });
 
         $(submitUpdateTableValue).click(function(e){
