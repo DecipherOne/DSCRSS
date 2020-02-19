@@ -104,7 +104,7 @@ class DataStoreManager
       $insertQuery = $this->ConstructInsertQueryStructure($targetTabel, $targetColumns, $values);
 
       if (!$queryHandle = $this->_pdo->prepare("$insertQuery"))
-        echo("error preparing statment " . $insertQuery);
+        echo("error preparing statement " . $insertQuery);
 
       $queryHandle->bindParam(':StartTime', $valueArray[0]);
       $queryHandle->bindParam(':EndTime', $valueArray[1]);
@@ -203,9 +203,7 @@ class DataStoreManager
       }
 
       if (!$queryHandle = $this->_pdo->prepare($query))
-        echo("error preparing statment " . $query);
-
-      $index = $tableData["index"];
+        echo("error preparing statement " . $query);
 
       switch($targetTable)
       {
@@ -370,7 +368,7 @@ class DataStoreManager
       $updateQuery = $this->ConstructUpdateQueryStructure($targetTabel, $presentation);
 
       if (!$queryHandle = $this->_pdo->prepare($updateQuery))
-        echo("error preparing statment " . $updateQuery);
+        echo("error preparing statement " . $updateQuery);
 
       $index = $presentation[7]["rowValue"];
 
@@ -403,7 +401,7 @@ class DataStoreManager
     $query .= " SET StartTime = :StartTime, EndTime = :EndTime, Title = :Title,";
     $query .= " Location = :Location, PresenterName = :PresenterName,";
     $query .= " ScreenLocation = :ScreenLocation, ScheduledDate = :ScheduledDate";
-    $query .=" WHERE \"Index\" =:Index ";
+    $query .=" WHERE \"Index\" =:Index  AND \"ScreenLocation\" =:ScreenLocation";
 
     return $query;
   }

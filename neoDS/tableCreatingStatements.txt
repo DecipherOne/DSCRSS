@@ -1,0 +1,33 @@
+
+CREATE TABLE "Presenters" (
+	"Name"	TEXT,
+	"index"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+)
+
+CREATE TABLE "ScheduleDeploymentLocation" (
+	"deploymentLocation"	TEXT DEFAULT "Founders Hall",
+	"index"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+)
+
+CREATE TABLE "presentationLocations" (
+	"locationName"	TEXT,
+	"index"	INTEGER PRIMARY KEY AUTOINCREMENT
+)
+
+CREATE TABLE "presentationTitles" (
+	"title"	TEXT DEFAULT "Wonderful Scientific Presentation",
+	"index"	INTEGER PRIMARY KEY AUTOINCREMENT
+)
+
+CREATE TABLE "scheduledPresentation" (
+	"ScheduledDate"	TEXT NOT NULL DEFAULT "2020-01-01",
+	"StartTime"	NUMERIC NOT NULL DEFAULT 0000,
+	"EndTime"	NUMERIC NOT NULL DEFAULT 0030,
+	"Title"	TEXT NOT NULL DEFAULT 'Presentation Title',
+	"Location"	BLOB NOT NULL DEFAULT "Founders Hall, Main Level",
+	"PresenterName"	TEXT NOT NULL DEFAULT "Presenters Name Goes Here",
+	"Index"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"ScreenLocation"	TEXT DEFAULT 'Founders Hall',
+	CONSTRAINT entry_line UNIQUE("ScheduledDate","StartTime","EndTime","Location","ScreenLocation") ON CONFLICT REPLACE
+)
+
