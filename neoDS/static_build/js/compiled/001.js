@@ -1644,7 +1644,8 @@ jQuery.expr[':'].parents = function(a,i,m){
     {
         var topBounds  = $(comingAttractionsScrollArea).offset().top,
         bottomBounds = 0,
-        lastEventDivBounds = null;
+        lastEventDivBounds = null,
+        loopUpdateValue = 0;
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
         {
@@ -1664,7 +1665,13 @@ jQuery.expr[':'].parents = function(a,i,m){
         else
             loopTime = 1;
 
-        scrollAreaHeight -=  0.018 * loopTime;
+
+        loopUpdateValue = 0.018 * loopTime;
+
+        if(loopUpdateValue < 0.40)
+            loopUpdateValue = 0.40;
+
+        scrollAreaHeight -=  loopUpdateValue;
 
         for(var i=0; i < todaysEvents.length; i++)
         {
