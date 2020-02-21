@@ -348,15 +348,21 @@
 
         if(todaysEvents === null && todaysEvents === undefined || numberOfVisibleEvents===1)
         {
+            RefreshPageEveryFifteenMinutes();
             if(!$(todaysEvents[todaysEvents.length-1]).hasClass("hidden"))
             {
                 $(todaysEvents[todaysEvents.length-1]).addClass("hidden");
                 $("#comingAttractionsContainer").addClass("hidden");
                 $("#comingAttractionsHeader").addClass("hidden");
             }
-
+        }
+        else if(numberOfVisibleEvents===0)
+        {
+            $("#comingAttractionsContainer").addClass("hidden");
+            $("#comingAttractionsHeader").addClass("hidden");
             return;
         }
+
 
 
         if(previousLoopTime)
