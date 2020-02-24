@@ -675,8 +675,13 @@
                             return;
                         }
 
-                        if(dailyScheduleEntry.length > 1)
+                        if(numberOfNodes > 1)
+                        {
+                            var selectedDate = $('.selectedDay').attr("data-date"),
+                                month = selectedDate.substr(5,2),
+                                day = selectedDate.substr(8,2);
                             BuildPreviewLink(month,currentYear,day,targetedScreen);
+                        }
 
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
@@ -704,8 +709,14 @@
                     GetPresentationsForDayFromMonthRecord(presentationsQueryResponse,calendarDateString,function(dailyScheduleEntry){
                         dailyScheduleEntry = ParseEventsForTargetedScreen(dailyScheduleEntry,targetedScreen);
                         var numberOfNodes = dailyScheduleEntry.length;
-                        if(dailyScheduleEntry.length > 1)
+                        if(numberOfNodes > 1)
+                        {
+                            var selectedDate = $('.selectedDay').attr("data-date"),
+                                month = selectedDate.substr(5,2),
+                                day = selectedDate.substr(8,2);
                             BuildPreviewLink(month,currentYear,day,targetedScreen);
+                        }
+
                         GenerateDefaultPresentationNodes(numberOfNodes,function(){
                             UpdateDailyPresentationNumber(numberOfNodes);
                             GetScheduleLabelsAndPopulateDailySchedule(dailyScheduleEntry);
@@ -743,9 +754,16 @@
 
     function BuildPreviewLink(month,year,day,screen)
     {
-        var textForLink = "Preview This Schedule";
-        var payload = {day:day, month:month, year:year, screen:screen},
-            url = "../_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
+        var textForLink = "Preview This Schedule",
+            payload = null,
+            url = null,
+            monthValue = parseInt(month);
+
+        if(monthValue <= 9 && month.length >1)
+            month = month.substr(1,1);
+
+        payload = {day:day, month:month, year:year, screen:screen};
+        url = "../_serverSide/readDailySchedule.php?day="+ payload["day"] +"&month=" +
                 payload["month"] + "&year=" + payload["year"] + "&screen='" + payload["screen"] + "'&previewMode=true";
 
         $(schedulingPreviewLink).html(textForLink);
