@@ -35,6 +35,7 @@
             if(!previewMode)
             {
                 ParseEventsForNowShowingAndUpNext();
+                HideOrShowCurrentPresentationBasedOnContent();
                 setInterval(ParseEventsForNowShowingAndUpNext,1000);
                 setInterval(HideOrShowCurrentPresentationBasedOnContent, 375);
             }

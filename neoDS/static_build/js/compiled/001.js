@@ -1354,6 +1354,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             if(!previewMode)
             {
                 ParseEventsForNowShowingAndUpNext();
+                HideOrShowCurrentPresentationBasedOnContent();
                 setInterval(ParseEventsForNowShowingAndUpNext,1000);
                 setInterval(HideOrShowCurrentPresentationBasedOnContent, 375);
             }
