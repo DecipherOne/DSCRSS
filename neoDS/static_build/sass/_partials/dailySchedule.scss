@@ -72,9 +72,8 @@
   font-size:PixelToRem(42);
   justify-content: center;
 
-  .entryGroupEndTime
-  {
-    min-width:PixelToRem(650);
+  .scheduleEntryGroup{
+    width:70%;
   }
 }
 

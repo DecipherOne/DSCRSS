@@ -1355,6 +1355,7 @@ jQuery.expr[':'].parents = function(a,i,m){
             {
                 ParseEventsForNowShowingAndUpNext();
                 setInterval(ParseEventsForNowShowingAndUpNext,1000);
+                setInterval(HideOrShowCurrentPresentationBasedOnContent, 375);
             }
 
         });
@@ -1564,7 +1565,6 @@ jQuery.expr[':'].parents = function(a,i,m){
             currentEventIndex = 0,
             setCurrentEvent = false;
 
-
         for(var i=0; i< todaysEvents.length; i++)
         {
             eventStartTime = $(todaysEvents[i]).children(".entryGroupStartTime").children(".presentationEntry").html();
@@ -1592,6 +1592,7 @@ jQuery.expr[':'].parents = function(a,i,m){
                 $(currentPresentation).children(".entryGroupEndTime").children(".presentationEntry").html(eventEndTime);
 
                 $(todaysEvents[i]).addClass("hidden");
+                $(currentPresentation).removeClass("hidden");
                 numberOfVisibleEvents -=1;
                 setCurrentEvent = true;
                 currentEventIndex = i;
@@ -1689,7 +1690,6 @@ jQuery.expr[':'].parents = function(a,i,m){
         }
 
 
-
         if(previousLoopTime)
             loopTime = Date.now() - previousLoopTime;
         else
@@ -1731,6 +1731,17 @@ jQuery.expr[':'].parents = function(a,i,m){
         }
 
         previousLoopTime = Date.now();
+    }
+
+    function HideOrShowCurrentPresentationBasedOnContent()
+    {
+
+        var currentPresentationTitleContent = $(currentPresentation).children(".entryGroupTitle").children(".presentationEntry").html();
+
+        if(currentPresentationTitleContent==="---------------")
+            $(currentPresentation).addClass("hidden");
+        else
+            $(currentPresentation).removeClass("hidden");
     }
 
 })(window, jQuery = window.jQuery || {} );

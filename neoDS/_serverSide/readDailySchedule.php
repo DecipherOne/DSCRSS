@@ -163,25 +163,19 @@ function ParseAndOutputResults($response,$haveResults)
           <span class="presentationLabel">
             Happening Now :
           </span>
-          <span class="presentationEntry">
-            ---------------
-          </span>
+          <span class="presentationEntry">---------------</span>
         </div>
         <div class='scheduleEntryGroup entryGroupLocation'>
           <span class="presentationLabel">
             Location :
           </span>
-          <span class="presentationEntry">
-            ---------------
-          </span>
+          <span class="presentationEntry">---------------</span>
         </div>
         <div class='scheduleEntryGroup entryGroupEndTime'>
           <span class="presentationLabel">
             Ends :
           </span>
-          <span class="presentationEntry">
-             ---------------
-          </span>
+          <span class="presentationEntry">---------------</span>
         </div>
       </div>
     </div>
@@ -228,7 +222,7 @@ function ParseAndOutputResults($response,$haveResults)
 </div>
 </body>
 <footer>
-  <script src="../js/001.min.js"></script>
+    <script src="../js/001.min.js"></script>
     <!--  <script src="../static_build/js/compiled/001.js"></script>-->
     </footer>
     </html>
