@@ -31,7 +31,7 @@
 
 .scheduleEntryGroup { padding: 0.38889rem; }
 
-.entryGroupStartTime, .entryGroupEndTime { width: 16.11111rem; }
+.entryGroupStartTime, .entryGroupEndTime { width: 13.88889rem; }
 
 #comingAttractionsHeader { background-color: #000000; }
 
@@ -44,3 +44,5 @@
 #comingAttractionsContainer { overflow: hidden; height: 14.44444rem; }
 
 #comingAttractionsScrollArea { display: block; position: relative; scroll-behavior: smooth; }
+
+#comingAttractionsScrollArea .entryGroupTitle, #comingAttractionsScrollArea .entryGroupLocation { width: 100%; }

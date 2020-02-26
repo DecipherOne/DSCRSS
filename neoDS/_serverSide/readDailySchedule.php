@@ -85,39 +85,34 @@ function ParseAndOutputResults($response,$haveResults)
         echo "<div class='scheduleCalendarEntry gray' index='$index'>";
       else
         echo "<div class='scheduleCalendarEntry ' index='$index'>";
-
-      echo  "<div class='scheduleEntryGroup entryGroupStartTime'>        
-                    <span class=\"presentationLabel\">
-                          Begins @ :
-                      </span>
-                      <span class=\"presentationEntry\">";
-      echo              ConvertTimeTo12HourFormat($response[$i]->StartTime);
-      echo  "        </span>
-             </div>
-             <div  class='scheduleEntryGroup entryGroupEndTime'>
-                      <span class=\"presentationLabel\">
-                          Ends @ :
-                      </span>
-                      <span class=\"presentationEntry\">";
-      echo              ConvertTimeTo12HourFormat($response[$i]->EndTime);
-      echo "          </span>
-             </div>
-             <div class='scheduleEntryGroup entryGroupTitle'>
+      echo "        <div class='scheduleEntryGroup entryGroupTitle'>
                         <span class=\"presentationLabel\">
-                          Presentation :
+                          Program :
                       </span>
                       <span class=\"presentationEntry\">";
       echo                $response[$i]->Title;
-      echo  "        </span>
-             </div>
-             <div class='scheduleEntryGroup entryGroupLocation'>
+      echo  "        </span></div> ";
+      echo  "<div class='scheduleEntryGroup entryGroupStartTime'>        
+                    <span class=\"presentationLabel\">
+                          Begins :
+                      </span>
+                      <span class=\"presentationEntry\">";
+      echo              ConvertTimeTo12HourFormat($response[$i]->StartTime);
+      echo  "        </span> </div> ";
+      echo  "       <div  class='scheduleEntryGroup entryGroupEndTime'>
                       <span class=\"presentationLabel\">
-                          Where :
+                          Ends :
+                      </span>
+                      <span class=\"presentationEntry\">";
+      echo              ConvertTimeTo12HourFormat($response[$i]->EndTime);
+      echo "          </span></div>";
+      echo "<div class='scheduleEntryGroup entryGroupLocation'>
+                      <span class=\"presentationLabel\">
+                          Location :
                       </span>
                       <span class=\"presentationEntry\">";
       echo              $response[$i]->Location;
-      echo "          </span>
-             </div> ";
+      echo "          </span></div> ";
 
 
       if($response[$i]->PresenterName != "Presenter Name")
@@ -158,7 +153,7 @@ function ParseAndOutputResults($response,$haveResults)
 
     <div id="scheduleDisplayHeader">
       <div id="scheduleWelcomeMessage">
-        <h2>Welcome, to The Science Center of Iowa!</h2>
+        <h2>Welcome to the Science Center of Iowa!</h2>
       </div>
       <div id="scheduleCurrentTime">
         <h2>00:00:00am</h2>
@@ -166,26 +161,26 @@ function ParseAndOutputResults($response,$haveResults)
       <div id="currentPresentation">
         <div class='scheduleEntryGroup entryGroupTitle'>
           <span class="presentationLabel">
-            Now Showing :
+            Happening Now :
           </span>
           <span class="presentationEntry">
-            Enjoy your day!
+            ---------------
           </span>
         </div>
         <div class='scheduleEntryGroup entryGroupLocation'>
           <span class="presentationLabel">
-            Where :
+            Location :
           </span>
           <span class="presentationEntry">
-            The Science Center
+            ---------------
           </span>
         </div>
         <div class='scheduleEntryGroup entryGroupEndTime'>
           <span class="presentationLabel">
-            Ends @ :
+            Ends :
           </span>
           <span class="presentationEntry">
-             To Infinity And Beyond!
+             ---------------
           </span>
         </div>
       </div>
@@ -194,31 +189,31 @@ function ParseAndOutputResults($response,$haveResults)
     <div id="nextPresentation" class="relativelyCentered">
       <div class='scheduleEntryGroup entryGroupTitle'>
         <span class="presentationLabel">
-          Up Next :
+          Next Program :
         </span>
         <span class="presentationEntry">
-           Next Presentation
+           -----
         </span>
       </div>
       <div class='scheduleEntryGroup entryGroupStartTime'>
         <span class="presentationLabel">
-          Begins @ :
+          Begins :
         </span>
         <span class="presentationEntry">
-          00:00pm
+          --:--
         </span>
       </div>
       <div class='scheduleEntryGroup entryGroupLocation'>
         <span class="presentationLabel">
-          Where :
+          Location :
         </span>
         <span class="presentationEntry">
-          Your Imagination
+          -----
         </span>
       </div>
     </div>
 
-    <span id="comingAttractionsHeader"><h2><u>Coming Attractions</u></h2></span>
+    <span id="comingAttractionsHeader"><h2><u>Upcoming Programs</u></h2></span>
     <div id="comingAttractionsContainer">
       <div id="comingAttractionsScrollArea">
         <?php

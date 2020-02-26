@@ -109,7 +109,7 @@
 
 .entryGroupStartTime, .entryGroupEndTime
 {
-  width:PixelToRem(290);
+  width:PixelToRem(250);
 }
 
 #comingAttractionsHeader{
@@ -147,4 +147,12 @@
   position:relative;
   scroll-behavior: smooth;
 }
+
+#comingAttractionsScrollArea{
+  .entryGroupTitle, .entryGroupLocation{
+    width:100%;
+  }
+}
+
+
 

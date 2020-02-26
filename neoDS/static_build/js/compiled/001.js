@@ -1451,9 +1451,15 @@ jQuery.expr[':'].parents = function(a,i,m){
             convertedMinutesString = PrependZeroToTimeValue(dateTime.getMinutes()),
             convertedSecondsString = PrependZeroToTimeValue(dateTime.getSeconds()),
             convertedMonthString = dateTime.getMonth() + 1,
+            dateTimeString = null;
+
+        if(previewMode)
             dateTimeString = convertedMonthString + "/" + dateTime.getDate() + "/" +
                 dateTime.getFullYear()+ " " + convertedHoursString + ":" +
                 convertedMinutesString + ":" + convertedSecondsString;
+        else
+            dateTimeString =  + convertedHoursString + ":" + convertedMinutesString;
+
 
         if(dateTime.getHours().valueOf()>11)
             dateTimeString += "pm";
@@ -1468,10 +1474,10 @@ jQuery.expr[':'].parents = function(a,i,m){
                 month = GetParameterByName("month",window.location),
                 year = GetParameterByName("year",window.location);
 
-            return " Preview Mode : " + month + "/" + day + "/" + year + " 12:00:00am";
+            return " Preview Mode : " + dayName + " " + month + "/" + day + "/" + year + " 12:00:00am";
         }
 
-        return dayName + " " + dateTimeString;
+        return " " + dateTimeString;
     }
 
     function RefreshPageEveryFifteenMinutes()
