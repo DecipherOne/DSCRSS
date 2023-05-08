@@ -7,7 +7,7 @@ This system was built specifically for use by the Science Center of Des Moines I
 It was created to deal with an over cumbersome system that was outdated. It was using Access db 
 Files that were stored on file shares that suffered from synch issues and conflicts from multiple people attempting to access things at the same time.
 
-The font end portion was also outdated, and relied on old web standards.
+The front end portion was also outdated, and relied on old web standards.
 This project was to give those that used this system a better interface and user experience, as well
 as updating the front End to use responsive/modern web practices, so that the scheduling system could be used
 in conjunction with YoDeck to create dynamic layouts for the Science Centers digital signage.
